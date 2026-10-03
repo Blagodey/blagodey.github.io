@@ -110,8 +110,9 @@ h2{font-size:clamp(34px,6vw,56px);line-height:1;font-weight:700}
 .more{font-size:13px;color:var(--cy)}
 
 /* platform strip */
-.plat{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
-.plat a{display:flex;align-items:center;gap:10px;padding:14px 16px;background:var(--card);border:1px solid var(--line);border-radius:12px;font-weight:600;transition:.2s}
+.plat{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+@media(max-width:860px){.plat{grid-template-columns:repeat(2,1fr);gap:10px}}
+.plat a{display:flex;align-items:center;justify-content:center;text-align:center;min-height:62px;gap:10px;padding:14px 16px;background:var(--card);border:1px solid var(--line);border-radius:12px;font-weight:600;transition:.2s}
 .plat a:hover{border-color:var(--cy);transform:translateY(-2px)}
 .plat i{width:10px;height:10px;border-radius:50%;flex:none}
 
@@ -195,6 +196,43 @@ footer{border-top:1px solid var(--line);padding:40px 0;color:var(--mut);font-siz
 .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s,transform .7s}
 .reveal.in{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none}*{transition:none!important}}
+
+.hero{min-height:100svh;align-items:flex-end;padding:120px 0 150px}
+.slides{position:absolute;inset:0;z-index:-2;overflow:hidden;background:#000}
+.sl{position:absolute;inset:0;opacity:0;transition:opacity 1.6s ease}
+.sl.on{opacity:1}
+.sl img{width:100%;height:100%;object-fit:cover;transform:scale(1.04);filter:saturate(1.15) contrast(1.05)}
+.sl.on img{animation:kb 9s ease-out forwards}
+@keyframes kb{from{transform:scale(1.04) translate(0,0)}to{transform:scale(1.16) translate(-1.5%,-1%)}}
+.hero-shade{position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(90deg,rgba(8,8,8,.78) 0%,rgba(8,8,8,.35) 45%,rgba(8,8,8,0) 75%),linear-gradient(transparent 60%,rgba(8,8,8,.9) 100%)}
+.hero h1{font-size:clamp(46px,9vw,118px);text-shadow:0 4px 30px rgba(0,0,0,.5)}
+.hero .lead{color:#fff;text-shadow:0 2px 12px rgba(0,0,0,.7);max-width:520px}
+.now{position:absolute;right:max(20px,calc((100vw - var(--max))/2 + 20px));bottom:40px;display:flex;flex-direction:column;align-items:flex-end;gap:12px;z-index:2}
+.now-card{display:flex;align-items:center;gap:14px;background:rgba(8,8,8,.55);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.18);border-radius:14px;padding:12px 14px 12px 18px;color:#fff;cursor:pointer;text-align:left;font:inherit;max-width:420px;transition:.25s}
+.now-card:hover{border-color:var(--mag);transform:translateY(-2px)}
+.now-card b{display:block;font-size:17px;line-height:1.2}
+.now-k{display:block;font-size:10px;color:var(--cy);margin-bottom:3px}
+.now-p{flex:none;width:40px;height:40px;border-radius:50%;background:var(--mag);display:grid;place-items:center;font-size:14px;box-shadow:0 0 20px rgba(255,0,170,.6)}
+.dots{display:flex;gap:8px}
+.dot{width:26px;height:4px;border-radius:2px;border:0;background:rgba(255,255,255,.3);cursor:pointer;padding:0;position:relative;overflow:hidden}
+.dot.on::after{content:"";position:absolute;inset:0;background:var(--mag);animation:dotf 7s linear forwards;transform-origin:left}
+@keyframes dotf{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@media(max-width:860px){.hero{padding-bottom:190px}.now{left:20px;right:20px;align-items:stretch}.now-card{max-width:none}.dots{justify-content:center}.hero-shade{background:linear-gradient(rgba(8,8,8,.35),rgba(8,8,8,.55) 50%,rgba(8,8,8,.92))}}
+.reel{height:320vh;position:relative}
+.reel-sticky{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;flex-direction:column;justify-content:center}
+.reel-bgword{position:absolute;top:50%;left:0;white-space:nowrap;font-size:clamp(90px,18vw,260px);font-weight:700;color:transparent;-webkit-text-stroke:1px rgba(255,0,170,.25);transform:translateY(-50%);pointer-events:none;letter-spacing:.05em}
+.reel-head{position:relative;margin-bottom:28px}
+.reel-head h2{font-size:clamp(40px,7vw,80px);line-height:1}
+.reel-track{display:flex;gap:24px;padding-left:max(20px,calc((100vw - var(--max))/2 + 20px));will-change:transform}
+.rc{flex:none;width:min(520px,78vw);border-radius:18px;overflow:hidden;position:relative;aspect-ratio:16/9;cursor:pointer;border:1px solid var(--line);background:#111;transition:transform .4s,box-shadow .4s}
+.rc img{width:100%;height:100%;object-fit:cover}
+.rc::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 50%,rgba(0,0,0,.85))}
+.rc span{position:absolute;left:18px;right:18px;bottom:14px;z-index:1;font-weight:600;font-size:18px;line-height:1.2}
+.rc em{position:absolute;top:14px;left:14px;z-index:1;font-style:normal;font-size:11px;background:rgba(0,0,0,.6);padding:4px 8px;border-radius:6px;font-family:"Share Tech Mono",monospace}
+.rc:hover{box-shadow:0 20px 50px rgba(255,0,170,.25);border-color:var(--mag)}
+.reel-bar{margin:34px auto 0;width:min(var(--max),calc(100% - 40px));height:2px;background:var(--line)}
+.reel-bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--mag),var(--cy))}
+@media(prefers-reduced-motion:reduce){.reel{height:auto}.reel-sticky{position:relative;height:auto;padding:80px 0}.reel-track{overflow-x:auto}}
 </style>
 </head>
 <body>
@@ -218,24 +256,32 @@ footer{border-top:1px solid var(--line);padding:40px 0;color:var(--mut);font-siz
 </header>
 
 <main id="top">
-  <section class="hero">
-    <div class="hero-bg" style="background-image:url('https://i.ytimg.com/vi/HsCic-KPgzc/maxresdefault.jpg')"></div>
-    <canvas id="scene" class="scene" aria-hidden="true"></canvas>
-    <a href="#listen" class="scroll-cue" aria-label="Scroll"></a>
+  <section class="hero" id="top2">
+    <div class="slides" id="slides"><div class="sl on" data-yt="HsCic-KPgzc" data-t="This Is What a Happy Future Looks Like"><img src="https://i.ytimg.com/vi/HsCic-KPgzc/maxresdefault.jpg" onerror="this.src='https://i.ytimg.com/vi/HsCic-KPgzc/hqdefault.jpg'" alt="Life in 2250 — This Is What a Happy Future Looks Like"></div><div class="sl" data-yt="UoB5zYC2GDI" data-t="Vol. 47: Towers Where the Trees Grow"><img src="https://i.ytimg.com/vi/UoB5zYC2GDI/maxresdefault.jpg" onerror="this.src='https://i.ytimg.com/vi/UoB5zYC2GDI/hqdefault.jpg'" alt="Life in 2250 — Vol. 47: Towers Where the Trees Grow" loading="lazy"></div><div class="sl" data-yt="MwmTxNcZDLY" data-t="Vol. 37: Fusion Energy Grids & Smart Power Hubs"><img src="https://i.ytimg.com/vi/MwmTxNcZDLY/maxresdefault.jpg" onerror="this.src='https://i.ytimg.com/vi/MwmTxNcZDLY/hqdefault.jpg'" alt="Life in 2250 — Vol. 37: Fusion Energy Grids & Smart Power Hubs" loading="lazy"></div><div class="sl" data-yt="h_oUrkFhXes" data-t="Vol. 48: Warm Guitar & Future City"><img src="https://i.ytimg.com/vi/h_oUrkFhXes/maxresdefault.jpg" onerror="this.src='https://i.ytimg.com/vi/h_oUrkFhXes/hqdefault.jpg'" alt="Life in 2250 — Vol. 48: Warm Guitar & Future City" loading="lazy"></div><div class="sl" data-yt="ZmCZJatpooc" data-t="Vol. 41: Oceanic Outposts & Deep-Sea Colonization"><img src="https://i.ytimg.com/vi/ZmCZJatpooc/maxresdefault.jpg" onerror="this.src='https://i.ytimg.com/vi/ZmCZJatpooc/hqdefault.jpg'" alt="Life in 2250 — Vol. 41: Oceanic Outposts & Deep-Sea Colonization" loading="lazy"></div><div class="sl" data-yt="DmWR4c7kpP8" data-t="Vol. 35: Autonomous Urban Systems & AI Management"><img src="https://i.ytimg.com/vi/DmWR4c7kpP8/maxresdefault.jpg" onerror="this.src='https://i.ytimg.com/vi/DmWR4c7kpP8/hqdefault.jpg'" alt="Life in 2250 — Vol. 35: Autonomous Urban Systems & AI Management" loading="lazy"></div></div>
+    <div class="hero-shade"></div>
     <div class="wrap">
       <div class="kicker mono" data-i="kick">Кінематографічний ембієнт — Життя в 2250</div>
       <h1 data-split aria-label="Blagoday Production">BLAGODAY<span class="l2">PRODUCTION</span></h1>
-      <p class="lead" data-i="lead">Занурся у всесвіт іммерсивної релаксації та кінематографічного звуку. Глибокий мелодійний ембієнт, неонові мегаполіси та прогресивні цивілізації 2250 року.</p>
+      <p class="lead" data-i="lead">Ембієнт-музика для фокусу з кінематографічними 4K-візуалами життя у 2250 році.</p>
       <div class="btns">
         <a class="btn p" href="#videos" data-i="b_watch">▶ Blagoday Vision — відео</a>
         <a class="btn c" href="#albums" data-i="b_listen">♪ Blagoday Music — музика</a>
       </div>
-      <div class="stats">
-        <div class="stat"><b>4.6K+</b><span class="mono" data-i="s_subs">Підписників</span></div>
-        <div class="stat"><b id="st_v">30+</b><span class="mono" data-i="s_vid">Відео</span></div>
-        <div class="stat"><b>86</b><span class="mono" data-i="s_tr">Треків на SoundCloud</span></div>
-        <div class="stat"><b>2250</b><span class="mono" data-i="s_year">Рік візії</span></div>
-      </div>
+    </div>
+    <div class="now">
+      <button class="now-card" id="nowCard" data-yt="HsCic-KPgzc"><span class="mono now-k" data-i="now">Зараз на екрані</span><b id="nowT">This Is What a Happy Future Looks Like</b><span class="now-p">▶</span></button>
+      <div class="dots" id="dots"><button class="dot on" data-i2="0" aria-label="Slide 1"></button><button class="dot" data-i2="1" aria-label="Slide 2"></button><button class="dot" data-i2="2" aria-label="Slide 3"></button><button class="dot" data-i2="3" aria-label="Slide 4"></button><button class="dot" data-i2="4" aria-label="Slide 5"></button><button class="dot" data-i2="5" aria-label="Slide 6"></button></div>
+    </div>
+    <a href="#reel" class="scroll-cue" aria-label="Scroll"></a>
+  </section>
+
+  <!-- REEL (scroll animation) -->
+  <section id="reel" class="reel">
+    <div class="reel-sticky">
+      <div class="reel-bgword mono" aria-hidden="true">LIFE IN 2250</div>
+      <div class="reel-head wrap"><div class="mono" style="color:var(--mag);font-size:12px">Blagoday Vision</div><h2>Life in 2250</h2></div>
+      <div class="reel-track" id="reelTrack"></div>
+      <div class="reel-bar"><i id="reelBar"></i></div>
     </div>
   </section>
 
@@ -358,7 +404,7 @@ const PLAT=[
  ["Deezer","https://www.deezer.com/artist/324283881","#a238ff"],
  ["Tidal","https://tidal.com/artist/60384914","#ffffff"],
  ["Audiomack","https://audiomack.com/blagoday-music","#ffa200"],
- ["YouTube · Vision","https://www.youtube.com/@BlagodayVision","#ff0000"],
+ ["YouTube","https://www.youtube.com/@BlagodayVision","#ff0000"],
  ["Ko-fi","https://ko-fi.com/blagodayvision","#29abe0"]
 ];
 const SC="https://soundcloud.com/blagodaymusic/sets/";
@@ -438,7 +484,7 @@ const VIDEOS=[
 const T={
  uk:{nav_v:"Відео",nav_a:"Альбоми",nav_r:"Релізи",nav_l:"Слухати",nav_s:"Підтримка",nav_j:"Журнал",j_k:"Журнал",j_h:"Статті та гайди",j_s:"Гайди англійською про ембієнт, музику для фокусу та серію Life in 2250.",j_all:"Усі статті ↗",
   kick:"Кінематографічний ембієнт — Життя в 2250",
-  lead:"Занурся у всесвіт іммерсивної релаксації та кінематографічного звуку. Глибокий мелодійний ембієнт, неонові мегаполіси та прогресивні цивілізації 2250 року.",
+  lead:"Ембієнт-музика для фокусу з кінематографічними 4K-візуалами життя у 2250 році.",now:"Зараз на екрані",
   b_watch:"▶ Blagoday Vision — відео",b_listen:"♪ Blagoday Music — музика",s_subs:"Підписників",s_vid:"Відео",s_tr:"Треків на SoundCloud",s_year:"Рік візії",
   l_k:"Blagoday Music",l_h:"Де слухати",v_k:"Відео",v_h:"Відео",v_s:"Серія «Life in 2250» на YouTube-каналі Blagoday Vision. Уся музика у відео — оригінальна.",
   v_all:"Всі відео на YouTube ↗",more:"Показати більше",less:"Згорнути",latest:"Нове відео",watch:"Дивитись",
@@ -450,7 +496,7 @@ const T={
   open_sc:"Відкрити на SoundCloud ↗",open_yt:"Відкрити на YouTube ↗"},
  en:{nav_v:"Videos",nav_a:"Albums",nav_r:"Releases",nav_l:"Listen",nav_s:"Support",nav_j:"Journal",j_k:"Journal",j_h:"Articles & guides",j_s:"Guides to ambient music, focus music and the Life in 2250 series.",j_all:"All articles ↗",
   kick:"Cinematic Ambient — Life in 2250",
-  lead:"Dive into a universe of immersive relaxation and cinematic sound. Deep melodic ambient, neon megacities and the advanced civilizations of 2250.",
+  lead:"Ambient music for focus with cinematic 4K visuals of life in 2250.",now:"Now on screen",
   b_watch:"▶ Blagoday Vision — videos",b_listen:"♪ Blagoday Music — music",s_subs:"Subscribers",s_vid:"Videos",s_tr:"Tracks on SoundCloud",s_year:"Year of vision",
   l_k:"Blagoday Music",l_h:"Where to listen",v_k:"Videos",v_h:"Videos",v_s:"The “Life in 2250” series on the Blagoday Vision YouTube channel. All music in the videos is original.",
   v_all:"All videos on YouTube ↗",more:"Show more",less:"Show less",latest:"Latest video",watch:"Watch",
@@ -531,8 +577,25 @@ addEventListener("scroll",()=>{const y=scrollY; hdr.classList.toggle("hide",y>la
 const io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){x.target.classList.add("in");io.unobserve(x.target);}}),{threshold:.12});
 document.querySelectorAll(".reveal").forEach(e=>io.observe(e));
 document.getElementById("yr").textContent=new Date().getFullYear();
-document.getElementById("st_v").textContent=VIDEOS.length+"+";
+
 renderPlat(); applyI18n();
+(function(){
+var sl=[...document.querySelectorAll("#slides .sl")],ds=[...document.querySelectorAll("#dots .dot")],i=0,tm;
+var card=document.getElementById("nowCard"),tt=document.getElementById("nowT");
+function go(n){sl[i].classList.remove("on");ds[i].classList.remove("on");i=(n+sl.length)%sl.length;sl[i].classList.add("on");void ds[i].offsetWidth;ds[i].classList.add("on");tt.textContent=sl[i].dataset.t;card.dataset.yt=sl[i].dataset.yt;clearTimeout(tm);tm=setTimeout(function(){go(i+1)},7000);}
+ds.forEach(function(d,k){d.addEventListener("click",function(e){e.stopPropagation();go(k)})});
+sl.forEach(function(s){s.removeAttribute("data-yt")});
+card.dataset.yt=sl[0]?"HsCic-KPgzc":"";
+tm=setTimeout(function(){go(1)},7000);
+// reel
+var tr=document.getElementById("reelTrack"),bar=document.getElementById("reelBar"),reel=document.getElementById("reel"),bg=document.querySelector(".reel-bgword");
+tr.innerHTML=VIDEOS.slice(0,12).map(function(v){return '<div class="rc" data-yt="'+v[0]+'"><img loading="lazy" src="https://i.ytimg.com/vi/'+v[0]+'/hqdefault.jpg" alt=""><em>'+v[3]+'</em><span>'+esc(v[1].replace(/\s*\|.*$/,""))+'</span></div>'}).join("");
+var rm=matchMedia("(prefers-reduced-motion: reduce)").matches;
+function upd(){if(rm)return;var r=reel.getBoundingClientRect(),tot=reel.offsetHeight-innerHeight,p=Math.min(1,Math.max(0,-r.top/tot));var max=tr.scrollWidth-innerWidth+40;tr.style.transform="translateX("+(-p*max)+"px)";bar.style.width=(p*100)+"%";bg.style.transform="translate("+(-p*40)+"%,-50%)";
+[...tr.children].forEach(function(c){var b=c.getBoundingClientRect(),cx=(b.left+b.width/2)/innerWidth-.5;c.style.transform="perspective(900px) rotateY("+(-cx*18)+"deg) scale("+(1-Math.abs(cx)*.12)+")"});}
+addEventListener("scroll",upd,{passive:true});addEventListener("resize",upd);upd();
+})();
+
 setInterval(function(){var l=document.querySelector("h1 .l2");if(!l)return;l.classList.remove("gl");void l.offsetWidth;l.classList.add("gl");},5200);
 </script>
 <script>/* Blagoday FX: click bursts, cursor glow, hero scene. Inline into every page. */
