@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://blagodey.github.io/blagoday-production/sitemap.xml

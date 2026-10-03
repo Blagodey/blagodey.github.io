@@ -3,11 +3,20 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Blagoday Production — Vision & Music</title>
-<meta name="description" content="Blagoday Vision & Blagoday Music — cinematic 4K visuals of life in 2250 and original electronic music. Albums on SoundCloud, Spotify, Apple Music and more.">
+<title>Blagoday Production | Sci-Fi Ambient Music &amp; 4K Visuals</title>
+<meta name="description" content="Blagoday Production: sci-fi ambient music, deep house and chillout albums with cinematic 4K Life in 2250 videos. Listen on SoundCloud, Spotify, Apple Music.">
 <meta property="og:title" content="Blagoday Production — Vision & Music">
-<meta property="og:description" content="Cinematic 4K visuals of life in 2250 and original electronic music.">
+<meta property="og:description" content="Sci-fi ambient music, deep house and chillout albums with cinematic 4K Life in 2250 videos.">
 <meta property="og:image" content="https://i1.sndcdn.com/artworks-8ODXNt8XozKvzuQH-yNFyBA-t500x500.jpg">
+<meta name="keywords" content="sci fi ambient music, futuristic city ambience, ambient music for focus, deep house for studying, chillout lounge music, life in 2250, 4K ambient, blagoday">
+<link rel="canonical" href="https://blagodey.github.io/blagoday-production/">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://blagodey.github.io/blagoday-production/">
+<meta property="og:site_name" content="Blagoday Production">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#080808">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebSite", "name": "Blagoday Production", "url": "https://blagodey.github.io/blagoday-production/", "inLanguage": ["en", "uk"]}, {"@type": "MusicGroup", "name": "Blagoday Music", "url": "https://blagodey.github.io/blagoday-production/", "genre": ["Ambient", "Deep House", "Chillout", "Electronic"], "image": "https://i1.sndcdn.com/artworks-8ODXNt8XozKvzuQH-yNFyBA-t500x500.jpg", "sameAs": ["https://soundcloud.com/blagodaymusic", "https://open.spotify.com/artist/7vR7IPUnvlg6bQgpaPv1xb", "https://music.apple.com/artist/blagoday-music/1815470121", "https://music.youtube.com/channel/UCSix1iS0DBEYPn747RTcVww", "https://music.amazon.com/artists/B0F99WFHL6", "https://www.deezer.com/artist/324283881", "https://tidal.com/artist/60384914", "https://audiomack.com/blagoday-music"]}, {"@type": "Organization", "name": "Blagoday Production", "url": "https://blagodey.github.io/blagoday-production/", "sameAs": ["https://www.youtube.com/@BlagodayVision", "https://soundcloud.com/blagodaymusic", "https://ko-fi.com/blagodayvision"]}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
@@ -35,7 +44,8 @@ header.hide{transform:translateY(-100%)}
 .nav{display:flex;align-items:center;justify-content:space-between;height:64px;gap:16px}
 .logo{font-weight:700;font-size:20px;letter-spacing:.18em}
 .logo b{color:var(--mag);font-weight:600}
-@media(max-width:420px){.logo{font-size:16px;letter-spacing:.12em}}
+.logo{white-space:nowrap}
+@media(max-width:420px){.logo{font-size:14px;letter-spacing:.08em}}
 .links{display:flex;gap:26px;align-items:center}
 .links a{font-size:13px;color:var(--mut);transition:color .2s}
 .links a:hover{color:var(--txt)}
@@ -52,12 +62,34 @@ header.hide{transform:translateY(-100%)}
 }
 
 /* hero */
-.hero{min-height:100svh;display:flex;align-items:center;padding:110px 0 70px;position:relative;overflow:hidden}
-.hero-bg{position:absolute;inset:0;z-index:-1;opacity:.28;background-size:cover;background-position:center;filter:saturate(1.2)}
+.hero{min-height:100svh;display:flex;align-items:center;padding:110px 0 70px;position:relative;overflow:hidden;isolation:isolate}
+.hero-bg{position:absolute;inset:0;z-index:-2;opacity:.12;background-size:cover;background-position:center;filter:saturate(1.2)}
 .hero-bg::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 30% 40%,transparent 0,var(--bg) 75%),linear-gradient(transparent 60%,var(--bg))}
 .kicker{color:var(--cy);font-size:13px;margin-bottom:18px}
-h1{font-size:clamp(56px,13vw,150px);line-height:.88;font-weight:700;letter-spacing:.02em}
-h1 span{display:block;color:var(--mag);text-shadow:0 0 30px rgba(255,0,170,.55),3px 3px 0 rgba(0,229,255,.5)}
+h1{font-size:clamp(46px,13vw,150px);line-height:.88;font-weight:700;letter-spacing:.02em}
+h1[data-split]{white-space:nowrap}
+h1 .l2{display:block;color:var(--mag);text-shadow:0 0 30px rgba(255,0,170,.55),3px 3px 0 rgba(0,229,255,.5)}
+.scene{position:absolute;inset:0;width:100%;height:100%;z-index:-1;display:block}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(ellipse at 50% 40%,rgba(8,8,8,.15) 0,rgba(8,8,8,.75) 70%),linear-gradient(transparent 70%,var(--bg))}
+.hero .wrap{position:relative}
+.split-on .ch{display:inline-block;opacity:0;transform:translateY(.6em) rotateX(70deg);filter:blur(8px);animation:chIn .9s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:calc(var(--i)*45ms + .15s)}
+@keyframes chIn{to{opacity:1;transform:none;filter:none}}
+h1 .l2{animation:glow 4s ease-in-out 2s infinite}
+@keyframes glow{0%,100%{text-shadow:0 0 30px rgba(255,0,170,.55),3px 3px 0 rgba(0,229,255,.5)}50%{text-shadow:0 0 60px rgba(255,0,170,.9),-3px -2px 0 rgba(0,229,255,.7)}}
+h1 .l2.gl{animation:glitch .35s steps(2) 1}
+@keyframes glitch{0%{transform:translate(0)}20%{transform:translate(-4px,2px);clip-path:inset(10% 0 55% 0)}40%{transform:translate(4px,-2px);clip-path:inset(60% 0 5% 0)}60%{transform:translate(-2px,1px);clip-path:inset(30% 0 30% 0)}100%{transform:none;clip-path:none}}
+.hero .kicker,.hero .lead,.hero .btns,.hero .stats{opacity:0;animation:fadeUp .9s ease forwards}
+.hero .kicker{animation-delay:.1s}.hero .lead{animation-delay:.9s}.hero .btns{animation-delay:1.1s}.hero .stats{animation-delay:1.3s}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+.scroll-cue{position:absolute;left:50%;bottom:24px;width:24px;height:38px;margin-left:-12px;border:1px solid rgba(255,255,255,.35);border-radius:14px}
+.scroll-cue::after{content:"";position:absolute;left:50%;top:8px;width:3px;height:8px;margin-left:-1.5px;border-radius:2px;background:var(--cy);animation:cue 1.6s ease-in-out infinite}
+@keyframes cue{0%{opacity:0;transform:translateY(0)}40%{opacity:1}100%{opacity:0;transform:translateY(12px)}}
+.jgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px}
+.jc{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;transition:.25s}
+.jc:hover{border-color:var(--mag);transform:translateY(-4px);box-shadow:0 12px 34px rgba(255,0,170,.15)}
+.jc .im{aspect-ratio:16/9;overflow:hidden;background:#111}.jc .im img{width:100%;height:100%;object-fit:cover;transition:transform .5s}.jc:hover .im img{transform:scale(1.06)}
+.jc .tx{padding:16px 18px 20px}.jc .k{font-size:11px;color:var(--cy)}.jc h3{font-size:21px;line-height:1.2;margin:8px 0}.jc p{font-size:15px;color:var(--mut);line-height:1.45}
+@media(prefers-reduced-motion:reduce){.split-on .ch,.hero .kicker,.hero .lead,.hero .btns,.hero .stats{opacity:1;animation:none;transform:none;filter:none}}
 .hero p.lead{max-width:560px;color:#cfcfd8;font-size:20px;margin:26px 0 30px}
 .btns{display:flex;flex-wrap:wrap;gap:12px}
 .btn{display:inline-flex;align-items:center;gap:8px;padding:13px 22px;border-radius:10px;font-weight:600;font-size:16px;letter-spacing:.06em;border:1px solid var(--line);transition:.2s;cursor:pointer;background:none;color:var(--txt);font-family:inherit}
@@ -175,6 +207,7 @@ footer{border-top:1px solid var(--line);padding:40px 0;color:var(--mut);font-siz
       <a href="#albums" data-i="nav_a">Альбоми</a>
       <a href="#releases" data-i="nav_r">Релізи</a>
       <a href="#listen" data-i="nav_l">Слухати</a>
+      <a href="blog.html" data-i="nav_j">Журнал</a>
       <a href="#support" data-i="nav_s">Підтримка</a>
     </nav>
     <div class="right">
@@ -187,9 +220,11 @@ footer{border-top:1px solid var(--line);padding:40px 0;color:var(--mut);font-siz
 <main id="top">
   <section class="hero">
     <div class="hero-bg" style="background-image:url('https://i.ytimg.com/vi/HsCic-KPgzc/maxresdefault.jpg')"></div>
+    <canvas id="scene" class="scene" aria-hidden="true"></canvas>
+    <a href="#listen" class="scroll-cue" aria-label="Scroll"></a>
     <div class="wrap">
       <div class="kicker mono" data-i="kick">Кінематографічний ембієнт — Життя в 2250</div>
-      <h1>BLAGODAY<span>PRODUCTION</span></h1>
+      <h1 data-split aria-label="Blagoday Production">BLAGODAY<span class="l2">PRODUCTION</span></h1>
       <p class="lead" data-i="lead">Занурся у всесвіт іммерсивної релаксації та кінематографічного звуку. Глибокий мелодійний ембієнт, неонові мегаполіси та прогресивні цивілізації 2250 року.</p>
       <div class="btns">
         <a class="btn p" href="#videos" data-i="b_watch">▶ Blagoday Vision — відео</a>
@@ -269,6 +304,18 @@ footer{border-top:1px solid var(--line);padding:40px 0;color:var(--mut);font-siz
     </div>
   </section>
 
+  <!-- JOURNAL -->
+  <section id="journal">
+    <div class="wrap">
+      <div class="sh reveal">
+        <div><div class="mono" data-i="j_k">Журнал</div><h2 data-i="j_h">Статті та гайди</h2>
+        <p class="sub" data-i="j_s">Гайди англійською про ембієнт, музику для фокусу та серію Life in 2250.</p></div>
+        <a class="more mono" href="blog.html" data-i="j_all">Усі статті ↗</a>
+      </div>
+      <div class="jgrid reveal"><a class="jc" href="sci-fi-ambient-music.html"><div class="im"><img loading="lazy" src="https://i.ytimg.com/vi/R165O33tUc8/hqdefault.jpg" alt="Sci-Fi Ambient Music: Futuristic Soundscapes for Focus and Calm"></div><div class="tx"><div class="k mono">Sci-fi ambience</div><h3>Sci-Fi Ambient Music: Futuristic Soundscapes for Focus and Calm</h3><p>Sci-fi ambient music and futuristic city ambience for focus, sleep and deep work. Cinematic 4K soundscapes of life in 2250 by Blagoday Vision.</p></div></a><a class="jc" href="ambient-music-for-focus.html"><div class="im"><img loading="lazy" src="https://i.ytimg.com/vi/EKD5ktbVi-I/hqdefault.jpg" alt="Ambient Music for Focus: How to Build Your Deep Work Soundtrack"></div><div class="tx"><div class="k mono">Focus music</div><h3>Ambient Music for Focus: How to Build Your Deep Work Soundtrack</h3><p>How to use ambient music for focus, study and deep work. Tips, session ideas and one-hour 4K ambient mixes with no lyrics from Blagoday Vision.</p></div></a><a class="jc" href="deep-house-for-studying.html"><div class="im"><img loading="lazy" src="https://i.ytimg.com/vi/KQvhsQ0w5Us/hqdefault.jpg" alt="Deep House Music for Studying and Work (No Vocals)"></div><div class="tx"><div class="k mono">Deep house for focus</div><h3>Deep House Music for Studying and Work (No Vocals)</h3><p>Deep house music for studying and work with no vocals. Why a slow 80 BPM groove helps concentration, plus instrumental Deep House albums and 1-hour mixes.</p></div></a><a class="jc" href="chillout-lounge-music.html"><div class="im"><img loading="lazy" src="https://i1.sndcdn.com/artworks-n0nuWdbytmwcAp1q-ODTOOg-t500x500.jpg" alt="Chillout Lounge Music for Relaxing by the Pool and the Sea"></div><div class="tx"><div class="k mono">Chillout &amp; lounge</div><h3>Chillout Lounge Music for Relaxing by the Pool and the Sea</h3><p>Chillout lounge music for relaxing by the pool, watching the sea or slow evenings. Skyline Drift: 23 original chillout tracks with vinyl scratch by Blagoday Music.</p></div></a><a class="jc" href="life-in-2250.html"><div class="im"><img loading="lazy" src="https://i.ytimg.com/vi/HsCic-KPgzc/hqdefault.jpg" alt="Life in 2250: A Cinematic Journey Through the Cities of the Future"></div><div class="tx"><div class="k mono">The series</div><h3>Life in 2250: A Cinematic Journey Through the Cities of the Future</h3><p>Life in 2250 by Blagoday Vision: a cinematic 4K series about eco-megacities and future cities, scored with original ambient and deep house music.</p></div></a></div>
+    </div>
+  </section>
+
   <!-- SUPPORT -->
   <section id="support">
     <div class="wrap reveal">
@@ -312,7 +359,6 @@ const PLAT=[
  ["Tidal","https://tidal.com/artist/60384914","#ffffff"],
  ["Audiomack","https://audiomack.com/blagoday-music","#ffa200"],
  ["YouTube · Vision","https://www.youtube.com/@BlagodayVision","#ff0000"],
- ["YouTube · Music","https://www.youtube.com/@BlagoMusic","#ff0000"],
  ["Ko-fi","https://ko-fi.com/blagodayvision","#29abe0"]
 ];
 const SC="https://soundcloud.com/blagodaymusic/sets/";
@@ -390,7 +436,7 @@ const VIDEOS=[
 
 /* ---------- I18N ---------- */
 const T={
- uk:{nav_v:"Відео",nav_a:"Альбоми",nav_r:"Релізи",nav_l:"Слухати",nav_s:"Підтримка",
+ uk:{nav_v:"Відео",nav_a:"Альбоми",nav_r:"Релізи",nav_l:"Слухати",nav_s:"Підтримка",nav_j:"Журнал",j_k:"Журнал",j_h:"Статті та гайди",j_s:"Гайди англійською про ембієнт, музику для фокусу та серію Life in 2250.",j_all:"Усі статті ↗",
   kick:"Кінематографічний ембієнт — Життя в 2250",
   lead:"Занурся у всесвіт іммерсивної релаксації та кінематографічного звуку. Глибокий мелодійний ембієнт, неонові мегаполіси та прогресивні цивілізації 2250 року.",
   b_watch:"▶ Blagoday Vision — відео",b_listen:"♪ Blagoday Music — музика",s_subs:"Підписників",s_vid:"Відео",s_tr:"Треків на SoundCloud",s_year:"Рік візії",
@@ -402,7 +448,7 @@ const T={
   r_k:"Дистрибуція",r_h:"На стрімінгах",r_s:"Релізи, що вийшли на Spotify, Apple Music, YouTube Music, Amazon Music, Deezer, Tidal та інших платформах.",r_all:"Spotify ↗",
   su_k:"Підтримка",su_h:"Готовий до подорожі у 2250 рік?",su_s:"Нові кінематографічні мандрівки та тривалі ембієнт-мікси завантажуються регулярно.",su_yt:"Підписатись на YouTube ↗",
   open_sc:"Відкрити на SoundCloud ↗",open_yt:"Відкрити на YouTube ↗"},
- en:{nav_v:"Videos",nav_a:"Albums",nav_r:"Releases",nav_l:"Listen",nav_s:"Support",
+ en:{nav_v:"Videos",nav_a:"Albums",nav_r:"Releases",nav_l:"Listen",nav_s:"Support",nav_j:"Journal",j_k:"Journal",j_h:"Articles & guides",j_s:"Guides to ambient music, focus music and the Life in 2250 series.",j_all:"All articles ↗",
   kick:"Cinematic Ambient — Life in 2250",
   lead:"Dive into a universe of immersive relaxation and cinematic sound. Deep melodic ambient, neon megacities and the advanced civilizations of 2250.",
   b_watch:"▶ Blagoday Vision — videos",b_listen:"♪ Blagoday Music — music",s_subs:"Subscribers",s_vid:"Videos",s_tr:"Tracks on SoundCloud",s_year:"Year of vision",
@@ -487,6 +533,171 @@ document.querySelectorAll(".reveal").forEach(e=>io.observe(e));
 document.getElementById("yr").textContent=new Date().getFullYear();
 document.getElementById("st_v").textContent=VIDEOS.length+"+";
 renderPlat(); applyI18n();
+setInterval(function(){var l=document.querySelector("h1 .l2");if(!l)return;l.classList.remove("gl");void l.offsetWidth;l.classList.add("gl");},5200);
+</script>
+<script>/* Blagoday FX: click bursts, cursor glow, hero scene. Inline into every page. */
+(function(){
+  var RM = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var FINE = window.matchMedia && matchMedia('(pointer: fine)').matches;
+  var DPR = Math.min(window.devicePixelRatio || 1, 2);
+  var MAG = [255,0,170], CY = [0,229,255];
+
+  /* ---------- click burst overlay ---------- */
+  var fx = document.createElement('canvas');
+  fx.setAttribute('aria-hidden','true');
+  fx.style.cssText = 'position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:200';
+  document.body.appendChild(fx);
+  var c = fx.getContext('2d'), W = 0, H = 0, bursts = [], running = false;
+  function size(){ W = innerWidth; H = innerHeight; fx.width = W*DPR; fx.height = H*DPR; c.setTransform(DPR,0,0,DPR,0,0); }
+  size(); addEventListener('resize', size);
+
+  function burst(x, y){
+    var col = Math.random() < .5 ? MAG : CY, alt = col === MAG ? CY : MAG, parts = [];
+    var n = RM ? 0 : 18;
+    for (var i = 0; i < n; i++){
+      var a = Math.PI*2*i/n + Math.random()*.3, s = 2.2 + Math.random()*4.2;
+      parts.push({x:x, y:y, vx:Math.cos(a)*s, vy:Math.sin(a)*s, r:1.2+Math.random()*2.2, c: i%3 ? col : alt});
+    }
+    bursts.push({x:x, y:y, t:0, col:col, alt:alt, parts:parts});
+    if (!running){ running = true; requestAnimationFrame(tick); }
+  }
+  function rgba(a, o){ return 'rgba('+a[0]+','+a[1]+','+a[2]+','+o+')'; }
+  function tick(){
+    c.clearRect(0,0,W,H);
+    for (var i = bursts.length-1; i >= 0; i--){
+      var b = bursts[i]; b.t += 1;
+      var p = b.t/42, o = Math.max(0, 1-p);
+      c.lineWidth = 2;
+      c.strokeStyle = rgba(b.col, o); c.shadowColor = rgba(b.col, 1); c.shadowBlur = 16;
+      c.beginPath(); c.arc(b.x, b.y, 6 + p*70, 0, Math.PI*2); c.stroke();
+      c.strokeStyle = rgba(b.alt, o*.7); c.lineWidth = 1;
+      c.beginPath(); c.arc(b.x, b.y, 3 + p*40, 0, Math.PI*2); c.stroke();
+      // hex flash
+      if (b.t < 10){ c.fillStyle = rgba([255,255,255], (10-b.t)/14); c.beginPath(); c.arc(b.x,b.y,6-b.t*.5,0,Math.PI*2); c.fill(); }
+      for (var j = 0; j < b.parts.length; j++){
+        var q = b.parts[j]; q.x += q.vx; q.y += q.vy; q.vx *= .94; q.vy = q.vy*.94 + .05;
+        c.fillStyle = rgba(q.c, o); c.shadowColor = rgba(q.c,1); c.shadowBlur = 10;
+        c.beginPath(); c.arc(q.x, q.y, q.r*o + .3, 0, Math.PI*2); c.fill();
+      }
+      c.shadowBlur = 0;
+      if (b.t > 42) bursts.splice(i,1);
+    }
+    if (bursts.length) requestAnimationFrame(tick); else { running = false; c.clearRect(0,0,W,H); }
+  }
+  addEventListener('pointerdown', function(e){ burst(e.clientX, e.clientY); }, {passive:true});
+
+  /* ---------- cursor glow (desktop) ---------- */
+  if (FINE && !RM){
+    var dot = document.createElement('div'), ring = document.createElement('div');
+    dot.style.cssText = 'position:fixed;left:0;top:0;width:6px;height:6px;margin:-3px 0 0 -3px;border-radius:50%;background:#fff;box-shadow:0 0 10px #ff00aa,0 0 20px #ff00aa;pointer-events:none;z-index:201;mix-blend-mode:screen';
+    ring.style.cssText = 'position:fixed;left:0;top:0;width:34px;height:34px;margin:-17px 0 0 -17px;border-radius:50%;border:1px solid rgba(0,229,255,.7);box-shadow:0 0 14px rgba(0,229,255,.35);pointer-events:none;z-index:201;transition:width .25s,height .25s,margin .25s,border-color .25s';
+    document.body.appendChild(ring); document.body.appendChild(dot);
+    var mx = innerWidth/2, my = innerHeight/2, rx = mx, ry = my;
+    addEventListener('pointermove', function(e){ mx = e.clientX; my = e.clientY; dot.style.transform = 'translate('+mx+'px,'+my+'px)'; }, {passive:true});
+    document.addEventListener('mouseover', function(e){
+      var h = e.target.closest && e.target.closest('a,button,[data-yt],[data-sc]');
+      ring.style.width = ring.style.height = h ? '56px' : '34px';
+      ring.style.margin = h ? '-28px 0 0 -28px' : '-17px 0 0 -17px';
+      ring.style.borderColor = h ? 'rgba(255,0,170,.9)' : 'rgba(0,229,255,.7)';
+    });
+    (function follow(){ rx += (mx-rx)*.18; ry += (my-ry)*.18; ring.style.transform = 'translate('+rx+'px,'+ry+'px)'; requestAnimationFrame(follow); })();
+  }
+
+  /* ---------- hero scene (only where #scene exists) ---------- */
+  var sc = document.getElementById('scene');
+  if (sc){
+    var g = sc.getContext('2d'), SW = 0, SH = 0, stars = [], motes = [], t0 = performance.now(), px = 0, py = 0, tx = 0, ty = 0, visible = true;
+    function ssize(){
+      var r = sc.getBoundingClientRect(); SW = r.width; SH = r.height;
+      sc.width = SW*DPR; sc.height = SH*DPR; g.setTransform(DPR,0,0,DPR,0,0);
+      stars = []; var n = Math.round(SW*SH/5200);
+      for (var i = 0; i < n; i++) stars.push({x:Math.random()*2-1, y:Math.random()*2-1, z:Math.random()});
+      motes = []; for (var k = 0; k < 26; k++) motes.push({x:Math.random()*SW, y:SH*.25+Math.random()*SH*.5, s:.2+Math.random()*.6, r:1+Math.random()*2.5, c:Math.random()<.5?MAG:CY, ph:Math.random()*6});
+    }
+    ssize(); addEventListener('resize', ssize);
+    addEventListener('pointermove', function(e){ tx = (e.clientX/innerWidth - .5); ty = (e.clientY/innerHeight - .5); }, {passive:true});
+    if ('IntersectionObserver' in window) new IntersectionObserver(function(es){ visible = es[0].isIntersecting; if (visible) requestAnimationFrame(draw); }).observe(sc);
+    document.addEventListener('visibilitychange', function(){ if (!document.hidden && visible) requestAnimationFrame(draw); });
+
+    function draw(now){
+      if (!visible || document.hidden) return;
+      var t = ((now || performance.now()) - t0)/1000;
+      px += (tx-px)*.05; py += (ty-py)*.05;
+      g.clearRect(0,0,SW,SH);
+      var hz = SH*.62 + py*18, cx = SW/2 - px*60;
+
+      // sky glow
+      var sky = g.createLinearGradient(0,0,0,hz);
+      sky.addColorStop(0,'rgba(8,8,8,0)'); sky.addColorStop(1,'rgba(255,0,170,.16)');
+      g.fillStyle = sky; g.fillRect(0,0,SW,hz);
+
+      // stars warp
+      for (var i = 0; i < stars.length; i++){
+        var s = stars[i];
+        if (!RM) s.z -= .0016; if (s.z <= .02) { s.z = 1; s.x = Math.random()*2-1; s.y = Math.random()*2-1; }
+        var k = .5/s.z, x = cx + s.x*SW*k*.5 - px*40*(1-s.z), y = hz*.55 + s.y*SH*k*.35 - py*30*(1-s.z);
+        if (y > hz || x < 0 || x > SW || y < 0) continue;
+        var a = Math.min(1,(1-s.z)*1.4);
+        g.fillStyle = 'rgba(220,240,255,'+a+')'; g.fillRect(x,y,(1-s.z)*2.2,(1-s.z)*2.2);
+      }
+
+      // sun
+      var sr = Math.min(SW,SH)*.17, sy = hz - sr*.35;
+      var sg = g.createLinearGradient(0,sy-sr,0,sy+sr);
+      sg.addColorStop(0,'rgba(0,229,255,.9)'); sg.addColorStop(1,'rgba(255,0,170,.95)');
+      g.save(); g.beginPath(); g.arc(cx, sy, sr, 0, Math.PI*2); g.clip();
+      g.fillStyle = sg; g.fillRect(cx-sr, sy-sr, sr*2, sr*2);
+      g.fillStyle = 'rgba(8,8,8,1)';
+      for (var b = 0; b < 7; b++){ var by = sy + sr*.05 + b*sr*.15 + ((t*14)%(sr*.15)); var bh = 1.5 + b*1.6; g.fillRect(cx-sr, by, sr*2, bh); }
+      g.restore();
+      g.shadowColor = 'rgba(255,0,170,.8)'; g.shadowBlur = 60; g.fillStyle = 'rgba(255,0,170,.08)'; g.beginPath(); g.arc(cx,sy,sr*1.05,0,Math.PI*2); g.fill(); g.shadowBlur = 0;
+
+      // city skyline silhouette
+      g.fillStyle = 'rgba(8,8,10,.92)';
+      var seed = 7; function rnd(){ seed = (seed*9301+49297)%233280; return seed/233280; }
+      var bx = -40 - px*25; while (bx < SW+40){ var bw = 14 + rnd()*36, bhh = 18 + rnd()*rnd()*SH*.22; g.fillRect(bx, hz-bhh, bw, bhh);
+        if (rnd() < .5){ g.fillStyle = rnd()<.5?'rgba(0,229,255,.55)':'rgba(255,0,170,.5)'; g.fillRect(bx+bw*.3, hz-bhh+6, 2, 2); g.fillStyle = 'rgba(8,8,10,.92)'; }
+        bx += bw + 2; }
+
+      // horizon line
+      var hl = g.createLinearGradient(0,0,SW,0);
+      hl.addColorStop(0,'rgba(0,229,255,0)'); hl.addColorStop(.5,'rgba(0,229,255,.9)'); hl.addColorStop(1,'rgba(0,229,255,0)');
+      g.fillStyle = hl; g.fillRect(0,hz-1,SW,2);
+
+      // floor
+      var fl = g.createLinearGradient(0,hz,0,SH);
+      fl.addColorStop(0,'rgba(40,0,40,.55)'); fl.addColorStop(1,'rgba(8,8,8,0)');
+      g.fillStyle = fl; g.fillRect(0,hz,SW,SH-hz);
+
+      // perspective grid
+      g.strokeStyle = 'rgba(255,0,170,.55)'; g.lineWidth = 1; g.shadowColor = 'rgba(255,0,170,.9)'; g.shadowBlur = 8;
+      var lines = 26;
+      for (var l = -lines; l <= lines; l++){ g.beginPath(); g.moveTo(cx + l*6, hz); g.lineTo(cx + l*SW*.09 - px*120, SH); g.stroke(); }
+      var sp = RM ? 0 : (t*.35)%1;
+      for (var r = 0; r < 18; r++){ var z = (r + sp)/18, yy = hz + (SH-hz)*Math.pow(z,2.2); g.globalAlpha = Math.min(1, z*1.6); g.beginPath(); g.moveTo(0,yy); g.lineTo(SW,yy); g.stroke(); }
+      g.globalAlpha = 1; g.shadowBlur = 0;
+
+      // floating motes
+      for (var m = 0; m < motes.length; m++){ var o = motes[m]; if (!RM){ o.x += o.s; if (o.x > SW+10) o.x = -10; }
+        var oy = o.y + Math.sin(t*1.2+o.ph)*8 - py*20;
+        g.fillStyle = rgba(o.c,.65); g.shadowColor = rgba(o.c,1); g.shadowBlur = 12; g.beginPath(); g.arc(o.x - px*30, oy, o.r, 0, Math.PI*2); g.fill(); }
+      g.shadowBlur = 0;
+
+      if (!RM) requestAnimationFrame(draw);
+    }
+    requestAnimationFrame(draw);
+  }
+
+  /* ---------- split-letter title intro ---------- */
+  document.querySelectorAll('[data-split]').forEach(function(el){
+    var html = '', i = 0;
+    el.childNodes.forEach(function(n){
+      if (n.nodeType === 3){ n.textContent.split('').forEach(function(ch){ html += '<span class="ch" style="--i:'+(i++)+'">'+(ch===' '?'&nbsp;':ch)+'</span>'; }); }
+      else { var inner = ''; n.textContent.split('').forEach(function(ch){ inner += '<span class="ch" style="--i:'+(i++)+'">'+ch+'</span>'; }); html += '<span class="'+(n.className||'')+'">'+inner+'</span>'; }
+    });
+    el.innerHTML = html; el.classList.add('split-on');
+  });
+})();
 </script>
 </body>
 </html>
