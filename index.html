@@ -327,7 +327,6 @@ p{font-weight:500}
 .scp-k{font-family:"Share Tech Mono",monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#ff7a1a}
 .scp-t{font-size:22px;font-weight:700;line-height:1.2;color:#fff;margin-top:4px}
 .scp-a{font-size:15px;color:#00e5ff;margin-top:2px}
-.scp-st{font-size:13px;color:#b9b9c8;margin-top:8px;letter-spacing:.06em}
 .scp-r{display:flex;flex-direction:column;gap:12px;min-width:0;min-height:0}
 .scp-act{display:flex;flex-wrap:wrap;gap:8px}
 .scp-act .chip{font-size:13px;padding:8px 12px;text-decoration:none}
@@ -393,6 +392,14 @@ p{font-weight:500}
   .scp-subb{grid-template-columns:1fr}
   .cr{grid-template-columns:48px minmax(0,1fr) 52px 34px}
 }
+.scp-st{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:12px}
+.stt{display:flex;flex-direction:column;align-items:center;gap:2px;padding:10px 6px;border-radius:12px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.04);color:#fff;text-decoration:none;font:inherit;cursor:pointer;transition:.2s;min-width:0}
+.stt i{font-style:normal;font-size:18px;line-height:1;color:#00e5ff}
+.stt.lk i{color:#ff3b8d}.stt.cm i{color:#ffb020}
+.stt b{font-size:22px;font-weight:700;line-height:1.15}
+.stt span{font-size:12px;color:#b9b9c8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.stt:hover{border-color:#00e5ff;background:rgba(0,229,255,.07)}
+@media(max-width:760px){.scp-l{align-items:flex-start}.scp-info{flex:1;min-width:0}.stt{padding:8px 4px}.stt b{font-size:19px}.stt span{white-space:normal;text-align:center;font-size:11px}}
 </style>
 <script src="https://w.soundcloud.com/player/api.js"></script>
 </head>
@@ -728,6 +735,7 @@ const t=k=>T[L][k]||T.en[k]||k;
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const fmtD=d=>new Date(d+"T00:00:00").toLocaleDateString(LOC[L],{year:"numeric",month:"short",day:"numeric"});
 const T2={"uk": {"here": "▶ Слухати тут", "q_add": "Додати в чергу", "q_added": "Додано в чергу · {n}", "q_tab": "Черга", "q_empty": "Черга порожня. Натисни ＋ біля будь-якого треку в каталозі або тут у списку.", "q_clear": "Очистити", "q_play": "Слухати чергу", "tr_tab": "Треки", "more_tab": "Ще музика", "c_at": "💬 Коментар на {t}", "share": "↗ Поділитися", "copied": "Посилання скопійовано", "hint": "♥ у плеєрі — лайк на SoundCloud. Коментарі слухачів видно на хвилі треку. Кнопка «Коментар» відкриває трек на SoundCloud саме на цій секунді.", "sub_h": "Підпишись на Blagoday", "rel_sp": "Spotify · популярні треки", "rel_note": "Apple Music і Spotify грають повні треки, якщо ти увійшов у свій акаунт. Без входу — 30-секундні уривки."}, "en": {"here": "▶ Listen here", "q_add": "Add to queue", "q_added": "Added to queue · {n}", "q_tab": "Queue", "q_empty": "The queue is empty. Tap ＋ next to any track in the catalog or in this list.", "q_clear": "Clear", "q_play": "Play queue", "tr_tab": "Tracks", "more_tab": "More music", "c_at": "💬 Comment at {t}", "share": "↗ Share", "copied": "Link copied", "hint": "♥ in the player likes the track on SoundCloud. Listener comments show on the waveform. The Comment button opens the track on SoundCloud at this exact second.", "sub_h": "Follow Blagoday", "rel_sp": "Spotify · top tracks", "rel_note": "Apple Music and Spotify play full tracks when you are signed in to your account. Without signing in you hear 30-second previews."}, "es": {"here": "▶ Escuchar aquí", "q_add": "Añadir a la cola", "q_added": "Añadido a la cola · {n}", "q_tab": "Cola", "q_empty": "La cola está vacía. Toca ＋ junto a cualquier tema del catálogo o de esta lista.", "q_clear": "Vaciar", "q_play": "Escuchar la cola", "tr_tab": "Temas", "more_tab": "Más música", "c_at": "💬 Comentar en {t}", "share": "↗ Compartir", "copied": "Enlace copiado", "hint": "♥ en el reproductor da like en SoundCloud. Los comentarios aparecen sobre la onda del tema. El botón Comentar abre el tema en SoundCloud en este segundo.", "sub_h": "Sigue a Blagoday", "rel_sp": "Spotify · temas populares", "rel_note": "Apple Music y Spotify reproducen temas completos si iniciaste sesión en tu cuenta. Sin sesión, fragmentos de 30 segundos."}, "pt": {"here": "▶ Ouvir aqui", "q_add": "Adicionar à fila", "q_added": "Adicionado à fila · {n}", "q_tab": "Fila", "q_empty": "A fila está vazia. Toque em ＋ ao lado de qualquer faixa do catálogo ou desta lista.", "q_clear": "Limpar", "q_play": "Ouvir a fila", "tr_tab": "Faixas", "more_tab": "Mais músicas", "c_at": "💬 Comentar em {t}", "share": "↗ Compartilhar", "copied": "Link copiado", "hint": "♥ no player curte a faixa no SoundCloud. Os comentários aparecem na onda da faixa. O botão Comentar abre a faixa no SoundCloud neste segundo.", "sub_h": "Siga Blagoday", "rel_sp": "Spotify · faixas populares", "rel_note": "Apple Music e Spotify tocam faixas completas quando você está conectado à sua conta. Sem login, prévias de 30 segundos."}, "de": {"here": "▶ Hier anhören", "q_add": "Zur Warteschlange", "q_added": "Zur Warteschlange hinzugefügt · {n}", "q_tab": "Warteschlange", "q_empty": "Die Warteschlange ist leer. Tippe auf ＋ neben einem Track im Katalog oder in dieser Liste.", "q_clear": "Leeren", "q_play": "Warteschlange abspielen", "tr_tab": "Tracks", "more_tab": "Mehr Musik", "c_at": "💬 Kommentar bei {t}", "share": "↗ Teilen", "copied": "Link kopiert", "hint": "♥ im Player liked den Track auf SoundCloud. Kommentare erscheinen auf der Wellenform. Der Kommentar-Button öffnet den Track auf SoundCloud genau an dieser Sekunde.", "sub_h": "Blagoday folgen", "rel_sp": "Spotify · Top-Tracks", "rel_note": "Apple Music und Spotify spielen ganze Tracks, wenn du in deinem Konto angemeldet bist. Ohne Anmeldung hörst du 30-Sekunden-Ausschnitte."}, "fr": {"here": "▶ Écouter ici", "q_add": "Ajouter à la file", "q_added": "Ajouté à la file · {n}", "q_tab": "File d'attente", "q_empty": "La file est vide. Touchez ＋ à côté d'un titre du catalogue ou de cette liste.", "q_clear": "Vider", "q_play": "Écouter la file", "tr_tab": "Titres", "more_tab": "Plus de musique", "c_at": "💬 Commenter à {t}", "share": "↗ Partager", "copied": "Lien copié", "hint": "♥ dans le lecteur aime le titre sur SoundCloud. Les commentaires s'affichent sur la forme d'onde. Le bouton Commenter ouvre le titre sur SoundCloud à cette seconde.", "sub_h": "Suivre Blagoday", "rel_sp": "Spotify · titres populaires", "rel_note": "Apple Music et Spotify jouent les titres en entier si vous êtes connecté à votre compte. Sinon, extraits de 30 secondes."}};for(const k in T2)Object.assign(T[k],T2[k]);
+for(const [k,v] of Object.entries({"uk": {"st_p": "прослуховувань", "st_l": "лайків", "st_c": "коментарів"}, "en": {"st_p": "plays", "st_l": "likes", "st_c": "comments"}, "es": {"st_p": "reproducciones", "st_l": "me gusta", "st_c": "comentarios"}, "pt": {"st_p": "reproduções", "st_l": "curtidas", "st_c": "comentários"}, "de": {"st_p": "Plays", "st_l": "Likes", "st_c": "Kommentare"}, "fr": {"st_p": "écoutes", "st_l": "j’aime", "st_c": "commentaires"}}))Object.assign(T[k],v);
 const plural=n=>n===1?t("track"):t("tracks");
 
 /* ---------- RENDER ---------- */
@@ -830,7 +838,7 @@ function pBuild(){
 <div class="pl-mh"><img id="plMi" alt=""><span><b id="plMt"></b><i>Blagoday Music</i></span><button data-pl="max" aria-label="Expand">⤢</button><button data-pl="x" aria-label="Close">✕</button></div>
 <button class="pl-x" data-pl="min">✕ ESC</button>
 <div class="scp" id="scp">
-<div class="scp-l"><div class="scp-cv"><img id="scpImg" alt=""></div><div class="scp-info"><div class="scp-k" id="scpK">SoundCloud</div><div class="scp-t" id="scpT"></div><div class="scp-a" id="scpA"></div><div class="scp-st mono" id="scpSt"></div></div></div>
+<div class="scp-l"><div class="scp-cv"><img id="scpImg" alt=""></div><div class="scp-info"><div class="scp-k" id="scpK">SoundCloud</div><div class="scp-t" id="scpT"></div><div class="scp-a" id="scpA"></div><div class="scp-st" id="scpSt"></div></div></div>
 <div class="scp-r">
 <div class="scp-act"><button class="chip hl" id="scpCm"></button><button class="chip" id="scpSh"></button><a class="chip" id="scpOp" target="_blank" rel="noopener">SoundCloud ↗</a></div>
 <p class="scp-hint" id="scpHint"></p>
@@ -889,7 +897,9 @@ function pList(){
 function pSetPlay(p){P.playing=p;const s=document.getElementById("scp");if(s)s.classList.toggle("playing",p);}
 function pStats(){
   const s=P.snd,el=document.getElementById("scpSt");if(!el)return;
-  el.textContent=s?`▶ ${fmtN(s.playback_count||0)}   ♥ ${fmtN(s.likes_count||0)}   💬 ${fmtN(s.comment_count||0)}`:"";
+  const v=k=>s?fmtN(s[k]||0):"–";
+  el.innerHTML=`<a class="stt" href="${P.now?scUrl(P.now):"#"}" target="_blank" rel="noopener"><i>▶</i><b>${v("playback_count")}</b><span>${esc(t("st_p"))}</span></a><a class="stt lk" href="${P.now?scUrl(P.now):"#"}" target="_blank" rel="noopener"><i>♥</i><b>${v("likes_count")}</b><span>${esc(t("st_l"))}</span></a><button class="stt cm" id="scpSc"><i>💬</i><b>${v("comment_count")}</b><span>${esc(t("st_c"))}</span></button>`;
+  const c=document.getElementById("scpSc");if(c)c.onclick=()=>document.getElementById("scpCm").click();
 }
 function pPlay(x,idx){
   if(!x)return;P.now=x;P.cur=idx;P.pos=0;P.snd=null;
@@ -897,7 +907,7 @@ function pPlay(x,idx){
   $("scpT").textContent=x[0];$("plMt").textContent=x[0];
   const art=artOf(x);$("scpImg").src=art;$("plMi").src=artOf(x,"t200x200");
   $("scpA").textContent="Blagoday Music"+(al?" · "+al[0]:"");
-  $("scpK").textContent="SoundCloud"+(P.title?" · "+P.title:"");
+  $("scpK").textContent="SoundCloud"+(al?" · "+al[0]:"");
   $("scpOp").href=scUrl(x);pStats();pCm();pTabs();pList();
   const opt="&auto_play=true&visual=true&show_artwork=true&color=%23ff00aa&hide_related=true&show_comments=true&show_user=false&show_reposts=false&show_teaser=false&sharing=false&download=false&buying=false";
   if(!P.w){
