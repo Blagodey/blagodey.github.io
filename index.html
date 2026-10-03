@@ -483,6 +483,7 @@ const PLAT=[
  ["Ko-fi","https://ko-fi.com/blagodayvision","#29abe0"]
 ];
 const SC="https://soundcloud.com/blagodaymusic/sets/";
+const SCU=s=>s.indexOf("track:")===0?"https://soundcloud.com/blagodaymusic/"+s.slice(6):SC+s;
 const ART=a=>a?`https://i1.sndcdn.com/artworks-${a}-t500x500.jpg`:"";
 // [title, slug, artwork, date, genre, tracks, type, desc_uk, desc_en, videoId]
 const ALBUMS=[
@@ -499,7 +500,7 @@ const ALBUMS=[
   "23 оригінальні чилаут-композиції з лаунж-атмосферою та вініловим скретчем.",
   "23 original chillout compositions with lounge atmosphere and vinyl scratch elements.",""],
  ["Journey To The Dreams","journey-to-the-dreams","ddinhiyUljM7PxDz-VHPbLA","2024-12-18","EDM / Ambient",3,"album","","",""],
- ["I Will Show You The Future","i-will-show-you-the-future","fUgXWj58IQZtuA4a-JsiOpA","2026-06-30","",1,"other","","",""],
+ ["I Just Stay Calm (Code Wall)","track:i-just-stay-calm-code-wall-wav","fUgXWj58IQZtuA4a-JsiOpA","2026-06-07","Electronic",1,"other","","",""],
  ["I Don't Like Techno","i-dont","Uzy2LfCmjnRiXW0Z-QNznRw","2024-09-08","Techno",2,"other","","",""],
  ["Polyglot","bright-spirit","FGbobzhgsyyG8eGY-9Pc4JQ","2024-09-06","",9,"other","Пісні різними мовами.","Songs in different languages.",""],
  ["Oil Painting","oil-painting","k9XZkjOvhTuDzJQs-z0lxtQ","2024-09-01","",6,"other","","",""],
@@ -614,7 +615,7 @@ function renderAlbums(){
     const [ti,slug,art,date,genre,n,,du,de,vid]=a; const d=L==="uk"?du:de;
     return `<article class="al"><button class="cover" data-sc="${slug}" aria-label="${esc(ti)}">${art?`<img loading="lazy" src="${ART(art)}" alt="">`:`<div class="ph">${esc(ti)}</div>`}<span class="badge sc mono">SoundCloud</span></button>
     <div class="ai"><h3>${esc(ti)}</h3><div class="m mono">${fmtD(date)} · ${n} ${plural(n)}${genre?` · ${esc(genre)}`:""}</div>${d?`<div class="d">${esc(d)}</div>`:""}
-    <div class="acts"><button class="chip hl" data-sc="${slug}">${t("play")}</button>${vid&&vid.trim()?`<button class="chip" data-yt="${vid}">${t("video")}</button>`:""}<a class="chip" href="${SC+slug}" target="_blank" rel="noopener">SoundCloud ↗</a></div></div></article>`;
+    <div class="acts"><button class="chip hl" data-sc="${slug}">${t("play")}</button>${vid&&vid.trim()?`<button class="chip" data-yt="${vid}">${t("video")}</button>`:""}<a class="chip" href="${SCU(slug)}" target="_blank" rel="noopener">SoundCloud ↗</a></div></div></article>`;
   }).join("");
 }
 function renderReleases(){
@@ -640,7 +641,7 @@ function applyI18n(){
 /* ---------- MODAL ---------- */
 const modal=document.getElementById("modal"),mbox=document.getElementById("mbox"),mframe=document.getElementById("mframe"),mlink=document.getElementById("mlink");
 function openYT(id){mbox.className="mbox";mframe.innerHTML=`<iframe src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen title="YouTube"></iframe>`;mlink.href="https://youtu.be/"+id;mlink.textContent=t("open_yt");show();}
-function openSC(slug){mbox.className="mbox sc";const u=encodeURIComponent(SC+slug);mframe.innerHTML=`<iframe allow="autoplay" title="SoundCloud" src="https://w.soundcloud.com/player/?url=${u}&color=%23ff00aa&auto_play=true&visual=true&show_comments=false&show_reposts=false&hide_related=true"></iframe>`;mlink.href=SC+slug;mlink.textContent=t("open_sc");show();}
+function openSC(slug){mbox.className="mbox sc";const u=encodeURIComponent(SCU(slug));mframe.innerHTML=`<iframe allow="autoplay" title="SoundCloud" src="https://w.soundcloud.com/player/?url=${u}&color=%23ff00aa&auto_play=true&visual=true&show_comments=false&show_reposts=false&hide_related=true"></iframe>`;mlink.href=SCU(slug);mlink.textContent=t("open_sc");show();}
 function show(){modal.classList.add("open");document.body.style.overflow="hidden";}
 function hide(){modal.classList.remove("open");mframe.innerHTML="";document.body.style.overflow="";}
 document.getElementById("mclose").onclick=hide;
