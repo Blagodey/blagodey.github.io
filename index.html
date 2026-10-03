@@ -266,6 +266,16 @@ footer{border-top:1px solid var(--line);padding:40px 0;color:var(--mut);font-siz
 .prem-tx h2{font-size:clamp(30px,4.5vw,52px);line-height:1.04;margin:8px 0 14px}
 .prem-tx p{color:#cfcfd8;font-size:18px;margin-bottom:22px}
 @media(max-width:860px){.prem-box{grid-template-columns:1fr;padding:14px;gap:18px}.prem-pill b{font-size:15px}}
+
+/* readability fix */
+:root{--mut:#c9c9d6}
+body{font-weight:500}
+p{font-weight:500}
+.hero p.lead,.hero .lead{color:#fff;font-weight:600;font-size:22px;line-height:1.45;max-width:600px;
+ text-shadow:0 1px 2px rgba(0,0,0,.95),0 2px 14px rgba(0,0,0,.9);
+ background:rgba(0,0,0,.5);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+ padding:12px 18px;border-radius:12px;display:inline-block}
+@media(max-width:700px){.hero p.lead,.hero .lead{font-size:18px;padding:10px 14px}}
 </style>
 </head>
 <body>
