@@ -661,10 +661,10 @@ renderPlat(); applyI18n();
 (function(){
 var sl=[...document.querySelectorAll("#slides .sl")],ds=[...document.querySelectorAll("#dots .dot")],i=0,tm;
 var card=document.getElementById("nowCard"),tt=document.getElementById("nowT");
-function go(n){sl[i].classList.remove("on");ds[i].classList.remove("on");i=(n+sl.length)%sl.length;sl[i].classList.add("on");void ds[i].offsetWidth;ds[i].classList.add("on");tt.textContent=sl[i].dataset.t;card.dataset.yt=sl[i].dataset.yt;clearTimeout(tm);tm=setTimeout(function(){go(i+1)},7000);}
+function go(n){sl[i].classList.remove("on");ds[i].classList.remove("on");i=(n+sl.length)%sl.length;sl[i].classList.add("on");void ds[i].offsetWidth;ds[i].classList.add("on");tt.textContent=sl[i].dataset.t;card.dataset.yt=sl[i].dataset.vid;clearTimeout(tm);tm=setTimeout(function(){go(i+1)},7000);}
 ds.forEach(function(d,k){d.addEventListener("click",function(e){e.stopPropagation();go(k)})});
-sl.forEach(function(s){s.removeAttribute("data-yt")});
-card.dataset.yt=sl[0]?"HsCic-KPgzc":"";
+sl.forEach(function(s){s.dataset.vid=s.dataset.yt||"";s.removeAttribute("data-yt")});
+card.dataset.yt=sl[0]?sl[0].dataset.vid:"";
 tm=setTimeout(function(){go(1)},7000);
 // reel
 var tr=document.getElementById("reelTrack"),bar=document.getElementById("reelBar"),reel=document.getElementById("reel"),bg=document.querySelector(".reel-bgword");
