@@ -336,6 +336,8 @@ p{font-weight:500}
 .scp-row img{width:44px;height:44px;border-radius:6px;object-fit:cover}
 .scp-row b{font-weight:600;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .scp-row span.d{font-family:"Share Tech Mono",monospace;font-size:12px;color:#9a9aa8}
+.scp-w{height:124px;border-radius:12px;overflow:hidden;background:#151519}
+.scp-w iframe{width:100%;height:124px;border:0;display:block;filter:invert(.92) hue-rotate(180deg)}
 .scp-hid{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;border:0;left:-9999px}
 @media(max-width:760px){.scp{grid-template-columns:1fr;max-height:88svh;overflow-y:auto;padding:14px}.scp-cv{max-width:240px;margin:0 auto;width:100%}.scp-list{overflow:visible}}
 </style>
@@ -752,30 +754,30 @@ function openYT(id){mbox.className="mbox";mframe.innerHTML=`<iframe src="https:/
 function openSC(slug){
   const isT=slug.indexOf("track:")===0, key=isT?slug.slice(6):slug, albBy={};ALBUMS.forEach(a=>albBy[a[1]]=a);
   const al=albBy[slug]||null, artOf=x=>{const a=CAT.arts[x[2]]||((albBy[CAT.pls[x[8]]]||[])[2])||"";return a?(a.includes("/")?a:`https://i1.sndcdn.com/artworks-${a}-t500x500.jpg`):""};
-  let list=isT?CAT.c.filter(x=>x[1]===key):CAT.c.filter(x=>CAT.pls[x[8]]===key).slice().reverse();
+  let list=isT?CAT.c.filter(x=>x[1]===key):CAT.c.filter(x=>CAT.pls[x[8]]===key);
   if(!list.length){mbox.className="mbox sc";const u=encodeURIComponent(SCU(slug));mframe.innerHTML=`<iframe allow="autoplay" title="SoundCloud" src="https://w.soundcloud.com/player/?url=${u}&color=%23ff00aa&auto_play=true&visual=true&show_comments=false&show_reposts=false&hide_related=true"></iframe>`;mlink.href=SCU(slug);mlink.textContent=t("open_sc");show();return;}
   const head=al?al[0]:list[0][0];
   mbox.className="mbox scx";
-  mframe.innerHTML=`<div class="scp" id="scp"><div class="scp-l"><div class="scp-cv"><img id="scpImg" alt=""></div><div><div class="scp-k">SoundCloud${list.length>1?" · "+list.length+" "+plural(list.length):""}</div><div class="scp-t" id="scpT"></div><div class="scp-a" id="scpA">Blagoday Music${al?" · "+esc(head):""}</div></div><div class="scp-bar" id="scpBar"><i id="scpFill"></i></div><div class="scp-time"><span id="scpCur">0:00</span><span id="scpDur">0:00</span></div><div class="scp-ctl"><button id="scpPrev" aria-label="Previous">⏮</button><button class="big" id="scpPlay" aria-label="Play">❚❚</button><button id="scpNext" aria-label="Next">⏭</button></div></div><div class="scp-list" id="scpList">${list.map((x,i)=>`<button class="scp-row" data-i="${i}"><span class="n">${i+1}</span><img loading="lazy" src="${artOf(x)}" alt=""><b>${esc(x[0])}</b><span class="d">${dur(x[4])}</span></button>`).join("")}</div></div><iframe class="scp-hid" id="scpW" allow="autoplay" title="SoundCloud player"></iframe>`;
+  mframe.innerHTML=`<div class="scp" id="scp"><div class="scp-l"><div class="scp-cv"><img id="scpImg" alt=""></div><div><div class="scp-k">SoundCloud${list.length>1?" · "+list.length+" "+plural(list.length):""}</div><div class="scp-t" id="scpT"></div><div class="scp-a" id="scpA">Blagoday Music${al?" · "+esc(head):""}</div></div><div class="scp-w"><iframe id="scpW" allow="autoplay" title="SoundCloud player"></iframe></div><div class="scp-ctl"><button id="scpPrev" aria-label="Previous">⏮</button><button id="scpNext" aria-label="Next">⏭</button></div></div><div class="scp-list" id="scpList">${list.map((x,i)=>`<button class="scp-row" data-i="${i}"><span class="n">${i+1}</span><img loading="lazy" src="${artOf(x)}" alt=""><b>${esc(x[0])}</b><span class="d">${dur(x[4])}</span></button>`).join("")}</div></div>`;
   mlink.href=SCU(slug);mlink.textContent=t("open_sc");show();
   const $=id=>document.getElementById(id), W=$("scpW"), rows=[...document.querySelectorAll("#scpList .scp-row")];
   let cur=0, w=null, total=1, playing=false;
   const urlOf=x=>"https://soundcloud.com/blagodaymusic/"+x[1];
-  const setUI=i=>{const x=list[i];$("scpT").textContent=x[0];$("scpImg").src=artOf(x)||"";$("scpDur").textContent=dur(x[4]);$("scpCur").textContent="0:00";$("scpFill").style.width="0";rows.forEach((r,k)=>r.classList.toggle("on",k===i));rows[i]&&rows[i].scrollIntoView({block:"nearest"});};
-  const setPlay=p=>{playing=p;$("scpPlay").textContent=p?"❚❚":"▶";$("scp")&&$("scp").classList.toggle("playing",p);};
-  const go=i=>{cur=(i+list.length)%list.length;setUI(cur);if(w)w.load(urlOf(list[cur]),{auto_play:true,show_artwork:false,visual:false});};
+  const setUI=i=>{const x=list[i];$("scpT").textContent=x[0];$("scpImg").src=artOf(x)||"";rows.forEach((r,k)=>r.classList.toggle("on",k===i));rows[i]&&rows[i].scrollIntoView({block:"nearest"});};
+  const setPlay=p=>{playing=p;$("scp")&&$("scp").classList.toggle("playing",p);};
+  const go=i=>{cur=(i+list.length)%list.length;setUI(cur);if(w)w.load(urlOf(list[cur]),{auto_play:true,show_artwork:false,visual:false,color:"#ff00aa",hide_related:true,show_comments:false,show_user:false,show_reposts:false,show_teaser:false});};
   setUI(0);
-  W.src="https://w.soundcloud.com/player/?url="+encodeURIComponent(urlOf(list[0]))+"&auto_play=true&visual=false&show_artwork=false";
+  W.src="https://w.soundcloud.com/player/?url="+encodeURIComponent(urlOf(list[0]))+"&auto_play=true&visual=false&show_artwork=false&color=%23ff00aa&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false";
   const init=()=>{ if(!window.SC||!window.SC.Widget){setTimeout(init,200);return;} w=window.SC.Widget(W); const E=window.SC.Widget.Events;
     w.bind(E.PLAY,()=>setPlay(true)); w.bind(E.PAUSE,()=>setPlay(false));
-    w.bind(E.PLAY_PROGRESS,e=>{$("scpFill").style.width=(e.relativePosition*100)+"%";$("scpCur").textContent=dur(Math.floor(e.currentPosition/1000));});
+    
     w.bind(E.FINISH,()=>{if(cur<list.length-1)go(cur+1);else setPlay(false);});
-    w.bind(E.READY,()=>{w.getDuration(d=>{total=d||1;});});
+    
   }; init();
-  $("scpPlay").onclick=()=>{if(w)w.toggle();};
+  
   $("scpNext").onclick=()=>go(cur+1); $("scpPrev").onclick=()=>go(cur-1);
   rows.forEach((r,k)=>r.onclick=()=>go(k));
-  $("scpBar").onclick=e=>{const b=e.currentTarget.getBoundingClientRect(),p=(e.clientX-b.left)/b.width;if(w)w.getDuration(d=>w.seekTo(p*d));};
+  
 }
 function show(){modal.classList.add("open");document.body.style.overflow="hidden";}
 function hide(){modal.classList.remove("open");mframe.innerHTML="";document.body.style.overflow="";}
