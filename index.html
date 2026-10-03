@@ -1,147 +1,491 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="uk">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Blagoday Vision — Sound Beyond the Horizon</title>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Orbitron:wght@700;900&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Blagoday — Vision & Music</title>
+<meta name="description" content="Blagoday Vision & Blagoday Music — cinematic 4K visuals of life in 2250 and original electronic music. Albums on SoundCloud, Spotify, Apple Music and more.">
+<meta property="og:title" content="Blagoday — Vision & Music">
+<meta property="og:description" content="Cinematic 4K visuals of life in 2250 and original electronic music.">
+<meta property="og:image" content="https://i1.sndcdn.com/artworks-8ODXNt8XozKvzuQH-yNFyBA-t500x500.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#080808; --bg2:#0f0f12; --card:#131317; --line:#22222a;
+  --txt:#f2f2f5; --mut:#9a9aa8; --mag:#ff00aa; --cy:#00e5ff;
+  --r:14px; --max:1200px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{background:var(--bg);color:var(--txt);font-family:Rajdhani,system-ui,sans-serif;font-size:18px;line-height:1.5;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+.mono{font-family:"Share Tech Mono",monospace;letter-spacing:.12em;text-transform:uppercase}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 20px}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+  background-size:48px 48px}
+main,header,footer{position:relative;z-index:1}
+
+/* header */
+header{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(8,8,8,.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);transition:transform .3s}
+header.hide{transform:translateY(-100%)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:64px;gap:16px}
+.logo{font-weight:700;font-size:20px;letter-spacing:.18em}
+.logo b{color:var(--mag)}
+.links{display:flex;gap:26px;align-items:center}
+.links a{font-size:13px;color:var(--mut);transition:color .2s}
+.links a:hover{color:var(--txt)}
+.right{display:flex;gap:10px;align-items:center}
+.lang{display:flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.lang button{background:none;border:0;color:var(--mut);font:inherit;font-family:"Share Tech Mono",monospace;font-size:12px;padding:6px 10px;cursor:pointer}
+.lang button.on{background:var(--txt);color:var(--bg)}
+.burger{display:none;background:none;border:1px solid var(--line);border-radius:8px;width:40px;height:36px;color:var(--txt);font-size:18px;cursor:pointer}
+@media(max-width:860px){
+  .links{position:fixed;top:64px;left:0;right:0;flex-direction:column;gap:0;background:rgba(8,8,8,.97);border-bottom:1px solid var(--line);display:none}
+  .links.open{display:flex}
+  .links a{padding:16px 20px;width:100%;border-top:1px solid var(--line);font-size:14px}
+  .burger{display:block}
+}
+
+/* hero */
+.hero{min-height:100svh;display:flex;align-items:center;padding:110px 0 70px;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;z-index:-1;opacity:.28;background-size:cover;background-position:center;filter:saturate(1.2)}
+.hero-bg::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 30% 40%,transparent 0,var(--bg) 75%),linear-gradient(transparent 60%,var(--bg))}
+.kicker{color:var(--cy);font-size:13px;margin-bottom:18px}
+h1{font-size:clamp(56px,13vw,150px);line-height:.88;font-weight:700;letter-spacing:.02em}
+h1 span{display:block;color:var(--mag);text-shadow:0 0 30px rgba(255,0,170,.55),3px 3px 0 rgba(0,229,255,.5)}
+.hero p.lead{max-width:560px;color:#cfcfd8;font-size:20px;margin:26px 0 30px}
+.btns{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 22px;border-radius:10px;font-weight:600;font-size:16px;letter-spacing:.06em;border:1px solid var(--line);transition:.2s;cursor:pointer;background:none;color:var(--txt);font-family:inherit}
+.btn.p{background:var(--mag);border-color:var(--mag);color:#fff;box-shadow:0 0 24px rgba(255,0,170,.35)}
+.btn.p:hover{box-shadow:0 0 38px rgba(255,0,170,.6)}
+.btn.c{border-color:var(--cy);color:var(--cy)}
+.btn:hover{transform:translateY(-2px)}
+.stats{display:flex;flex-wrap:wrap;gap:34px;margin-top:46px}
+.stat b{display:block;font-size:34px;color:var(--cy);line-height:1}
+.stat span{font-size:12px;color:var(--mut)}
+
+/* sections */
+section{padding:90px 0}
+.sh{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:34px;flex-wrap:wrap}
+.sh .mono{color:var(--mag);font-size:12px;margin-bottom:8px}
+h2{font-size:clamp(34px,6vw,56px);line-height:1;font-weight:700}
+.sub{color:var(--mut);max-width:620px;margin-top:10px}
+.more{font-size:13px;color:var(--cy)}
+
+/* platform strip */
+.plat{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.plat a{display:flex;align-items:center;gap:10px;padding:14px 16px;background:var(--card);border:1px solid var(--line);border-radius:12px;font-weight:600;transition:.2s}
+.plat a:hover{border-color:var(--cy);transform:translateY(-2px)}
+.plat i{width:10px;height:10px;border-radius:50%;flex:none}
+
+/* video */
+.feature{display:grid;grid-template-columns:1.6fr 1fr;gap:24px;margin-bottom:28px;align-items:center}
+@media(max-width:860px){.feature{grid-template-columns:1fr}}
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px}
+.v{cursor:pointer;background:var(--card);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;transition:.25s;text-align:left;color:inherit;font:inherit;padding:0}
+.v:hover{border-color:var(--mag);transform:translateY(-3px);box-shadow:0 10px 30px rgba(255,0,170,.15)}
+.thumb{position:relative;aspect-ratio:16/9;background:#111;overflow:hidden}
+.thumb img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.v:hover .thumb img{transform:scale(1.05)}
+.dur{position:absolute;right:8px;bottom:8px;background:rgba(0,0,0,.8);font-size:12px;padding:2px 7px;border-radius:5px}
+.play{position:absolute;inset:0;display:grid;place-items:center;opacity:0;transition:.25s;background:rgba(0,0,0,.25)}
+.play::after{content:"▶";width:58px;height:58px;border-radius:50%;background:var(--mag);display:grid;place-items:center;font-size:20px;padding-left:4px}
+.v:hover .play{opacity:1}
+.vi{padding:14px 16px 16px}
+.vi h3{font-size:17px;line-height:1.25;font-weight:600}
+.vi .m{font-size:12px;color:var(--mut);margin-top:8px}
+.feature .v .vi h3{font-size:22px}
+.ftxt .mono{color:var(--cy);font-size:12px}
+.ftxt h3{font-size:30px;line-height:1.1;margin:10px 0 14px}
+.ftxt p{color:var(--mut)}
+.loadmore{display:flex;justify-content:center;margin-top:30px}
+
+/* albums */
+.agrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:22px}
+.al{background:var(--card);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;transition:.25s;display:flex;flex-direction:column}
+.al:hover{border-color:var(--cy);transform:translateY(-3px);box-shadow:0 10px 30px rgba(0,229,255,.12)}
+.cover{position:relative;aspect-ratio:1;background:linear-gradient(135deg,#2a0020,#001f26);cursor:pointer;overflow:hidden;border:0;padding:0;width:100%;display:block}
+.cover img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.al:hover .cover img{transform:scale(1.05)}
+.cover .ph{position:absolute;inset:0;display:grid;place-items:center;font-size:22px;font-weight:700;letter-spacing:.1em;padding:20px;text-align:center}
+.badge{position:absolute;left:10px;top:10px;background:rgba(0,0,0,.75);border:1px solid rgba(255,255,255,.15);font-size:11px;padding:4px 8px;border-radius:6px}
+.badge.sc{color:#ff7a1a}
+.ai{padding:14px 16px 16px;display:flex;flex-direction:column;gap:6px;flex:1}
+.ai h3{font-size:20px;line-height:1.15}
+.ai .m{font-size:12px;color:var(--mut)}
+.ai .d{font-size:15px;color:#c4c4cf;line-height:1.35}
+.acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:10px}
+.chip{font-size:12px;padding:6px 10px;border-radius:7px;border:1px solid var(--line);color:var(--mut);transition:.2s;background:none;cursor:pointer;font-family:"Share Tech Mono",monospace;letter-spacing:.06em}
+.chip:hover{color:var(--txt);border-color:var(--mag)}
+.chip.hl{color:var(--cy);border-color:rgba(0,229,255,.4)}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
+.tabs button{background:none;border:1px solid var(--line);color:var(--mut);padding:9px 16px;border-radius:9px;font:inherit;font-weight:600;cursor:pointer}
+.tabs button.on{border-color:var(--mag);color:var(--txt);background:rgba(255,0,170,.1)}
+
+/* soundcloud first */
+.sc-box{display:grid;grid-template-columns:1fr 1.3fr;gap:30px;align-items:center;background:linear-gradient(135deg,rgba(255,85,0,.1),rgba(255,0,170,.08));border:1px solid var(--line);border-radius:20px;padding:34px}
+@media(max-width:860px){.sc-box{grid-template-columns:1fr;padding:22px}}
+.sc-box iframe{width:100%;height:450px;border:0;border-radius:12px}
+
+/* support */
+.support{text-align:center;padding:70px 20px;border:1px solid var(--line);border-radius:20px;background:radial-gradient(ellipse at center,rgba(255,0,170,.12),transparent 70%)}
+.support h2{margin-bottom:12px}
+.support p{color:var(--mut);max-width:520px;margin:0 auto 26px}
+
+footer{border-top:1px solid var(--line);padding:40px 0;color:var(--mut);font-size:14px}
+.fgrid{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.flinks{display:flex;flex-wrap:wrap;gap:14px}
+.flinks a:hover{color:var(--cy)}
+
+/* modal */
+.modal{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.88);display:none;align-items:center;justify-content:center;padding:16px}
+.modal.open{display:flex}
+.mbox{width:min(1000px,100%);position:relative}
+.mbox .frame{position:relative;aspect-ratio:16/9;background:#000;border-radius:12px;overflow:hidden}
+.mbox.sc .frame{aspect-ratio:auto;height:min(560px,80svh)}
+.mbox iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.mclose{position:absolute;top:-46px;right:0;background:none;border:1px solid var(--line);color:#fff;border-radius:8px;padding:6px 12px;cursor:pointer;font-family:"Share Tech Mono",monospace}
+.mlink{display:inline-block;margin-top:12px;color:var(--cy);font-size:14px}
+
+@media(max-width:560px){
+  .vgrid,.agrid{grid-template-columns:1fr 1fr;gap:10px}
+  .vi,.ai{padding:10px 10px 12px}
+  .vi h3{font-size:14px}.ai h3{font-size:16px}.ai .d{font-size:13px}
+  .play::after{width:42px;height:42px;font-size:15px}
+  .chip{font-size:11px;padding:5px 7px}
+  section{padding:64px 0}
+}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s,transform .7s}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none}*{transition:none!important}}
+</style>
 </head>
 <body>
 
-<nav>
-  <a href="index.html" class="nav-logo">Blagoday Vision</a>
-  <div class="nav-right">
-    <ul class="nav-links">
-      <li><a href="videos.html" data-t="nav-videos"></a></li>
-      <li><a href="music.html" data-t="nav-music"></a></li>
-      <li><a href="about.html" data-t="nav-about"></a></li>
-      <li><a href="https://www.youtube.com/@BlagodayVision" target="_blank" style="color:#fff!important;border:1px solid rgba(255,255,255,0.3);padding:.3rem .85rem">YouTube ↗</a></li>
-    </ul>
-    <div class="lang-switcher">
-      <button class="lang-btn" id="btn-uk" onclick="setLang('uk')">UA</button>
-      <div class="lang-sep"></div>
-      <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+<header id="hdr">
+  <div class="wrap nav">
+    <a href="#top" class="logo">BLAGODAY <b>●</b></a>
+    <nav class="links mono" id="links">
+      <a href="#videos" data-i="nav_v">Відео</a>
+      <a href="#albums" data-i="nav_a">Альбоми</a>
+      <a href="#releases" data-i="nav_r">Релізи</a>
+      <a href="#listen" data-i="nav_l">Слухати</a>
+      <a href="#support" data-i="nav_s">Підтримка</a>
+    </nav>
+    <div class="right">
+      <div class="lang"><button data-l="uk" class="on">UA</button><button data-l="en">EN</button></div>
+      <button class="burger" id="burger" aria-label="Menu">☰</button>
     </div>
   </div>
-</nav>
+</header>
 
-<main>
+<main id="top">
   <section class="hero">
-    <div class="hero-eyebrow"><span class="blink">▮</span><span data-t="hero-eyebrow"></span></div>
-    <h1>
-      <span class="hero-line1">BLAGODAY</span>
-      <span class="hero-line2">VISION<span class="cursor"></span></span>
-    </h1>
-    <div class="hero-sub" data-t="hero-h1-sub"></div>
-    <p class="hero-desc" data-t="hero-desc"></p>
-    <div class="hero-tags">
-      <span class="tag">🌌 Cosmic Ambient</span>
-      <span class="tag">🌃 Neon Megacities</span>
-      <span class="tag">🤖 AI-Driven Worlds</span>
-      <span class="tag">🚀 Sci-Fi 2250</span>
-      <span class="tag">🎥 4K Cinematic</span>
-    </div>
-    <div class="hero-btns">
-      <a href="videos.html" class="btn-primary" data-t="hero-btn1"></a>
-      <a href="music.html" class="btn-ghost" data-t="hero-btn2"></a>
+    <div class="hero-bg" style="background-image:url('https://i.ytimg.com/vi/HsCic-KPgzc/maxresdefault.jpg')"></div>
+    <div class="wrap">
+      <div class="kicker mono" data-i="kick">Кінематографічний ембієнт — Життя в 2250</div>
+      <h1>BLAGODAY<span>VISION</span></h1>
+      <p class="lead" data-i="lead">Занурся у всесвіт іммерсивної релаксації та кінематографічного звуку. Глибокий мелодійний ембієнт, неонові мегаполіси та прогресивні цивілізації 2250 року.</p>
+      <div class="btns">
+        <a class="btn p" href="#videos" data-i="b_watch">▶ Дивитись відео</a>
+        <a class="btn c" href="#albums" data-i="b_listen">♪ Слухати музику</a>
+      </div>
+      <div class="stats">
+        <div class="stat"><b>4.6K+</b><span class="mono" data-i="s_subs">Підписників</span></div>
+        <div class="stat"><b id="st_v">30+</b><span class="mono" data-i="s_vid">Відео</span></div>
+        <div class="stat"><b>86</b><span class="mono" data-i="s_tr">Треків на SoundCloud</span></div>
+        <div class="stat"><b>2250</b><span class="mono" data-i="s_year">Рік візії</span></div>
+      </div>
     </div>
   </section>
 
-  <div class="stats-bar">
-    <div class="stat"><span class="stat-num">4K</span><span class="stat-label" data-t="stat1"></span></div>
-    <div class="stat"><span class="stat-num">∞</span><span class="stat-label" data-t="stat2"></span></div>
-    <div class="stat"><span class="stat-num">2250</span><span class="stat-label" data-t="stat3"></span></div>
-    <div class="stat"><span class="stat-num">AI</span><span class="stat-label" data-t="stat4"></span></div>
-  </div>
-
-  <div class="marquee-wrap"><div class="marquee">
-    <span class="marquee-item">DEEP MELODIC AMBIENT</span><span class="marquee-sep"> /// </span>
-    <span class="marquee-item">FUTURISTIC SOUNDSCAPES</span><span class="marquee-sep"> /// </span>
-    <span class="marquee-item">NEON HORIZONS</span><span class="marquee-sep"> /// </span>
-    <span class="marquee-item">ADVANCED CIVILIZATIONS</span><span class="marquee-sep"> /// </span>
-    <span class="marquee-item">INTERSTELLAR ATMOSPHERES</span><span class="marquee-sep"> /// </span>
-    <span class="marquee-item">LIFE IN 2250</span><span class="marquee-sep"> /// </span>
-    <span class="marquee-item">AI CINEMATIC WORLDS</span><span class="marquee-sep"> /// </span>
-    <span class="marquee-item">DEEP MELODIC AMBIENT</span><span class="marquee-sep"> /// </span>
-    <span class="marquee-item">FUTURISTIC SOUNDSCAPES</span><span class="marquee-sep"> /// </span>
-    <span class="marquee-item">NEON HORIZONS</span><span class="marquee-sep"> /// </span>
-    <span class="marquee-item">ADVANCED CIVILIZATIONS</span><span class="marquee-sep"> /// </span>
-    <span class="marquee-item">INTERSTELLAR ATMOSPHERES</span><span class="marquee-sep"> /// </span>
-    <span class="marquee-item">LIFE IN 2250</span><span class="marquee-sep"> /// </span>
-    <span class="marquee-item">AI CINEMATIC WORLDS</span><span class="marquee-sep"> /// </span>
-  </div></div>
-
-  <section class="section">
-    <div class="s-eyebrow" data-t="featured-tag"></div>
-    <div class="s-title" data-t="featured-title"></div>
-    <div class="video-grid" id="vgrid"></div>
-    <div style="text-align:center;margin-top:2.5rem">
-      <a href="videos.html" class="btn-ghost" data-t="featured-more"></a>
+  <!-- LISTEN -->
+  <section id="listen" style="padding-top:20px">
+    <div class="wrap reveal">
+      <div class="sh"><div><div class="mono" data-i="l_k">Де слухати</div><h2>Blagoday Music</h2></div></div>
+      <div class="plat" id="plat"></div>
     </div>
   </section>
 
-  <section class="cta-section">
-    <div class="cta-eyebrow" data-t="cta-eyebrow"></div>
-    <div class="cta-title" data-t="cta-title"></div>
-    <p class="cta-sub" data-t="cta-sub"></p>
-    <a href="https://www.youtube.com/@BlagodayVision" target="_blank" class="btn-primary" data-t="cta-btn"></a>
+  <!-- VIDEOS -->
+  <section id="videos">
+    <div class="wrap">
+      <div class="sh reveal">
+        <div><div class="mono" data-i="v_k">Архів сигналів</div><h2 data-i="v_h">Відео</h2>
+        <p class="sub" data-i="v_s">Серія «Life in 2250» на YouTube-каналі Blagoday Vision. Уся музика у відео — оригінальна.</p></div>
+        <a class="more mono" href="https://www.youtube.com/@BlagodayVision/videos" target="_blank" rel="noopener" data-i="v_all">Всі відео на YouTube ↗</a>
+      </div>
+      <div class="feature reveal" id="feat"></div>
+      <div class="vgrid" id="vgrid"></div>
+      <div class="loadmore"><button class="btn" id="vmore" data-i="more">Показати більше</button></div>
+    </div>
+  </section>
+
+  <!-- ALBUMS -->
+  <section id="albums">
+    <div class="wrap">
+      <div class="sh reveal">
+        <div><div class="mono" data-i="a_k">SoundCloud — головна сцена</div><h2 data-i="a_h">Альбоми</h2>
+        <p class="sub" data-i="a_s">Усі нові релізи спершу виходять на SoundCloud. Натисни на обкладинку, щоб слухати прямо тут.</p></div>
+        <a class="more mono" href="https://soundcloud.com/blagodaymusic" target="_blank" rel="noopener" data-i="a_all">Профіль SoundCloud ↗</a>
+      </div>
+      <div class="tabs reveal" id="atabs">
+        <button class="on" data-f="album" data-i="t_alb">Альбоми</button>
+        <button data-f="other" data-i="t_arch">Архів і плейлисти</button>
+      </div>
+      <div class="agrid" id="agrid"></div>
+    </div>
+  </section>
+
+  <!-- SOUNDCLOUD ALL TRACKS -->
+  <section style="padding-top:20px">
+    <div class="wrap reveal">
+      <div class="sc-box">
+        <div>
+          <div class="mono" style="color:#ff7a1a;font-size:12px" data-i="sc_k">Тільки на SoundCloud</div>
+          <h2 style="margin:10px 0 14px" data-i="sc_h">Усі 86 треків</h2>
+          <p class="sub" data-i="sc_s">Частина музики доступна лише на SoundCloud: ранні треки, кавери, версії, яких немає на стрімінгах.</p>
+          <div class="btns" style="margin-top:22px"><a class="btn p" style="background:#ff5500;border-color:#ff5500;box-shadow:0 0 24px rgba(255,85,0,.35)" href="https://soundcloud.com/blagodaymusic/tracks" target="_blank" rel="noopener" data-i="sc_b">Відкрити на SoundCloud ↗</a></div>
+        </div>
+        <iframe loading="lazy" title="SoundCloud" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/blagodaymusic&color=%23ff00aa&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- RELEASES -->
+  <section id="releases">
+    <div class="wrap">
+      <div class="sh reveal">
+        <div><div class="mono" data-i="r_k">Дистрибуція</div><h2 data-i="r_h">На стрімінгах</h2>
+        <p class="sub" data-i="r_s">Релізи, що вийшли на Spotify, Apple Music, YouTube Music, Amazon Music, Deezer, Tidal та інших платформах.</p></div>
+        <a class="more mono" href="https://open.spotify.com/artist/7vR7IPUnvlg6bQgpaPv1xb" target="_blank" rel="noopener" data-i="r_all">Spotify ↗</a>
+      </div>
+      <div class="agrid" id="rgrid"></div>
+    </div>
+  </section>
+
+  <!-- SUPPORT -->
+  <section id="support">
+    <div class="wrap reveal">
+      <div class="support">
+        <div class="mono" style="color:var(--mag);font-size:12px;margin-bottom:10px" data-i="su_k">Підтримка</div>
+        <h2 data-i="su_h">Готовий до подорожі у 2250 рік?</h2>
+        <p data-i="su_s">Нові кінематографічні мандрівки та тривалі ембієнт-мікси завантажуються регулярно.</p>
+        <div class="btns" style="justify-content:center">
+          <a class="btn p" href="https://www.youtube.com/@BlagodayVision?sub_confirmation=1" target="_blank" rel="noopener" data-i="su_yt">Підписатись на YouTube ↗</a>
+          <a class="btn c" href="https://ko-fi.com/blagodayvision" target="_blank" rel="noopener">☕ Ko-fi ↗</a>
+        </div>
+      </div>
+    </div>
   </section>
 </main>
 
 <footer>
-  <div class="footer-nav-row">
-    <a href="videos.html" data-t="nav-videos"></a>
-    <a href="music.html" data-t="nav-music"></a>
-    <a href="about.html" data-t="nav-about"></a>
-    <a href="https://www.youtube.com/@BlagodayVision" target="_blank">YouTube</a>
-  </div>
-  <div class="footer-social-row">
-    <a href="#" class="footer-social-item"><div class="footer-social-name">YouTube</div><div class="footer-social-handle">@BlagodayVision</div></a>
-    <a href="#" class="footer-social-item"><div class="footer-social-name">Spotify</div><div class="footer-social-handle">Blagoday</div></a>
-    <a href="#" class="footer-social-item"><div class="footer-social-name">Apple Music</div><div class="footer-social-handle">Blagoday</div></a>
-    <a href="#" class="footer-social-item"><div class="footer-social-name">Ko-fi</div><div class="footer-social-handle">Support</div></a>
-    <a href="#" class="footer-social-item"><div class="footer-social-name">Instagram</div><div class="footer-social-handle">@blagoday</div></a>
-    <a href="#" class="footer-social-item"><div class="footer-social-name">TikTok</div><div class="footer-social-handle">@blagoday</div></a>
-  </div>
-  <div class="footer-bottom">
-    <div class="footer-copy">© 2025 Blagoday Vision — All Rights Reserved</div>
-    <div class="footer-signal">// Sound Beyond the Horizon</div>
+  <div class="wrap fgrid">
+    <div>© <span id="yr"></span> Blagoday Vision · Blagoday Music</div>
+    <div class="flinks" id="flinks"></div>
   </div>
 </footer>
 
-<div class="modal-overlay" id="videoModal" onclick="closeModal(event)">
-  <div class="modal-inner">
-    <button class="modal-close" onclick="closeModalBtn()">[ ESC ] CLOSE</button>
-    <div class="modal-video"><iframe id="modalIframe" src="" allowfullscreen allow="autoplay"></iframe></div>
+<div class="modal" id="modal" role="dialog" aria-modal="true">
+  <div class="mbox" id="mbox">
+    <button class="mclose" id="mclose">✕ ESC</button>
+    <div class="frame" id="mframe"></div>
+    <a class="mlink mono" id="mlink" target="_blank" rel="noopener"></a>
   </div>
 </div>
 
-<script src="lang.js"></script>
 <script>
-const FEATURED=[
-  {id:'R9sQVe0I_zg',vol:'VOL. 01',title:'Deep Ambient — Neon Megacity 2250',tag:'DEEP FOCUS'},
-  {id:'h2vHzrmb-bY',vol:'VOL. 02',title:'Cosmic Soundscape — Interstellar Horizons',tag:'COSMIC AMBIENT'},
-  {id:'Ahl2LXtIJKs',vol:'VOL. 03',title:'AI World — Smart City at Dawn',tag:'SCI-FI 2250'},
-  {id:'km-jJqYV3Qc',vol:'VOL. 04',title:'Future Earth — Organic Architecture',tag:'SOLARPUNK'},
+/* ---------- DATA ---------- */
+const PLAT=[
+ ["SoundCloud","https://soundcloud.com/blagodaymusic","#ff5500"],
+ ["Spotify","https://open.spotify.com/artist/7vR7IPUnvlg6bQgpaPv1xb","#1db954"],
+ ["Apple Music","https://music.apple.com/artist/blagoday-music/1815470121","#fa2d48"],
+ ["YouTube Music","https://music.youtube.com/channel/UCSix1iS0DBEYPn747RTcVww","#ff0000"],
+ ["Amazon Music","https://music.amazon.com/artists/B0F99WFHL6","#25d1da"],
+ ["Deezer","https://www.deezer.com/artist/324283881","#a238ff"],
+ ["Tidal","https://tidal.com/artist/60384914","#ffffff"],
+ ["Audiomack","https://audiomack.com/blagoday-music","#ffa200"],
+ ["YouTube · Vision","https://www.youtube.com/@BlagodayVision","#ff0000"],
+ ["YouTube · Music","https://www.youtube.com/@BlagoMusic","#ff0000"],
+ ["Ko-fi","https://ko-fi.com/blagodayvision","#29abe0"]
 ];
-function buildVideos(){
-  const grid=document.getElementById('vgrid');
-  if(!grid)return;
-  FEATURED.forEach(v=>{
-    const c=document.createElement('div');
-    c.className='video-card';
-    c.onclick=()=>openModal(v.id);
-    c.innerHTML=`<div class="video-thumb"><img src="https://img.youtube.com/vi/${v.id}/maxresdefault.jpg" loading="lazy" onerror="this.src='https://img.youtube.com/vi/${v.id}/hqdefault.jpg'"><div class="play-overlay"><div class="play-btn">▶</div></div></div><div class="video-meta"><div class="video-vol">${v.vol}</div><div class="video-title">${v.title}</div><span class="vtag">${v.tag}</span></div>`;
-    grid.appendChild(c);
-  });
+const SC="https://soundcloud.com/blagodaymusic/sets/";
+const ART=a=>a?`https://i1.sndcdn.com/artworks-${a}-t500x500.jpg`:"";
+// [title, slug, artwork, date, genre, tracks, type, desc_uk, desc_en, videoId]
+const ALBUMS=[
+ ["Glass Orchard","glass-orchard","8ODXNt8XozKvzuQH-yNFyBA","2026-10-02","Deep House",20,"album",
+  "20 інструментальних Deep House композицій. 80 BPM, глибокий саб-бас, аналогові синтезатори, ефірні пади.",
+  "20 instrumental Deep House compositions. 80 BPM, deep sub-bass, lush analog synthesizers, ethereal pads.",""],
+ ["Back Home","back-home","ayE2HUJ2awUUaPKL-yX79jA","2026-07-02","Electronic",4,"album",
+  "Усі треки звучать у відео «Back Home 2250 | 1 Hour Cinematic 4K».",
+  "All tracks are featured in the video “Back Home 2250 | 1 Hour Cinematic 4K”.","wquGZkYhtms"],
+ ["First Wave","first-wave","1MXRcQArqHcCDnTE-nzmorA","2026-07-01","Electronic",6,"album",
+  "Усі треки звучать у відео «Golden City of the Future | 1 Hour Luxury Deep Electronic Ambient».",
+  "All tracks are featured in the video “Golden City of the Future | 1 Hour Luxury Deep Electronic Ambient”.","kbkVwcIBiQ0"],
+ ["Skyline Drift","skyline-drift","n0nuWdbytmwcAp1q-ODTOOg","2026-06-03","Chillout",23,"album",
+  "23 оригінальні чилаут-композиції з лаунж-атмосферою та вініловим скретчем.",
+  "23 original chillout compositions with lounge atmosphere and vinyl scratch elements.",""],
+ ["Journey To The Dreams","journey-to-the-dreams","ddinhiyUljM7PxDz-VHPbLA","2024-12-18","EDM / Ambient",3,"album","","",""],
+ ["I Will Show You The Future","i-will-show-you-the-future","","2026-06-30","",1,"other","","",""],
+ ["I Don't Like Techno","i-dont","Uzy2LfCmjnRiXW0Z-QNznRw","2024-09-08","Techno",2,"other","","",""],
+ ["Polyglot","bright-spirit","FGbobzhgsyyG8eGY-9Pc4JQ","2024-09-06","",9,"other","Пісні різними мовами.","Songs in different languages.",""],
+ ["Oil Painting","oil-painting","k9XZkjOvhTuDzJQs-z0lxtQ","2024-09-01","",6,"other","","",""],
+ ["Background Music","background-music-for-video","FGS23QIRsB8j0XoS-49XB8g","2024-09-01","Background",6,"other","","",""]
+];
+const MZ="https://is1-ssl.mzstatic.com/image/thumb/";
+// [title, type, date, tracks, appleId, artPath]
+const RELEASES=[
+ ["Warm Embrace","Single","2026-08-21",1,"6797204878","Music211/v4/cd/76/83/cd76837e-50fb-fea1-6f21-35e2c886671e/885975995571_cover.jpg"],
+ ["Cybernetic Colonization","Single","2026-06-29",1,"6798436487","Music211/v4/55/e0/d2/55e0d2f5-6fcf-1071-81d5-8af9f9012a96/991048626119.png"],
+ ["I Just Stay Calm (Code Wall)","Single","2026-06-05",1,"6777138088","Music211/v4/92/f6/ad/92f6ad37-9009-6994-dbbb-c9129b333c8b/991043986836.png"],
+ ["Archive 2250","Single","2026-05-19",1,"6771117633","Music221/v4/1e/35/df/1e35dfe6-6e57-24c9-cc7a-5962c84878a1/991043841876.png"],
+ ["ВЗАЄМОЗАЛЕЖНІ","Single","2026-05-01",1,"1896045852","Music221/v4/bb/57/d4/bb57d404-ea08-b14f-e2ba-71be7a1e9307/991043648987.png"],
+ ["Взаємозалежні (Radio Edit)","Single","2026-05-01",1,"1896052568","Music221/v4/aa/2f/e1/aa2fe14c-4403-20da-431f-3ef8c7c3ed1c/991043657101.png"],
+ ["Quark","Album","2026-04-05",10,"1890926686","Music221/v4/bb/eb/f6/bbebf6f6-4a8c-eef7-8e73-fb72b4a2b1b7/991043241935.png"],
+ ["Approximation","Album","2026-03-20",12,"1886612181","Music211/v4/06/cc/77/06cc779b-6e0f-bc25-ea8d-a941a368fa89/991043234340.png"],
+ ["Infinity","EP","2026-03-20",1,"1886609515","Music211/v4/a6/f0/dd/a6f0dd7d-8f66-c07a-ee49-c7ee6a74fcce/991043233374.png"],
+ ["I'm Just Stay Calm","Single","2026-03-07",1,"1883400604","Music211/v4/a4/73/df/a473df63-7813-b040-fd7c-b7066fbfeb67/991043109501.png"],
+ ["Civitas 2250","Album","2026-02-27",11,"1880765171","Music211/v4/8d/89/f4/8d89f435-2ec0-4cb6-7d0c-aac76ce581c3/991043033103.png"],
+ ["I Will Show You Future","Single","2026-02-23",1,"1879624930","Music211/v4/bb/ff/63/bbff63b4-51af-5fe6-7908-b3b8ad4122e4/057914990118.png"]
+];
+// [id, title, date, length]
+const VIDEOS=[
+ ["HsCic-KPgzc","This Is What a Happy Future Looks Like | Life in 2250 (4K Ambience)","2026-09-12","10:18"],
+ ["h_oUrkFhXes","Life in 2250 [Vol. 48]: Warm Guitar & Future City | 1 Hour 4K Ambient","2026-09-03","1:06:59"],
+ ["UoB5zYC2GDI","Life in 2250 [Vol. 47]: Towers Where the Trees Grow | 1 Hour 4K Ambient","2026-09-03","1:08:18"],
+ ["EKD5ktbVi-I","Life in 2250 [Vol. 46]: Refuge at the Edge of the Sea | Deep Focus Ambient","2026-06-03","1:02:37"],
+ ["R165O33tUc8","Life in 2250 [Vol. 45]: Bio-Digital Reality | 4K Cinematic Sci-Fi Ambient","2026-06-03","16:53"],
+ ["8DAXLGY8mes","Life in 2250 [Vol. 44]: Eco-Cities, Space Travel & Future Life (4K 1Hour)","2026-06-03","1:00:11"],
+ ["VVpw0b4EEBQ","Life in 2250 [Vol. 42]: AI Sovereignty & Neural Infrastructure [1H] [4K]","2026-06-03","1:00:50"],
+ ["ZmCZJatpooc","Life in 2250 [Vol. 41]: Oceanic Outposts & Deep-Sea Colonization [1H] [4K]","2026-06-03","1:01:34"],
+ ["t0rl6Pg62qo","Life in 2250: Colonization 4K | Futuristic Music & Sci-Fi Ambience (1 Hour) Vol. 40","2026-05-03","1:02:06"],
+ ["o35u4QDwWjk","Life in 2250: Smart City - Futuristic Atmosphere | 1 Hour 4K | Sci-Fi","2026-05-03","1:03:50"],
+ ["d28nX0P4QXw","Future City 2250 | AI Sci-Fi Short Film (Eco Megacity) | 1 HOUR Futuristic Ambient","2026-05-03","1:01:13"],
+ ["S46qEHAV-74","Life in 2250 [Vol. 38]: Nanotech Construction & Self-Healing Cities [1H] [4K]","2026-05-03","1:02:32"],
+ ["MwmTxNcZDLY","Life in 2250 [Vol. 37]: Fusion Energy Grids & Smart Power Hubs [1H] [4K]","2026-05-03","1:00:44"],
+ ["LWJq_MAFNWw","Life in 2250 [Vol. 36]: Vertical Habitats & Bio-Engineered Architecture [1H] [4K]","2026-05-03","1:00:10"],
+ ["DmWR4c7kpP8","Life in 2250 [Vol. 35]: Autonomous Urban Systems & AI Management [1H] [4K]","2026-05-03","1:00:42"],
+ ["IDUJ24Bnsl4","Life in 2250 [Vol. 34]: Smart Megacity Infrastructure & AI Integration [4K]","2026-05-03","1:00:06"],
+ ["jDF3pejydOI","Life in 2250 [Vol. 33]: Autonomous Eco-Systems & Resource Recovery [1H] [4K]","2026-05-03","1:05:42"],
+ ["J5I8IXOaWbk","Life in 2250 [Vol. 32]: AI Sci-Fi Short Film & Future City Concepts [4K]","2026-05-03","10:37"],
+ ["UeqZMI2DxbQ","Life in 2250 [Vol. 30]: Future EcoCity & Sci-Fi Ambience [4K]","2026-05-03","10:58"],
+ ["iy2aD5WHp0k","Life in 2250 [Vol. 29]: Artemis Moon Base — Real Launch & Future Colonization [1H] [4K]","2026-05-03","1:02:31"],
+ ["P4HGyO5DmFA","Life in 2250 [Vol. 28]: Neural Grid & AI Infrastructure [1H] [4K]","2026-04-03","1:10:12"],
+ ["02lse90R6D0","Life in 2250 [Vol. 27]: Eco-Cybernetic Urbanism [1 H] [4K]","2026-04-03","1:02:03"],
+ ["qSH_9VGl2m8","Life in 2250 [Vol. 26]: Biosphere Engineering & Autonomous Systems [4K]","2026-04-03","1:04:16"],
+ ["gqDx2Ty7YEA","Bio-Integrated Engineering Future Sight: Life in 2250's Eco Megacities","2026-04-03","1:05:46"],
+ ["IqH2a9JtiIU","Life in 2250 [Vol. 24]: Quantum Communications & Tech [1H] [4K]","2026-04-03","1:04:10"],
+ ["fL9R-_G7EkA","Life in 2250 [Vol. 23]: Smart City Infrastructure & Bio-Digital Tech [4K]","2026-04-03","1:05:17"],
+ ["KQvhsQ0w5Us","Life in 2250 [Vol. 22]: Eco Megacity Life (4K 1H Deep House)","2026-04-03","1:01:38"],
+ ["Qq19wvW8tZ0","Life in 2250 [Vol. 21]: Living Towers & Aerial Waterfalls [1 H] [4K]","2026-04-03","1:08:22"],
+ ["lnCYS-eHxh4","Life in 2250 [Vol. 20]: Garden City & Cascading Terraces (4K 1H Deep House)","2026-04-03","1:01:19"],
+ ["MilVly3x9jU","Life in 2250 [Vol. 19]: Digital Immortality & New Eden (4K 1H Deep House)","2026-04-03","1:02:29"]
+];
+
+/* ---------- I18N ---------- */
+const T={
+ uk:{nav_v:"Відео",nav_a:"Альбоми",nav_r:"Релізи",nav_l:"Слухати",nav_s:"Підтримка",
+  kick:"Кінематографічний ембієнт — Життя в 2250",
+  lead:"Занурся у всесвіт іммерсивної релаксації та кінематографічного звуку. Глибокий мелодійний ембієнт, неонові мегаполіси та прогресивні цивілізації 2250 року.",
+  b_watch:"▶ Дивитись відео",b_listen:"♪ Слухати музику",s_subs:"Підписників",s_vid:"Відео",s_tr:"Треків на SoundCloud",s_year:"Рік візії",
+  l_k:"Де слухати",v_k:"Архів сигналів",v_h:"Відео",v_s:"Серія «Life in 2250» на YouTube-каналі Blagoday Vision. Уся музика у відео — оригінальна.",
+  v_all:"Всі відео на YouTube ↗",more:"Показати більше",less:"Згорнути",latest:"Нове відео",watch:"Дивитись",
+  a_k:"SoundCloud — головна сцена",a_h:"Альбоми",a_s:"Усі нові релізи спершу виходять на SoundCloud. Натисни на обкладинку, щоб слухати прямо тут.",
+  a_all:"Профіль SoundCloud ↗",t_alb:"Альбоми",t_arch:"Архів і плейлисти",tracks:"треків",track:"трек",play:"▶ Слухати",video:"▶ Відео",
+  sc_k:"Тільки на SoundCloud",sc_h:"Усі 86 треків",sc_s:"Частина музики доступна лише на SoundCloud: ранні треки, кавери, версії, яких немає на стрімінгах.",sc_b:"Відкрити на SoundCloud ↗",
+  r_k:"Дистрибуція",r_h:"На стрімінгах",r_s:"Релізи, що вийшли на Spotify, Apple Music, YouTube Music, Amazon Music, Deezer, Tidal та інших платформах.",r_all:"Spotify ↗",
+  su_k:"Підтримка",su_h:"Готовий до подорожі у 2250 рік?",su_s:"Нові кінематографічні мандрівки та тривалі ембієнт-мікси завантажуються регулярно.",su_yt:"Підписатись на YouTube ↗",
+  open_sc:"Відкрити на SoundCloud ↗",open_yt:"Відкрити на YouTube ↗"},
+ en:{nav_v:"Videos",nav_a:"Albums",nav_r:"Releases",nav_l:"Listen",nav_s:"Support",
+  kick:"Cinematic Ambient — Life in 2250",
+  lead:"Dive into a universe of immersive relaxation and cinematic sound. Deep melodic ambient, neon megacities and the advanced civilizations of 2250.",
+  b_watch:"▶ Watch videos",b_listen:"♪ Listen to music",s_subs:"Subscribers",s_vid:"Videos",s_tr:"Tracks on SoundCloud",s_year:"Year of vision",
+  l_k:"Where to listen",v_k:"Signal archive",v_h:"Videos",v_s:"The “Life in 2250” series on the Blagoday Vision YouTube channel. All music in the videos is original.",
+  v_all:"All videos on YouTube ↗",more:"Show more",less:"Show less",latest:"Latest video",watch:"Watch",
+  a_k:"SoundCloud — our main stage",a_h:"Albums",a_s:"Every new release lands on SoundCloud first. Tap a cover to listen right here.",
+  a_all:"SoundCloud profile ↗",t_alb:"Albums",t_arch:"Archive & playlists",tracks:"tracks",track:"track",play:"▶ Listen",video:"▶ Video",
+  sc_k:"SoundCloud only",sc_h:"All 86 tracks",sc_s:"Some music lives only on SoundCloud: early tracks, covers and versions not available on streaming services.",sc_b:"Open on SoundCloud ↗",
+  r_k:"Distribution",r_h:"On streaming",r_s:"Releases available on Spotify, Apple Music, YouTube Music, Amazon Music, Deezer, Tidal and more.",r_all:"Spotify ↗",
+  su_k:"Support",su_h:"Ready to travel to 2250?",su_s:"New cinematic journeys and long ambient mixes are uploaded regularly.",su_yt:"Subscribe on YouTube ↗",
+  open_sc:"Open on SoundCloud ↗",open_yt:"Open on YouTube ↗"}
+};
+let L="uk"; try{const s=localStorage.getItem("bl_lang"); if(s&&T[s]) L=s; else if(!navigator.language.startsWith("uk")) L="en";}catch(e){}
+const t=k=>T[L][k]||k;
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const fmtD=d=>new Date(d+"T00:00:00").toLocaleDateString(L==="uk"?"uk-UA":"en-US",{year:"numeric",month:"short",day:"numeric"});
+const plural=n=>n===1?t("track"):t("tracks");
+
+/* ---------- RENDER ---------- */
+function renderPlat(){
+  document.getElementById("plat").innerHTML=PLAT.map(([n,u,c])=>`<a href="${u}" target="_blank" rel="noopener"><i style="background:${c};box-shadow:0 0 10px ${c}"></i>${n}</a>`).join("");
+  document.getElementById("flinks").innerHTML=PLAT.map(([n,u])=>`<a href="${u}" target="_blank" rel="noopener">${n}</a>`).join("");
 }
-function openModal(id){document.getElementById('modalIframe').src=`https://www.youtube.com/embed/${id}?autoplay=1&rel=0`;document.getElementById('videoModal').classList.add('open');document.body.style.overflow='hidden';}
-function closeModalBtn(){document.getElementById('modalIframe').src='';document.getElementById('videoModal').classList.remove('open');document.body.style.overflow='';}
-function closeModal(e){if(e.target===document.getElementById('videoModal'))closeModalBtn();}
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModalBtn();});
-buildVideos();
-initLang();
+const vCard=v=>`<button class="v" data-yt="${v[0]}"><div class="thumb"><img loading="lazy" src="https://i.ytimg.com/vi/${v[0]}/hqdefault.jpg" alt=""><span class="dur">${v[3]}</span><div class="play"></div></div><div class="vi"><h3>${esc(v[1])}</h3><div class="m mono">${fmtD(v[2])}</div></div></button>`;
+let vShown=8;
+function renderVideos(){
+  const f=VIDEOS[0];
+  document.getElementById("feat").innerHTML=`<button class="v" data-yt="${f[0]}"><div class="thumb"><img src="https://i.ytimg.com/vi/${f[0]}/maxresdefault.jpg" onerror="this.src='https://i.ytimg.com/vi/${f[0]}/hqdefault.jpg'" alt=""><span class="dur">${f[3]}</span><div class="play"></div></div></button>
+   <div class="ftxt"><div class="mono">${t("latest")} · ${fmtD(f[2])}</div><h3>${esc(f[1])}</h3><button class="btn p" data-yt="${f[0]}">▶ ${t("watch")}</button></div>`;
+  document.getElementById("vgrid").innerHTML=VIDEOS.slice(1,1+vShown).map(vCard).join("");
+  const b=document.getElementById("vmore"); b.textContent=vShown>=VIDEOS.length-1?t("less"):t("more");
+}
+let aFilter="album";
+function renderAlbums(){
+  document.getElementById("agrid").innerHTML=ALBUMS.filter(a=>a[6]===aFilter).map(a=>{
+    const [ti,slug,art,date,genre,n,,du,de,vid]=a; const d=L==="uk"?du:de;
+    return `<article class="al"><button class="cover" data-sc="${slug}" aria-label="${esc(ti)}">${art?`<img loading="lazy" src="${ART(art)}" alt="">`:`<div class="ph">${esc(ti)}</div>`}<span class="badge sc mono">SoundCloud</span></button>
+    <div class="ai"><h3>${esc(ti)}</h3><div class="m mono">${fmtD(date)} · ${n} ${plural(n)}${genre?` · ${esc(genre)}`:""}</div>${d?`<div class="d">${esc(d)}</div>`:""}
+    <div class="acts"><button class="chip hl" data-sc="${slug}">${t("play")}</button>${vid&&vid.trim()?`<button class="chip" data-yt="${vid}">${t("video")}</button>`:""}<a class="chip" href="${SC+slug}" target="_blank" rel="noopener">SoundCloud ↗</a></div></div></article>`;
+  }).join("");
+}
+function renderReleases(){
+  document.getElementById("rgrid").innerHTML=RELEASES.map(r=>{
+    const [ti,ty,date,n,id,art]=r;
+    return `<article class="al"><a class="cover" href="https://music.apple.com/album/${id}" target="_blank" rel="noopener"><img loading="lazy" src="${MZ+art}/600x600bb.jpg" alt=""><span class="badge mono">${ty}</span></a>
+    <div class="ai"><h3>${esc(ti)}</h3><div class="m mono">${fmtD(date)} · ${n} ${plural(n)}</div>
+    <div class="acts"><a class="chip hl" href="https://music.apple.com/album/${id}" target="_blank" rel="noopener">Apple Music ↗</a><a class="chip" href="https://open.spotify.com/search/${encodeURIComponent(ti+" Blagoday Music")}" target="_blank" rel="noopener">Spotify ↗</a><a class="chip" href="https://song.link/i/${id}" target="_blank" rel="noopener">${L==="uk"?"Усі платформи":"All platforms"} ↗</a></div></div></article>`;
+  }).join("");
+}
+function applyI18n(){
+  document.documentElement.lang=L==="uk"?"uk":"en";
+  document.querySelectorAll("[data-i]").forEach(e=>{const k=e.dataset.i; if(T[L][k]) e.textContent=T[L][k];});
+  document.querySelectorAll(".lang button").forEach(b=>b.classList.toggle("on",b.dataset.l===L));
+  renderVideos(); renderAlbums(); renderReleases();
+}
+
+/* ---------- MODAL ---------- */
+const modal=document.getElementById("modal"),mbox=document.getElementById("mbox"),mframe=document.getElementById("mframe"),mlink=document.getElementById("mlink");
+function openYT(id){mbox.className="mbox";mframe.innerHTML=`<iframe src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen title="YouTube"></iframe>`;mlink.href="https://youtu.be/"+id;mlink.textContent=t("open_yt");show();}
+function openSC(slug){mbox.className="mbox sc";const u=encodeURIComponent(SC+slug);mframe.innerHTML=`<iframe allow="autoplay" title="SoundCloud" src="https://w.soundcloud.com/player/?url=${u}&color=%23ff00aa&auto_play=true&visual=true&show_comments=false&show_reposts=false&hide_related=true"></iframe>`;mlink.href=SC+slug;mlink.textContent=t("open_sc");show();}
+function show(){modal.classList.add("open");document.body.style.overflow="hidden";}
+function hide(){modal.classList.remove("open");mframe.innerHTML="";document.body.style.overflow="";}
+document.getElementById("mclose").onclick=hide;
+modal.addEventListener("click",e=>{if(e.target===modal)hide();});
+addEventListener("keydown",e=>{if(e.key==="Escape")hide();});
+document.addEventListener("click",e=>{
+  const y=e.target.closest("[data-yt]"); if(y&&y.dataset.yt.trim()){e.preventDefault();openYT(y.dataset.yt);return;}
+  const s=e.target.closest("[data-sc]"); if(s){e.preventDefault();openSC(s.dataset.sc);}
+});
+
+/* ---------- UI ---------- */
+document.querySelectorAll(".lang button").forEach(b=>b.onclick=()=>{L=b.dataset.l;try{localStorage.setItem("bl_lang",L)}catch(e){}applyI18n();});
+document.getElementById("vmore").onclick=()=>{vShown=vShown>=VIDEOS.length-1?8:VIDEOS.length;renderVideos(); if(vShown===8) document.getElementById("videos").scrollIntoView();};
+document.querySelectorAll("#atabs button").forEach(b=>b.onclick=()=>{aFilter=b.dataset.f;document.querySelectorAll("#atabs button").forEach(x=>x.classList.toggle("on",x===b));renderAlbums();});
+const links=document.getElementById("links");
+document.getElementById("burger").onclick=()=>links.classList.toggle("open");
+links.addEventListener("click",e=>{if(e.target.tagName==="A")links.classList.remove("open");});
+let lastY=0;const hdr=document.getElementById("hdr");
+addEventListener("scroll",()=>{const y=scrollY; hdr.classList.toggle("hide",y>lastY&&y>200&&!links.classList.contains("open")); lastY=y;},{passive:true});
+const io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){x.target.classList.add("in");io.unobserve(x.target);}}),{threshold:.12});
+document.querySelectorAll(".reveal").forEach(e=>io.observe(e));
+document.getElementById("yr").textContent=new Date().getFullYear();
+document.getElementById("st_v").textContent=VIDEOS.length+"+";
+renderPlat(); applyI18n();
 </script>
 </body>
 </html>
