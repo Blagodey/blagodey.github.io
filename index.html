@@ -553,8 +553,8 @@ const PLAT=[
  ["YouTube","https://www.youtube.com/@BlagodayVision","#ff0000"],
  ["Ko-fi","https://ko-fi.com/blagodayvision","#29abe0"]
 ];
-const SC="https://soundcloud.com/blagodaymusic/sets/";
-const SCU=s=>s.indexOf("track:")===0?"https://soundcloud.com/blagodaymusic/"+s.slice(6):SC+s;
+const SCSET="https://soundcloud.com/blagodaymusic/sets/";
+const SCU=s=>s.indexOf("track:")===0?"https://soundcloud.com/blagodaymusic/"+s.slice(6):SCSET+s;
 const ART=a=>a?(a.includes("/")?a:`https://i1.sndcdn.com/artworks-${a}-t500x500.jpg`):"";
 // [title, slug, artwork, date, genre, tracks, type, desc_uk, desc_en, videoId]
 const ALBUMS=[
@@ -766,7 +766,7 @@ function openSC(slug){
   const go=i=>{cur=(i+list.length)%list.length;setUI(cur);if(w)w.load(urlOf(list[cur]),{auto_play:true,show_artwork:false,visual:false});};
   setUI(0);
   W.src="https://w.soundcloud.com/player/?url="+encodeURIComponent(urlOf(list[0]))+"&auto_play=true&visual=false&show_artwork=false";
-  const init=()=>{ if(!window.SC||!SC.Widget){setTimeout(init,200);return;} w=SC.Widget(W); const E=SC.Widget.Events;
+  const init=()=>{ if(!window.SC||!window.SC.Widget){setTimeout(init,200);return;} w=window.SC.Widget(W); const E=window.SC.Widget.Events;
     w.bind(E.PLAY,()=>setPlay(true)); w.bind(E.PAUSE,()=>setPlay(false));
     w.bind(E.PLAY_PROGRESS,e=>{$("scpFill").style.width=(e.relativePosition*100)+"%";$("scpCur").textContent=dur(Math.floor(e.currentPosition/1000));});
     w.bind(E.FINISH,()=>{if(cur<list.length-1)go(cur+1);else setPlay(false);});
