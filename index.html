@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Blagoday — Vision & Music</title>
+<title>Blagoday Production — Vision & Music</title>
 <meta name="description" content="Blagoday Vision & Blagoday Music — cinematic 4K visuals of life in 2250 and original electronic music. Albums on SoundCloud, Spotify, Apple Music and more.">
-<meta property="og:title" content="Blagoday — Vision & Music">
+<meta property="og:title" content="Blagoday Production — Vision & Music">
 <meta property="og:description" content="Cinematic 4K visuals of life in 2250 and original electronic music.">
 <meta property="og:image" content="https://i1.sndcdn.com/artworks-8ODXNt8XozKvzuQH-yNFyBA-t500x500.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -34,7 +34,8 @@ header{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(8,8,8,.82)
 header.hide{transform:translateY(-100%)}
 .nav{display:flex;align-items:center;justify-content:space-between;height:64px;gap:16px}
 .logo{font-weight:700;font-size:20px;letter-spacing:.18em}
-.logo b{color:var(--mag)}
+.logo b{color:var(--mag);font-weight:600}
+@media(max-width:420px){.logo{font-size:16px;letter-spacing:.12em}}
 .links{display:flex;gap:26px;align-items:center}
 .links a{font-size:13px;color:var(--mut);transition:color .2s}
 .links a:hover{color:var(--txt)}
@@ -168,7 +169,7 @@ footer{border-top:1px solid var(--line);padding:40px 0;color:var(--mut);font-siz
 
 <header id="hdr">
   <div class="wrap nav">
-    <a href="#top" class="logo">BLAGODAY <b>●</b></a>
+    <a href="#top" class="logo">BLAGODAY <b>PRODUCTION</b></a>
     <nav class="links mono" id="links">
       <a href="#videos" data-i="nav_v">Відео</a>
       <a href="#albums" data-i="nav_a">Альбоми</a>
@@ -188,11 +189,11 @@ footer{border-top:1px solid var(--line);padding:40px 0;color:var(--mut);font-siz
     <div class="hero-bg" style="background-image:url('https://i.ytimg.com/vi/HsCic-KPgzc/maxresdefault.jpg')"></div>
     <div class="wrap">
       <div class="kicker mono" data-i="kick">Кінематографічний ембієнт — Життя в 2250</div>
-      <h1>BLAGODAY<span>VISION</span></h1>
+      <h1>BLAGODAY<span>PRODUCTION</span></h1>
       <p class="lead" data-i="lead">Занурся у всесвіт іммерсивної релаксації та кінематографічного звуку. Глибокий мелодійний ембієнт, неонові мегаполіси та прогресивні цивілізації 2250 року.</p>
       <div class="btns">
-        <a class="btn p" href="#videos" data-i="b_watch">▶ Дивитись відео</a>
-        <a class="btn c" href="#albums" data-i="b_listen">♪ Слухати музику</a>
+        <a class="btn p" href="#videos" data-i="b_watch">▶ Blagoday Vision — відео</a>
+        <a class="btn c" href="#albums" data-i="b_listen">♪ Blagoday Music — музика</a>
       </div>
       <div class="stats">
         <div class="stat"><b>4.6K+</b><span class="mono" data-i="s_subs">Підписників</span></div>
@@ -206,7 +207,7 @@ footer{border-top:1px solid var(--line);padding:40px 0;color:var(--mut);font-siz
   <!-- LISTEN -->
   <section id="listen" style="padding-top:20px">
     <div class="wrap reveal">
-      <div class="sh"><div><div class="mono" data-i="l_k">Де слухати</div><h2>Blagoday Music</h2></div></div>
+      <div class="sh"><div><div class="mono" data-i="l_k">Blagoday Music</div><h2 data-i="l_h">Де слухати</h2></div></div>
       <div class="plat" id="plat"></div>
     </div>
   </section>
@@ -215,7 +216,7 @@ footer{border-top:1px solid var(--line);padding:40px 0;color:var(--mut);font-siz
   <section id="videos">
     <div class="wrap">
       <div class="sh reveal">
-        <div><div class="mono" data-i="v_k">Архів сигналів</div><h2 data-i="v_h">Відео</h2>
+        <div><div class="mono" data-i="v_k">Відео</div><h2>Blagoday Vision</h2>
         <p class="sub" data-i="v_s">Серія «Life in 2250» на YouTube-каналі Blagoday Vision. Уся музика у відео — оригінальна.</p></div>
         <a class="more mono" href="https://www.youtube.com/@BlagodayVision/videos" target="_blank" rel="noopener" data-i="v_all">Всі відео на YouTube ↗</a>
       </div>
@@ -229,7 +230,7 @@ footer{border-top:1px solid var(--line);padding:40px 0;color:var(--mut);font-siz
   <section id="albums">
     <div class="wrap">
       <div class="sh reveal">
-        <div><div class="mono" data-i="a_k">SoundCloud — головна сцена</div><h2 data-i="a_h">Альбоми</h2>
+        <div><div class="mono" data-i="a_k">Альбоми · SoundCloud — головна сцена</div><h2>Blagoday Music</h2>
         <p class="sub" data-i="a_s">Усі нові релізи спершу виходять на SoundCloud. Натисни на обкладинку, щоб слухати прямо тут.</p></div>
         <a class="more mono" href="https://soundcloud.com/blagodaymusic" target="_blank" rel="noopener" data-i="a_all">Профіль SoundCloud ↗</a>
       </div>
@@ -286,7 +287,7 @@ footer{border-top:1px solid var(--line);padding:40px 0;color:var(--mut);font-siz
 
 <footer>
   <div class="wrap fgrid">
-    <div>© <span id="yr"></span> Blagoday Vision · Blagoday Music</div>
+    <div>© <span id="yr"></span> Blagoday Production · Blagoday Vision · Blagoday Music</div>
     <div class="flinks" id="flinks"></div>
   </div>
 </footer>
@@ -392,10 +393,10 @@ const T={
  uk:{nav_v:"Відео",nav_a:"Альбоми",nav_r:"Релізи",nav_l:"Слухати",nav_s:"Підтримка",
   kick:"Кінематографічний ембієнт — Життя в 2250",
   lead:"Занурся у всесвіт іммерсивної релаксації та кінематографічного звуку. Глибокий мелодійний ембієнт, неонові мегаполіси та прогресивні цивілізації 2250 року.",
-  b_watch:"▶ Дивитись відео",b_listen:"♪ Слухати музику",s_subs:"Підписників",s_vid:"Відео",s_tr:"Треків на SoundCloud",s_year:"Рік візії",
-  l_k:"Де слухати",v_k:"Архів сигналів",v_h:"Відео",v_s:"Серія «Life in 2250» на YouTube-каналі Blagoday Vision. Уся музика у відео — оригінальна.",
+  b_watch:"▶ Blagoday Vision — відео",b_listen:"♪ Blagoday Music — музика",s_subs:"Підписників",s_vid:"Відео",s_tr:"Треків на SoundCloud",s_year:"Рік візії",
+  l_k:"Blagoday Music",l_h:"Де слухати",v_k:"Відео",v_h:"Відео",v_s:"Серія «Life in 2250» на YouTube-каналі Blagoday Vision. Уся музика у відео — оригінальна.",
   v_all:"Всі відео на YouTube ↗",more:"Показати більше",less:"Згорнути",latest:"Нове відео",watch:"Дивитись",
-  a_k:"SoundCloud — головна сцена",a_h:"Альбоми",a_s:"Усі нові релізи спершу виходять на SoundCloud. Натисни на обкладинку, щоб слухати прямо тут.",
+  a_k:"Альбоми · SoundCloud — головна сцена",a_h:"Альбоми",a_s:"Усі нові релізи спершу виходять на SoundCloud. Натисни на обкладинку, щоб слухати прямо тут.",
   a_all:"Профіль SoundCloud ↗",t_alb:"Альбоми",t_arch:"Архів і плейлисти",tracks:"треків",track:"трек",play:"▶ Слухати",video:"▶ Відео",
   sc_k:"Тільки на SoundCloud",sc_h:"Усі 86 треків",sc_s:"Частина музики доступна лише на SoundCloud: ранні треки, кавери, версії, яких немає на стрімінгах.",sc_b:"Відкрити на SoundCloud ↗",
   r_k:"Дистрибуція",r_h:"На стрімінгах",r_s:"Релізи, що вийшли на Spotify, Apple Music, YouTube Music, Amazon Music, Deezer, Tidal та інших платформах.",r_all:"Spotify ↗",
@@ -404,10 +405,10 @@ const T={
  en:{nav_v:"Videos",nav_a:"Albums",nav_r:"Releases",nav_l:"Listen",nav_s:"Support",
   kick:"Cinematic Ambient — Life in 2250",
   lead:"Dive into a universe of immersive relaxation and cinematic sound. Deep melodic ambient, neon megacities and the advanced civilizations of 2250.",
-  b_watch:"▶ Watch videos",b_listen:"♪ Listen to music",s_subs:"Subscribers",s_vid:"Videos",s_tr:"Tracks on SoundCloud",s_year:"Year of vision",
-  l_k:"Where to listen",v_k:"Signal archive",v_h:"Videos",v_s:"The “Life in 2250” series on the Blagoday Vision YouTube channel. All music in the videos is original.",
+  b_watch:"▶ Blagoday Vision — videos",b_listen:"♪ Blagoday Music — music",s_subs:"Subscribers",s_vid:"Videos",s_tr:"Tracks on SoundCloud",s_year:"Year of vision",
+  l_k:"Blagoday Music",l_h:"Where to listen",v_k:"Videos",v_h:"Videos",v_s:"The “Life in 2250” series on the Blagoday Vision YouTube channel. All music in the videos is original.",
   v_all:"All videos on YouTube ↗",more:"Show more",less:"Show less",latest:"Latest video",watch:"Watch",
-  a_k:"SoundCloud — our main stage",a_h:"Albums",a_s:"Every new release lands on SoundCloud first. Tap a cover to listen right here.",
+  a_k:"Albums · SoundCloud — our main stage",a_h:"Albums",a_s:"Every new release lands on SoundCloud first. Tap a cover to listen right here.",
   a_all:"SoundCloud profile ↗",t_alb:"Albums",t_arch:"Archive & playlists",tracks:"tracks",track:"track",play:"▶ Listen",video:"▶ Video",
   sc_k:"SoundCloud only",sc_h:"All 86 tracks",sc_s:"Some music lives only on SoundCloud: early tracks, covers and versions not available on streaming services.",sc_b:"Open on SoundCloud ↗",
   r_k:"Distribution",r_h:"On streaming",r_s:"Releases available on Spotify, Apple Music, YouTube Music, Amazon Music, Deezer, Tidal and more.",r_all:"Spotify ↗",
