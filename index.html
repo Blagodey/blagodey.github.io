@@ -23,7 +23,7 @@
 <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebSite", "name": "Blagoday Production", "url": "https://blagodey.github.io/blagoday-production/", "inLanguage": ["en", "uk", "es", "pt", "de", "fr"]}, {"@type": "MusicGroup", "name": "Blagoday Music", "url": "https://blagodey.github.io/blagoday-production/", "genre": ["Ambient", "Deep House", "Chillout", "Funk", "Rock", "Blues", "Electronic"], "description": "Original music and video by Blagoday, an artist from Ukraine.", "image": "https://i1.sndcdn.com/artworks-8ODXNt8XozKvzuQH-yNFyBA-t500x500.jpg", "sameAs": ["https://soundcloud.com/blagodaymusic", "https://open.spotify.com/artist/7vR7IPUnvlg6bQgpaPv1xb", "https://music.apple.com/artist/blagoday-music/1815470121", "https://music.youtube.com/channel/UCSix1iS0DBEYPn747RTcVww", "https://music.amazon.com/artists/B0F99WFHL6", "https://www.deezer.com/artist/324283881", "https://tidal.com/artist/60384914", "https://audiomack.com/blagoday-music"]}, {"@type": "Organization", "name": "Blagoday Production", "url": "https://blagodey.github.io/blagoday-production/", "sameAs": ["https://www.youtube.com/@BlagodayVision", "https://www.youtube.com/@TheBlagoday", "https://soundcloud.com/blagodaymusic", "https://ko-fi.com/blagodayvision"]}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&family=Exo+2:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#080808; --bg2:#0f0f12; --card:#131317; --line:#22222a;
@@ -32,10 +32,10 @@
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;scroll-padding-top:72px}
-body{background:var(--bg);color:var(--txt);font-family:Rajdhani,system-ui,sans-serif;font-size:18px;line-height:1.5;overflow-x:hidden}
+body{background:var(--bg);color:var(--txt);font-family:Rajdhani,"Exo 2",system-ui,sans-serif;font-size:18px;line-height:1.5;overflow-x:hidden}
 a{color:inherit;text-decoration:none}
 img{display:block;max-width:100%}
-.mono{font-family:"Share Tech Mono",monospace;letter-spacing:.12em;text-transform:uppercase}
+.mono{font-family:"Share Tech Mono","JetBrains Mono",monospace;letter-spacing:.12em;text-transform:uppercase}
 .wrap{max-width:var(--max);margin:0 auto;padding:0 20px}
 body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
   background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
@@ -55,7 +55,7 @@ header.hide{transform:translateY(-100%)}
 .links a:hover{color:var(--txt)}
 .right{display:flex;gap:10px;align-items:center}
 .lang{display:flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
-.lang button{background:none;border:0;color:var(--mut);font:inherit;font-family:"Share Tech Mono",monospace;font-size:12px;padding:6px 10px;cursor:pointer}
+.lang button{background:none;border:0;color:var(--mut);font:inherit;font-family:"Share Tech Mono","JetBrains Mono",monospace;font-size:12px;padding:6px 10px;cursor:pointer}
 .lang button.on{background:var(--txt);color:var(--bg)}
 .burger{display:none;background:none;border:1px solid var(--line);border-radius:8px;width:40px;height:36px;color:var(--txt);font-size:18px;cursor:pointer}
 @media(max-width:860px){
@@ -158,7 +158,7 @@ h2{font-size:clamp(34px,6vw,56px);line-height:1;font-weight:700}
 .ai .m{font-size:12px;color:var(--mut)}
 .ai .d{font-size:15px;color:#c4c4cf;line-height:1.35}
 .acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:10px}
-.chip{font-size:12px;padding:6px 10px;border-radius:7px;border:1px solid var(--line);color:var(--mut);transition:.2s;background:none;cursor:pointer;font-family:"Share Tech Mono",monospace;letter-spacing:.06em}
+.chip{font-size:12px;padding:6px 10px;border-radius:7px;border:1px solid var(--line);color:var(--mut);transition:.2s;background:none;cursor:pointer;font-family:"Share Tech Mono","JetBrains Mono",monospace;letter-spacing:.06em}
 .chip:hover{color:var(--txt);border-color:var(--mag)}
 .chip.hl{color:var(--cy);border-color:rgba(0,229,255,.4)}
 .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
@@ -187,7 +187,7 @@ footer{border-top:1px solid var(--line);padding:40px 0;color:var(--mut);font-siz
 .mbox .frame{position:relative;aspect-ratio:16/9;background:#000;border-radius:12px;overflow:hidden}
 .mbox.sc .frame{aspect-ratio:auto;height:min(560px,80svh)}
 .mbox iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-.mclose{position:absolute;top:-46px;right:0;background:none;border:1px solid var(--line);color:#fff;border-radius:8px;padding:6px 12px;cursor:pointer;font-family:"Share Tech Mono",monospace}
+.mclose{position:absolute;top:-46px;right:0;background:none;border:1px solid var(--line);color:#fff;border-radius:8px;padding:6px 12px;cursor:pointer;font-family:"Share Tech Mono","JetBrains Mono",monospace}
 .mlink{display:inline-block;margin-top:12px;color:var(--cy);font-size:14px}
 
 @media(max-width:560px){
@@ -238,21 +238,21 @@ footer{border-top:1px solid var(--line);padding:40px 0;color:var(--mut);font-siz
 .rc:hover img{transform:scale(1.06)}
 .rc::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 50%,rgba(0,0,0,.85))}
 .rc span{position:absolute;left:18px;right:18px;bottom:14px;z-index:1;font-weight:600;font-size:18px;line-height:1.2}
-.rc em{position:absolute;top:14px;left:14px;z-index:1;font-style:normal;font-size:11px;background:rgba(0,0,0,.6);padding:4px 8px;border-radius:6px;font-family:"Share Tech Mono",monospace}
+.rc em{position:absolute;top:14px;left:14px;z-index:1;font-style:normal;font-size:11px;background:rgba(0,0,0,.6);padding:4px 8px;border-radius:6px;font-family:"Share Tech Mono","JetBrains Mono",monospace}
 .rc:hover{box-shadow:0 20px 50px rgba(255,0,170,.25);border-color:var(--mag)}
 .reel-bar{display:none}
 @media(max-width:900px){.reel-track{grid-template-columns:1fr 1fr}.rcol:nth-child(2){margin-top:60px}}
 @media(max-width:600px){.reel-track{grid-template-columns:1fr;gap:18px}.rcol{gap:18px}.rcol:nth-child(2){margin-top:0}.reel{padding:80px 0 60px}}
 
 .lsw{position:relative}
-.lsw>button{background:none;border:1px solid var(--line);border-radius:8px;color:var(--txt);font-family:"Share Tech Mono",monospace;font-size:12px;padding:7px 10px;cursor:pointer;display:flex;gap:6px;align-items:center}
+.lsw>button{background:none;border:1px solid var(--line);border-radius:8px;color:var(--txt);font-family:"Share Tech Mono","JetBrains Mono",monospace;font-size:12px;padding:7px 10px;cursor:pointer;display:flex;gap:6px;align-items:center}
 .lsw>button:hover{border-color:var(--cy)}
 .lsw-m{position:absolute;right:0;top:calc(100% + 8px);min-width:170px;background:rgba(12,12,16,.98);border:1px solid var(--line);border-radius:12px;padding:6px;display:none;box-shadow:0 18px 40px rgba(0,0,0,.6);z-index:60}
 .lsw.open .lsw-m{display:block}
 .lsw-m a,.lsw-m button{display:flex;justify-content:space-between;gap:12px;width:100%;padding:9px 12px;border-radius:8px;color:var(--mut);font-size:14px;background:none;border:0;font-family:inherit;cursor:pointer;text-align:left}
 .lsw-m a:hover,.lsw-m button:hover{background:rgba(255,255,255,.06);color:var(--txt)}
 .lsw-m .on{color:var(--txt);background:rgba(255,0,170,.12)}
-.lsw-m i{font-style:normal;font-family:"Share Tech Mono",monospace;font-size:11px;color:var(--cy)}
+.lsw-m i{font-style:normal;font-family:"Share Tech Mono","JetBrains Mono",monospace;font-size:11px;color:var(--cy)}
 
 .ua{display:grid;grid-template-columns:1fr 1fr .42fr .42fr;gap:18px;align-items:start}
 .ua .sht .thumb{aspect-ratio:3/4}
@@ -262,7 +262,7 @@ footer{border-top:1px solid var(--line);padding:40px 0;color:var(--mut);font-siz
 .prem-pill{display:inline-flex;align-items:center;gap:12px;padding:6px 8px 6px 6px;border-radius:999px;background:rgba(10,10,14,.72);border:1px solid rgba(255,0,170,.65);color:var(--txt);cursor:pointer;margin-bottom:22px;backdrop-filter:blur(8px);font:inherit;text-align:left;animation:pulse 2.4s infinite;transition:transform .25s}
 .prem-pill:hover{transform:translateY(-2px)}
 .prem-pill img{width:72px;height:40px;object-fit:cover;border-radius:999px}
-.prem-pill i{display:block;font-style:normal;font-family:"Share Tech Mono",monospace;font-size:11px;color:var(--mag);letter-spacing:.06em}
+.prem-pill i{display:block;font-style:normal;font-family:"Share Tech Mono","JetBrains Mono",monospace;font-size:11px;color:var(--mag);letter-spacing:.06em}
 .prem-pill b{font-size:17px;font-weight:600}
 .prem-pill em{width:32px;height:32px;border-radius:50%;background:var(--mag);display:grid;place-items:center;font-style:normal;font-size:12px;margin-left:4px;flex:none}
 @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,0,170,.55)}70%{box-shadow:0 0 0 14px rgba(255,0,170,0)}100%{box-shadow:0 0 0 0 rgba(255,0,170,0)}}
@@ -295,7 +295,7 @@ p{font-weight:500}
 .clist{display:flex;flex-direction:column;gap:6px}
 .cr{display:grid;grid-template-columns:34px 56px minmax(0,1fr) auto 64px 74px 34px;gap:14px;align-items:center;padding:8px 14px 8px 8px;border-radius:12px;background:var(--card);border:1px solid var(--line);cursor:pointer;text-align:left;width:100%;color:var(--txt);font:inherit;transition:border-color .2s,background .2s}
 .cr:hover{border-color:var(--cy);background:#16161c}
-.cr .n{font-family:"Share Tech Mono",monospace;font-size:13px;color:var(--mut);text-align:right}
+.cr .n{font-family:"Share Tech Mono","JetBrains Mono",monospace;font-size:13px;color:var(--mut);text-align:right}
 .cr .cv{position:relative;width:56px;height:56px;border-radius:8px;overflow:hidden;background:#111}
 .cr .cv img{width:100%;height:100%;object-fit:cover}
 .cr .cv .pl{position:absolute;inset:0;display:grid;place-items:center;background:rgba(0,0,0,.45);opacity:0;transition:.2s;font-size:16px}
@@ -304,8 +304,8 @@ p{font-weight:500}
 .cr .tt b{display:block;font-size:17px;font-weight:600;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .cr .tt i{display:block;font-style:normal;font-size:14px;color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px}
 .cr .tt i em{font-style:normal;color:var(--cy)}
-.cr .g{font-family:"Share Tech Mono",monospace;font-size:12px;color:var(--mut);border:1px solid var(--line);border-radius:999px;padding:3px 9px;white-space:nowrap}
-.cr .d,.cr .pc{font-family:"Share Tech Mono",monospace;font-size:13px;color:var(--mut);text-align:right;white-space:nowrap}
+.cr .g{font-family:"Share Tech Mono","JetBrains Mono",monospace;font-size:12px;color:var(--mut);border:1px solid var(--line);border-radius:999px;padding:3px 9px;white-space:nowrap}
+.cr .d,.cr .pc{font-family:"Share Tech Mono","JetBrains Mono",monospace;font-size:13px;color:var(--mut);text-align:right;white-space:nowrap}
 .cnone{padding:30px;text-align:center;color:var(--mut)}
 @media(max-width:760px){.cr{grid-template-columns:48px minmax(0,1fr) 58px;gap:12px;padding:6px 10px 6px 6px}.cr .n,.cr .g,.cr .pc{display:none}.cr .cv{width:48px;height:48px}.cr .tt b{font-size:16px}}
 
@@ -317,14 +317,14 @@ p{font-weight:500}
 .pl-bg{position:absolute;inset:0;background:rgba(0,0,0,.88)}
 .pl.mini .pl-bg{display:none}
 .pl-box{position:relative;width:min(1120px,100%)}
-.pl-x{position:absolute;top:-46px;right:0;background:none;border:1px solid var(--line);color:#fff;border-radius:8px;padding:6px 12px;cursor:pointer;font-family:"Share Tech Mono",monospace}
+.pl-x{position:absolute;top:-46px;right:0;background:none;border:1px solid var(--line);color:#fff;border-radius:8px;padding:6px 12px;cursor:pointer;font-family:"Share Tech Mono","JetBrains Mono",monospace}
 .pl-mh{display:none}
 .scp{display:grid;grid-template-columns:minmax(220px,300px) minmax(0,1fr);grid-template-rows:minmax(0,1fr) auto;gap:18px 24px;background:linear-gradient(160deg,rgba(255,0,170,.10),rgba(0,229,255,.06) 60%,transparent),#0b0b10;border:1px solid rgba(255,255,255,.10);border-radius:18px;padding:20px;box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 60px rgba(255,0,170,.08);height:min(760px,calc(100svh - 80px))}
 .scp-l{display:flex;flex-direction:column;gap:14px;min-width:0;min-height:0}
 .scp-cv{position:relative;aspect-ratio:1;border-radius:14px;overflow:hidden;background:#111;box-shadow:0 18px 50px rgba(0,0,0,.55);flex-shrink:1;min-height:0}
 .scp-cv img{width:100%;height:100%;object-fit:cover;transition:transform 8s linear}
 .scp.playing .scp-cv img{transform:scale(1.06)}
-.scp-k{font-family:"Share Tech Mono",monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#ff7a1a}
+.scp-k{font-family:"Share Tech Mono","JetBrains Mono",monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#ff7a1a}
 .scp-t{font-size:22px;font-weight:700;line-height:1.2;color:#fff;margin-top:4px}
 .scp-a{font-size:15px;color:#00e5ff;margin-top:2px}
 .scp-r{display:flex;flex-direction:column;gap:12px;min-width:0;min-height:0}
@@ -332,17 +332,17 @@ p{font-weight:500}
 .scp-act .chip{font-size:13px;padding:8px 12px;text-decoration:none}
 .scp-hint{margin:0;font-size:14px;line-height:1.45;color:#b9b9c8}
 .scp-tabs{display:flex;flex-wrap:wrap;gap:6px}
-.scp-tabs button,.rel-tabs button{background:none;border:1px solid rgba(255,255,255,.14);color:#c9c9d6;padding:7px 14px;border-radius:999px;cursor:pointer;font-family:"Share Tech Mono",monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+.scp-tabs button,.rel-tabs button{background:none;border:1px solid rgba(255,255,255,.14);color:#c9c9d6;padding:7px 14px;border-radius:999px;cursor:pointer;font-family:"Share Tech Mono","JetBrains Mono",monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase}
 .scp-tabs button.on,.rel-tabs button.on{border-color:rgba(255,0,170,.7);color:#fff;background:rgba(255,0,170,.14)}
 .scp-list{flex:1;min-height:0;overflow-y:auto;display:flex;flex-direction:column;gap:4px;padding-right:6px;scrollbar-width:thin;scrollbar-color:#ff00aa transparent}
 .scp-row{display:grid;grid-template-columns:28px 44px minmax(0,1fr) auto 34px;gap:12px;align-items:center;padding:6px 8px 6px 6px;border-radius:10px;border:1px solid transparent;background:rgba(255,255,255,.03);color:#e8e8f0;cursor:pointer;text-align:left;font:inherit;width:100%}
 .scp-row:hover{background:rgba(255,255,255,.07)}
 .scp-row.on{border-color:rgba(255,0,170,.6);background:rgba(255,0,170,.12)}
-.scp-row .n{font-family:"Share Tech Mono",monospace;font-size:12px;color:#9a9aa8;text-align:right}
+.scp-row .n{font-family:"Share Tech Mono","JetBrains Mono",monospace;font-size:12px;color:#9a9aa8;text-align:right}
 .scp-row.on .n{color:#ff00aa}
 .scp-row img{width:44px;height:44px;border-radius:6px;object-fit:cover;background:#151519}
 .scp-row b{font-weight:600;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.scp-row span.d{font-family:"Share Tech Mono",monospace;font-size:12px;color:#9a9aa8}
+.scp-row span.d{font-family:"Share Tech Mono","JetBrains Mono",monospace;font-size:12px;color:#9a9aa8}
 .scp-empty{padding:18px 6px;color:#b9b9c8;font-size:14px;line-height:1.5}
 .scp-qh{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:4px}
 .qa{width:32px;height:32px;border-radius:50%;border:1px solid rgba(255,255,255,.2);display:grid;place-items:center;color:#fff;font-size:17px;line-height:1;cursor:pointer;transition:.2s;background:none;flex-shrink:0}
@@ -417,10 +417,10 @@ p{font-weight:500}
 
 /* ===== music hub ===== */
 .anc{position:relative;top:-80px;display:block;height:0}
-.mtabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;position:sticky;top:64px;z-index:5;padding:10px 0;background:linear-gradient(var(--bg) 70%,transparent)}
+.mtabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;position:sticky;top:64px;z-index:5;padding:10px 0;background:var(--bg);box-shadow:0 6px 8px -6px var(--bg)}
 .mtabs button{display:inline-flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--line);color:var(--mut);padding:10px 16px;border-radius:999px;font:inherit;font-weight:600;font-size:15px;cursor:pointer;transition:.2s}
 .mtabs button b{font-weight:600}
-.mtabs button i{font-style:normal;font-family:"Share Tech Mono",monospace;font-size:12px;color:var(--mut);background:rgba(255,255,255,.06);border-radius:999px;padding:2px 8px}
+.mtabs button i{font-style:normal;font-family:"Share Tech Mono","JetBrains Mono",monospace;font-size:12px;color:var(--mut);background:rgba(255,255,255,.06);border-radius:999px;padding:2px 8px}
 .mtabs button:hover{border-color:var(--cy);color:var(--txt)}
 .mtabs button.on{border-color:var(--mag);color:#fff;background:rgba(255,0,170,.14)}
 .mtabs button.on i{background:var(--mag);color:#fff}
@@ -431,7 +431,7 @@ p{font-weight:500}
 .fol-btn{display:inline-flex;align-items:center;gap:10px;background:#ff5500;border:0;color:#fff;font:inherit;font-weight:700;font-size:15px;padding:12px 20px;border-radius:999px;cursor:pointer;box-shadow:0 8px 26px rgba(255,85,0,.35);transition:.2s}
 .fol-btn:hover{transform:translateY(-1px)}
 .fol-btn.on{background:transparent;border:1px solid #ff5500;color:#ff9a5c;box-shadow:none}
-.fol-n{font-family:"Share Tech Mono",monospace;font-size:13px;color:var(--mut)}
+.fol-n{font-family:"Share Tech Mono","JetBrains Mono",monospace;font-size:13px;color:var(--mut)}
 @media(max-width:760px){.mtabs{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;top:56px}.mtabs::-webkit-scrollbar{display:none}.mtabs button{flex:none;font-size:14px;padding:9px 14px}}
 /* player social */
 .scp-act .rp.on{color:#00e5ff;border-color:rgba(0,229,255,.6)}
@@ -443,7 +443,7 @@ p{font-weight:500}
 .cm-row{display:grid;grid-template-columns:36px 1fr;gap:10px;padding:10px 6px;border-bottom:1px solid rgba(255,255,255,.06)}
 .cm-row img{width:36px;height:36px;border-radius:50%;object-fit:cover;background:#222}
 .cm-row b{font-size:14px;color:#fff}
-.cm-row .ts{font-family:"Share Tech Mono",monospace;font-size:12px;color:#00e5ff;background:none;border:0;cursor:pointer;padding:0 0 0 8px}
+.cm-row .ts{font-family:"Share Tech Mono","JetBrains Mono",monospace;font-size:12px;color:#00e5ff;background:none;border:0;cursor:pointer;padding:0 0 0 8px}
 .cm-row p{margin:4px 0 0;font-size:15px;line-height:1.45;color:#e8e8f0;white-space:pre-wrap;word-break:break-word}
 .alb-lk{background:none;border:1px solid rgba(255,59,141,.5);color:#ff8fbf;font:inherit;font-size:12px;padding:3px 10px;border-radius:999px;cursor:pointer;margin-left:8px}
 .alb-lk.on{background:rgba(255,59,141,.18)}
@@ -482,12 +482,13 @@ button.sb{font:inherit;text-align:left;cursor:pointer;width:100%}
 .gi .m{font-size:12px;color:var(--mut)}
 .gi .acts{margin-top:auto}
 .cat-bar select{max-width:100%}
+@media(max-width:760px){.esc{display:none}.cat-bar{gap:10px}.cat-bar input{flex-basis:100%}.cat-bar select{flex:1 1 0;min-width:0}}
 .hero .now.now-top{position:static;right:auto;bottom:auto;align-items:flex-start;margin:0 0 24px;animation:fadeUp .9s ease forwards}
 .hero .now-top .now-card{max-width:560px}
 @media(max-width:860px){.hero{padding-bottom:96px}.hero .now.now-top{align-items:stretch}.hero .now-top .dots{justify-content:flex-start}}
 
 /* ===== chat ===== */
-.ch-on{display:flex;align-items:center;gap:8px;font-family:"Share Tech Mono",monospace;font-size:13px;color:var(--mut)}
+.ch-on{display:flex;align-items:center;gap:8px;font-family:"Share Tech Mono","JetBrains Mono",monospace;font-size:13px;color:var(--mut)}
 .ch-on i{width:9px;height:9px;border-radius:50%;background:#2bff88;box-shadow:0 0 10px #2bff88}
 .chat{background:linear-gradient(160deg,rgba(255,0,170,.07),rgba(0,229,255,.05) 60%,transparent),var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;display:flex;flex-direction:column;max-width:900px}
 .ch-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:12px 16px;border-bottom:1px solid var(--line)}
@@ -503,7 +504,7 @@ button.sb{font:inherit;text-align:left;cursor:pointer;width:100%}
 .ch-h{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .ch-h b{font-size:15px;color:#fff}
 .ch-h .mono{font-size:11px;color:#9a9aa8}
-.ch-badge{font-family:"Share Tech Mono",monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#fff;background:#ff00aa;border-radius:999px;padding:2px 8px}
+.ch-badge{font-family:"Share Tech Mono","JetBrains Mono",monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#fff;background:#ff00aa;border-radius:999px;padding:2px 8px}
 .ch-x{background:none;border:0;color:#9a9aa8;cursor:pointer;font-size:13px;padding:0 2px;opacity:.6}
 .ch-x:hover{opacity:1;color:#00e5ff}
 .ch-b p{margin:3px 0 0;font-size:16px;line-height:1.45;color:#e8e8f0;white-space:pre-wrap;word-break:break-word}
@@ -574,6 +575,7 @@ button.sb{font:inherit;text-align:left;cursor:pointer;width:100%}
       <a href="#music" data-i="nav_m">Музика</a>
       <a href="blog.html" data-i="nav_j">Журнал</a>
       <a href="#chat" data-i="nav_c">Чат</a>
+      <a href="#about" data-i="nav_ab">Про автора</a>
       <a href="#support" data-i="nav_s">Підтримка</a>
     </nav>
     <div class="right">
@@ -728,7 +730,7 @@ button.sb{font:inherit;text-align:left;cursor:pointer;width:100%}
 
 <div class="modal" id="modal" role="dialog" aria-modal="true">
   <div class="mbox" id="mbox">
-    <button class="mclose" id="mclose">✕ ESC</button>
+    <button class="mclose" id="mclose">✕<span class="esc"> ESC</span></button>
     <div class="frame" id="mframe"></div>
     <a class="mlink mono" id="mlink" target="_blank" rel="noopener"></a>
   </div>
@@ -878,6 +880,7 @@ for(const [k,v] of Object.entries({"uk": {"nav_c": "Чат", "ch_k": "Blagoday �
 for(const [k,v] of Object.entries({"uk": {"mail_btn": "✉ Написати автору", "su_h": "Підтримай Blagoday", "su_s": "Нова музика і відео виходять регулярно. Підписуйся, слухай, пиши — так музика знаходить своїх слухачів."}, "en": {"mail_btn": "✉ Write to the artist", "su_h": "Support Blagoday", "su_s": "New music and videos come out regularly. Subscribe, listen and write — that’s how music finds its listeners."}, "es": {"mail_btn": "✉ Escribir al artista", "su_h": "Apoya a Blagoday", "su_s": "Nueva música y videos salen con regularidad. Suscríbete, escucha y escribe: así la música encuentra a sus oyentes."}, "pt": {"mail_btn": "✉ Escrever ao artista", "su_h": "Apoie Blagoday", "su_s": "Novas músicas e vídeos saem regularmente. Inscreva-se, ouça e escreva — é assim que a música encontra seus ouvintes."}, "de": {"mail_btn": "✉ Dem Künstler schreiben", "su_h": "Unterstütze Blagoday", "su_s": "Neue Musik und Videos erscheinen regelmäßig. Abonniere, hör zu und schreib – so findet Musik ihre Hörer."}, "fr": {"mail_btn": "✉ Écrire à l’artiste", "su_h": "Soutenez Blagoday", "su_s": "De la nouvelle musique et des vidéos sortent régulièrement. Abonnez-vous, écoutez et écrivez — c’est ainsi que la musique trouve ses auditeurs."}}))Object.assign(T[k],v);
 for(const [k,v] of Object.entries({"uk": {"vh_h": "Відео Blagoday", "vt_clips": "Кліпи", "vs_l2250": "Серія «Life in 2250» на каналі Blagoday Vision. Уся музика у відео — оригінальна.", "vs_clips": "Офіційні кліпи на YouTube-каналі @TheBlagoday.", "vs_shorts": "Короткі відео з @TheBlagoday.", "va_l2250": "Blagoday Vision ↗", "va_ch": "Канал @TheBlagoday ↗", "su_h": "Підтримай Blagoday", "su_s": "Нова музика і відео виходять регулярно. Твоя підтримка допомагає створювати більше."}, "en": {"vh_h": "Blagoday videos", "vt_clips": "Music videos", "vs_l2250": "The “Life in 2250” series on the Blagoday Vision channel. All music in the videos is original.", "vs_clips": "Official music videos on the @TheBlagoday YouTube channel.", "vs_shorts": "Short videos from @TheBlagoday.", "va_l2250": "Blagoday Vision ↗", "va_ch": "@TheBlagoday channel ↗", "su_h": "Support Blagoday", "su_s": "New music and videos come out regularly. Your support helps create more."}, "es": {"vh_h": "Vídeos de Blagoday", "vt_clips": "Videoclips", "vs_l2250": "La serie «Life in 2250» en el canal Blagoday Vision. Toda la música es original.", "vs_clips": "Videoclips oficiales en el canal de YouTube @TheBlagoday.", "vs_shorts": "Vídeos cortos de @TheBlagoday.", "va_l2250": "Blagoday Vision ↗", "va_ch": "Canal @TheBlagoday ↗", "su_h": "Apoya a Blagoday", "su_s": "Nueva música y vídeos salen con regularidad. Tu apoyo ayuda a crear más."}, "pt": {"vh_h": "Vídeos de Blagoday", "vt_clips": "Clipes", "vs_l2250": "A série «Life in 2250» no canal Blagoday Vision. Toda a música é original.", "vs_clips": "Clipes oficiais no canal do YouTube @TheBlagoday.", "vs_shorts": "Vídeos curtos de @TheBlagoday.", "va_l2250": "Blagoday Vision ↗", "va_ch": "Canal @TheBlagoday ↗", "su_h": "Apoie o Blagoday", "su_s": "Novas músicas e vídeos saem regularmente. Seu apoio ajuda a criar mais."}, "de": {"vh_h": "Blagoday Videos", "vt_clips": "Musikvideos", "vs_l2250": "Die Serie „Life in 2250“ auf dem Kanal Blagoday Vision. Die gesamte Musik ist original.", "vs_clips": "Offizielle Musikvideos auf dem YouTube-Kanal @TheBlagoday.", "vs_shorts": "Kurzvideos von @TheBlagoday.", "va_l2250": "Blagoday Vision ↗", "va_ch": "Kanal @TheBlagoday ↗", "su_h": "Unterstütze Blagoday", "su_s": "Neue Musik und Videos erscheinen regelmäßig. Deine Unterstützung hilft, mehr zu schaffen."}, "fr": {"vh_h": "Vidéos Blagoday", "vt_clips": "Clips", "vs_l2250": "La série « Life in 2250 » sur la chaîne Blagoday Vision. Toute la musique est originale.", "vs_clips": "Clips officiels sur la chaîne YouTube @TheBlagoday.", "vs_shorts": "Vidéos courtes de @TheBlagoday.", "va_l2250": "Blagoday Vision ↗", "va_ch": "Chaîne @TheBlagoday ↗", "su_h": "Soutenez Blagoday", "su_s": "De nouvelles musiques et vidéos sortent régulièrement. Votre soutien aide à en créer davantage."}}))Object.assign(T[k],v);
 for(const [k,v] of Object.entries({"uk": {"ab_k": "Про автора", "ab_t": "Blagoday — автор з України. Музику і відео на цьому сайті створено всупереч усьому."}, "en": {"ab_k": "About the artist", "ab_t": "Blagoday is an artist from Ukraine. The music and videos on this site are created despite everything."}, "es": {"ab_k": "Sobre el autor", "ab_t": "Blagoday es un autor de Ucrania. La música y los vídeos de este sitio se crean a pesar de todo."}, "pt": {"ab_k": "Sobre o autor", "ab_t": "Blagoday é um autor da Ucrânia. As músicas e os vídeos deste site são criados apesar de tudo."}, "de": {"ab_k": "Über den Künstler", "ab_t": "Blagoday ist ein Künstler aus der Ukraine. Die Musik und die Videos auf dieser Seite entstehen allem zum Trotz."}, "fr": {"ab_k": "À propos de l'auteur", "ab_t": "Blagoday est un auteur ukrainien. La musique et les vidéos de ce site sont créées malgré tout."}}))Object.assign(T[k],v);
+for(const [k,v] of Object.entries({"uk": {"nav_ab": "Про автора", "ch_auto": "Автопереклад: {l}"}, "en": {"nav_ab": "About"}, "es": {"nav_ab": "Sobre el autor"}, "pt": {"nav_ab": "Sobre o autor"}, "de": {"nav_ab": "Über mich"}, "fr": {"nav_ab": "À propos"}}))Object.assign(T[k],v);
 const plural=n=>n===1?t("track"):t("tracks");
 
 /* ---------- RENDER ---------- */
@@ -995,7 +998,7 @@ function pBuild(){
   const d=document.createElement("div");d.className="pl";d.id="pl";
   d.innerHTML=`<div class="pl-bg" data-pl="min"></div><div class="pl-box">
 <div class="pl-mh"><img id="plMi" alt=""><span><b id="plMt"></b><i>Blagoday Music</i></span><button data-pl="max" aria-label="Expand">⤢</button><button data-pl="x" aria-label="Close">✕</button></div>
-<button class="pl-x" data-pl="min">✕ ESC</button>
+<button class="pl-x" data-pl="min">✕<span class="esc"> ESC</span></button>
 <div class="scp" id="scp">
 <div class="scp-l"><div class="scp-hd"><div class="scp-cv"><img id="scpImg" alt=""></div><div class="scp-info"><div class="scp-k" id="scpK">SoundCloud</div><div class="scp-t" id="scpT"></div><div class="scp-a" id="scpA"></div></div></div><div class="scp-st" id="scpSt"></div><div class="scp-lk" id="scpLkr"></div><div class="scp-act"><button class="chip hl" id="scpCm"></button><button class="chip rp" id="scpRp"></button><button class="chip" id="scpSh"></button><a class="chip" id="scpOp" target="_blank" rel="noopener">SoundCloud ↗</a></div><div class="scp-sub"><div class="scp-k" id="scpSubH"></div><div class="scp-subb">
 <button class="sb sc" id="scpFol"><b id="scpFolB">SoundCloud</b><i id="scpFolI">Blagoday Music</i></button>
