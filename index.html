@@ -166,7 +166,7 @@ h2{font-size:clamp(34px,6vw,56px);line-height:1;font-weight:700}
 .tabs button.on{border-color:var(--mag);color:var(--txt);background:rgba(255,0,170,.1)}
 
 /* soundcloud first */
-.sc-box{display:grid;grid-template-columns:1fr 1.3fr;gap:30px;align-items:center;background:linear-gradient(135deg,rgba(255,85,0,.1),rgba(255,0,170,.08));border:1px solid var(--line);border-radius:20px;padding:34px}
+.sc-box-old{display:grid;grid-template-columns:1fr 1.3fr;gap:30px;align-items:center;background:linear-gradient(135deg,rgba(255,85,0,.1),rgba(255,0,170,.08));border:1px solid var(--line);border-radius:20px;padding:34px}
 @media(max-width:860px){.sc-box{grid-template-columns:1fr;padding:22px}}
 .sc-box iframe{width:100%;height:450px;border:0;border-radius:14px;filter:invert(.92) hue-rotate(180deg)}
 
@@ -414,6 +414,42 @@ p{font-weight:500}
 .stt.lk.on{border-color:#ff3b8d;background:rgba(255,59,141,.14)}
 .stt.lk.on span{color:#ff8fbf}
 #scpCm{display:none}
+
+/* ===== music hub ===== */
+.anc{position:relative;top:-80px;display:block;height:0}
+.mtabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;position:sticky;top:64px;z-index:5;padding:10px 0;background:linear-gradient(var(--bg) 70%,transparent)}
+.mtabs button{display:inline-flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--line);color:var(--mut);padding:10px 16px;border-radius:999px;font:inherit;font-weight:600;font-size:15px;cursor:pointer;transition:.2s}
+.mtabs button b{font-weight:600}
+.mtabs button i{font-style:normal;font-family:"Share Tech Mono",monospace;font-size:12px;color:var(--mut);background:rgba(255,255,255,.06);border-radius:999px;padding:2px 8px}
+.mtabs button:hover{border-color:var(--cy);color:var(--txt)}
+.mtabs button.on{border-color:var(--mag);color:#fff;background:rgba(255,0,170,.14)}
+.mtabs button.on i{background:var(--mag);color:#fff}
+.mhint{color:var(--mut);font-size:15px;margin:0 0 22px;min-height:1em}
+.plat-row{margin-top:56px;padding-top:28px;border-top:1px solid var(--line)}
+.plat-row .mono{color:var(--mag);font-size:12px;margin-bottom:14px}
+.mu-fol{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.fol-btn{display:inline-flex;align-items:center;gap:10px;background:#ff5500;border:0;color:#fff;font:inherit;font-weight:700;font-size:15px;padding:12px 20px;border-radius:999px;cursor:pointer;box-shadow:0 8px 26px rgba(255,85,0,.35);transition:.2s}
+.fol-btn:hover{transform:translateY(-1px)}
+.fol-btn.on{background:transparent;border:1px solid #ff5500;color:#ff9a5c;box-shadow:none}
+.fol-n{font-family:"Share Tech Mono",monospace;font-size:13px;color:var(--mut)}
+@media(max-width:760px){.mtabs{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;top:56px}.mtabs::-webkit-scrollbar{display:none}.mtabs button{flex:none;font-size:14px;padding:9px 14px}}
+/* player social */
+.scp-act .rp.on{color:#00e5ff;border-color:rgba(0,229,255,.6)}
+.scp-lk{display:flex;align-items:center;gap:8px;margin-top:12px;min-height:28px}
+.scp-lk .mono{font-size:11px;color:#9a9aa8;letter-spacing:.1em;text-transform:uppercase}
+.scp-lk a{display:block;width:28px;height:28px;margin-left:-8px;border-radius:50%;overflow:hidden;border:2px solid #0b0b10;background:#222}
+.scp-lk a:first-of-type{margin-left:0}
+.scp-lk img{width:100%;height:100%;object-fit:cover}
+.cm-row{display:grid;grid-template-columns:36px 1fr;gap:10px;padding:10px 6px;border-bottom:1px solid rgba(255,255,255,.06)}
+.cm-row img{width:36px;height:36px;border-radius:50%;object-fit:cover;background:#222}
+.cm-row b{font-size:14px;color:#fff}
+.cm-row .ts{font-family:"Share Tech Mono",monospace;font-size:12px;color:#00e5ff;background:none;border:0;cursor:pointer;padding:0 0 0 8px}
+.cm-row p{margin:4px 0 0;font-size:15px;line-height:1.45;color:#e8e8f0;white-space:pre-wrap;word-break:break-word}
+.alb-lk{background:none;border:1px solid rgba(255,59,141,.5);color:#ff8fbf;font:inherit;font-size:12px;padding:3px 10px;border-radius:999px;cursor:pointer;margin-left:8px}
+.alb-lk.on{background:rgba(255,59,141,.18)}
+button.sb{font:inherit;text-align:left;cursor:pointer;width:100%}
+.chip.alb.on{color:#ff8fbf;border-color:rgba(255,59,141,.6)}
+.mtabs button[hidden],.mpanel[hidden]{display:none!important}
 </style>
 <script src="https://w.soundcloud.com/player/api.js"></script>
 </head>
@@ -424,9 +460,7 @@ p{font-weight:500}
     <a href="#top" class="logo">BLAGODAY <b>PRODUCTION</b></a>
     <nav class="links mono" id="links">
       <a href="#videos" data-i="nav_v">Відео</a>
-      <a href="#albums" data-i="nav_a">Альбоми</a>
-      <a href="#releases" data-i="nav_r">Релізи</a>
-      <a href="#listen" data-i="nav_l">Слухати</a>
+      <a href="#music" data-i="nav_m">Музика</a>
       <a href="blog.html" data-i="nav_j">Журнал</a>
       <a href="#support" data-i="nav_s">Підтримка</a>
     </nav>
@@ -448,7 +482,7 @@ p{font-weight:500}
       <p class="lead" data-i="lead">Ембієнт-музика для фокусу з кінематографічними 4K-візуалами життя у 2250 році.</p>
       <div class="btns">
         <a class="btn p" href="#videos" data-i="b_watch">▶ Blagoday Vision — відео</a>
-        <a class="btn c" href="#albums" data-i="b_listen">♪ Blagoday Music — музика</a>
+        <a class="btn c" href="#music" data-i="b_listen">♪ Blagoday Music — музика</a>
       </div>
     </div>
     <div class="now">
@@ -478,13 +512,6 @@ p{font-weight:500}
     </div>
   </section>
 
-  <!-- LISTEN -->
-  <section id="listen" style="padding-top:20px">
-    <div class="wrap reveal">
-      <div class="sh"><div><div class="mono" data-i="l_k">Blagoday Music</div><h2 data-i="l_h">Де слухати</h2></div></div>
-      <div class="plat" id="plat"></div>
-    </div>
-  </section>
 
   <!-- VIDEOS -->
   <section id="videos">
@@ -512,63 +539,38 @@ p{font-weight:500}
     </div>
   </section>
 
-  <!-- ALBUMS -->
-  <section id="albums">
+  <!-- MUSIC HUB -->
+  <section id="music">
+    <span id="albums" class="anc"></span><span id="catalog" class="anc"></span><span id="releases" class="anc"></span><span id="listen" class="anc"></span>
     <div class="wrap">
       <div class="sh reveal">
-        <div><div class="mono" data-i="a_k">Альбоми · SoundCloud — головна сцена</div><h2>Blagoday Music</h2>
-        <p class="sub" data-i="a_s">Усі нові релізи спершу виходять на SoundCloud. Натисни на обкладинку, щоб слухати прямо тут.</p></div>
-        <a class="more mono" href="https://soundcloud.com/blagodaymusic" target="_blank" rel="noopener" data-i="a_all">Профіль SoundCloud ↗</a>
+        <div><div class="mono" data-i="mu_k">Blagoday Music</div><h2 data-i="mu_h">Музика</h2>
+        <p class="sub" data-i="mu_s"></p></div>
+        <div class="mu-fol" id="muFol"></div>
       </div>
-      <div class="tabs reveal" id="atabs">
-        <button class="on" data-f="album" data-i="t_alb">Альбоми</button>
-        <button data-f="other" data-i="t_arch">Архів і плейлисти</button>
-        <button data-f="single" data-i="t_sgl">Singles</button>
+      <div class="mtabs reveal" id="mtabs" role="tablist">
+        <button data-t="album" role="tab"><b data-i="t_alb">Альбоми</b><i id="mtc-album"></i></button>
+        <button data-t="single" role="tab"><b data-i="t_sgl">Сингли</b><i id="mtc-single"></i></button>
+        <button data-t="all" role="tab"><b data-i="t_all">Усі треки</b><i id="mtc-all"></i></button>
+        <button data-t="stream" role="tab"><b data-i="t_str">На стрімінгах</b><i id="mtc-stream"></i></button>
+        <button data-t="other" role="tab"><b data-i="t_arch">Архів і плейлисти</b><i id="mtc-other"></i></button>
+        <button data-t="kg" role="tab" hidden><b data-i="t_kg">Музика з відео</b><i id="mtc-kg"></i></button>
       </div>
-      <div class="agrid" id="agrid"></div>
-    </div>
-  </section>
-
-  <!-- CATALOG: every track -->
-  <section id="catalog">
-    <div class="wrap">
-      <div class="sh reveal">
-        <div><div class="mono" data-i="cat_k">Catalog</div><h2 data-i="cat_h">All music</h2>
-        <p class="sub" id="catS"></p></div>
-        <a class="more mono" href="https://soundcloud.com/blagodaymusic/tracks" target="_blank" rel="noopener">SoundCloud ↗</a>
-      </div>
-      <div class="cat-bar reveal">
-        <input type="search" id="catQ" autocomplete="off">
-                <select id="catO" aria-label="Sort"><option value="new" data-i="s_new">Newest</option><option value="pop" data-i="s_pop">Most played</option><option value="az">A–Z</option></select>
-      </div>
-      <div class="clist" id="clist"></div>
-      <div class="loadmore"><button class="btn" id="cmore" data-i="more">Show more</button></div>
-    </div>
-  </section>
-  <!-- SOUNDCLOUD ALL TRACKS -->
-  <section style="padding-top:20px">
-    <div class="wrap reveal">
-      <div class="sc-box">
-        <div>
-          <div class="mono" style="color:#ff7a1a;font-size:12px" data-i="sc_k">Тільки на SoundCloud</div>
-          <h2 style="margin:10px 0 14px" data-i="sc_h">Усі треки</h2>
-          <p class="sub" data-i="sc_s">Частина музики доступна лише на SoundCloud: ранні треки, кавери, версії, яких немає на стрімінгах.</p>
-          <div class="btns" style="margin-top:22px"><a class="btn p" style="background:#ff5500;border-color:#ff5500;box-shadow:0 0 24px rgba(255,85,0,.35)" href="https://soundcloud.com/blagodaymusic/tracks" target="_blank" rel="noopener" data-i="sc_b">Відкрити на SoundCloud ↗</a></div>
+      <p class="mhint" id="mHint"></p>
+      <div class="mpanel" id="mp-grid"><div class="agrid" id="agrid"></div></div>
+      <div class="mpanel" id="mp-all" hidden>
+        <div class="cat-bar">
+          <input type="search" id="catQ" autocomplete="off">
+          <select id="catO" aria-label="Sort"><option value="new" data-i="s_new">Newest</option><option value="pop" data-i="s_pop">Most played</option><option value="az">A–Z</option></select>
         </div>
-        <iframe loading="lazy" title="SoundCloud" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/blagodaymusic&color=%23ff00aa&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&show_artwork=false"></iframe>
+        <div class="clist" id="clist"></div>
+        <div class="loadmore"><button class="btn" id="cmore" data-i="more">Show more</button></div>
       </div>
-    </div>
-  </section>
-
-  <!-- RELEASES -->
-  <section id="releases">
-    <div class="wrap">
-      <div class="sh reveal">
-        <div><div class="mono" data-i="r_k">Дистрибуція</div><h2 data-i="r_h">На стрімінгах</h2>
-        <p class="sub" data-i="r_s">Релізи, що вийшли на Spotify, Apple Music, YouTube Music, Amazon Music, Deezer, Tidal та інших платформах.</p></div>
-        <a class="more mono" href="https://open.spotify.com/artist/7vR7IPUnvlg6bQgpaPv1xb" target="_blank" rel="noopener" data-i="r_all">Spotify ↗</a>
+      <div class="mpanel" id="mp-stream" hidden><div class="agrid" id="rgrid"></div></div>
+      <div class="plat-row reveal">
+        <div class="mono" data-i="l_h">Де слухати</div>
+        <div class="plat" id="plat"></div>
       </div>
-      <div class="agrid" id="rgrid"></div>
     </div>
   </section>
 
@@ -751,6 +753,7 @@ const fmtD=d=>new Date(d+"T00:00:00").toLocaleDateString(LOC[L],{year:"numeric",
 const T2={"uk": {"here": "▶ Слухати тут", "q_add": "Додати в чергу", "q_added": "Додано в чергу · {n}", "q_tab": "Черга", "q_empty": "Черга порожня. Натисни ＋ біля будь-якого треку в каталозі або тут у списку.", "q_clear": "Очистити", "q_play": "Слухати чергу", "tr_tab": "Треки", "more_tab": "Ще музика", "c_at": "💬 Коментар на {t}", "share": "↗ Поділитися", "copied": "Посилання скопійовано", "hint": "♥ у плеєрі — лайк на SoundCloud. Коментарі слухачів видно на хвилі треку. Кнопка «Коментар» відкриває трек на SoundCloud саме на цій секунді.", "sub_h": "Підпишись на Blagoday", "rel_sp": "Spotify · популярні треки", "rel_note": "Apple Music і Spotify грають повні треки, якщо ти увійшов у свій акаунт. Без входу — 30-секундні уривки."}, "en": {"here": "▶ Listen here", "q_add": "Add to queue", "q_added": "Added to queue · {n}", "q_tab": "Queue", "q_empty": "The queue is empty. Tap ＋ next to any track in the catalog or in this list.", "q_clear": "Clear", "q_play": "Play queue", "tr_tab": "Tracks", "more_tab": "More music", "c_at": "💬 Comment at {t}", "share": "↗ Share", "copied": "Link copied", "hint": "♥ in the player likes the track on SoundCloud. Listener comments show on the waveform. The Comment button opens the track on SoundCloud at this exact second.", "sub_h": "Follow Blagoday", "rel_sp": "Spotify · top tracks", "rel_note": "Apple Music and Spotify play full tracks when you are signed in to your account. Without signing in you hear 30-second previews."}, "es": {"here": "▶ Escuchar aquí", "q_add": "Añadir a la cola", "q_added": "Añadido a la cola · {n}", "q_tab": "Cola", "q_empty": "La cola está vacía. Toca ＋ junto a cualquier tema del catálogo o de esta lista.", "q_clear": "Vaciar", "q_play": "Escuchar la cola", "tr_tab": "Temas", "more_tab": "Más música", "c_at": "💬 Comentar en {t}", "share": "↗ Compartir", "copied": "Enlace copiado", "hint": "♥ en el reproductor da like en SoundCloud. Los comentarios aparecen sobre la onda del tema. El botón Comentar abre el tema en SoundCloud en este segundo.", "sub_h": "Sigue a Blagoday", "rel_sp": "Spotify · temas populares", "rel_note": "Apple Music y Spotify reproducen temas completos si iniciaste sesión en tu cuenta. Sin sesión, fragmentos de 30 segundos."}, "pt": {"here": "▶ Ouvir aqui", "q_add": "Adicionar à fila", "q_added": "Adicionado à fila · {n}", "q_tab": "Fila", "q_empty": "A fila está vazia. Toque em ＋ ao lado de qualquer faixa do catálogo ou desta lista.", "q_clear": "Limpar", "q_play": "Ouvir a fila", "tr_tab": "Faixas", "more_tab": "Mais músicas", "c_at": "💬 Comentar em {t}", "share": "↗ Compartilhar", "copied": "Link copiado", "hint": "♥ no player curte a faixa no SoundCloud. Os comentários aparecem na onda da faixa. O botão Comentar abre a faixa no SoundCloud neste segundo.", "sub_h": "Siga Blagoday", "rel_sp": "Spotify · faixas populares", "rel_note": "Apple Music e Spotify tocam faixas completas quando você está conectado à sua conta. Sem login, prévias de 30 segundos."}, "de": {"here": "▶ Hier anhören", "q_add": "Zur Warteschlange", "q_added": "Zur Warteschlange hinzugefügt · {n}", "q_tab": "Warteschlange", "q_empty": "Die Warteschlange ist leer. Tippe auf ＋ neben einem Track im Katalog oder in dieser Liste.", "q_clear": "Leeren", "q_play": "Warteschlange abspielen", "tr_tab": "Tracks", "more_tab": "Mehr Musik", "c_at": "💬 Kommentar bei {t}", "share": "↗ Teilen", "copied": "Link kopiert", "hint": "♥ im Player liked den Track auf SoundCloud. Kommentare erscheinen auf der Wellenform. Der Kommentar-Button öffnet den Track auf SoundCloud genau an dieser Sekunde.", "sub_h": "Blagoday folgen", "rel_sp": "Spotify · Top-Tracks", "rel_note": "Apple Music und Spotify spielen ganze Tracks, wenn du in deinem Konto angemeldet bist. Ohne Anmeldung hörst du 30-Sekunden-Ausschnitte."}, "fr": {"here": "▶ Écouter ici", "q_add": "Ajouter à la file", "q_added": "Ajouté à la file · {n}", "q_tab": "File d'attente", "q_empty": "La file est vide. Touchez ＋ à côté d'un titre du catalogue ou de cette liste.", "q_clear": "Vider", "q_play": "Écouter la file", "tr_tab": "Titres", "more_tab": "Plus de musique", "c_at": "💬 Commenter à {t}", "share": "↗ Partager", "copied": "Lien copié", "hint": "♥ dans le lecteur aime le titre sur SoundCloud. Les commentaires s'affichent sur la forme d'onde. Le bouton Commenter ouvre le titre sur SoundCloud à cette seconde.", "sub_h": "Suivre Blagoday", "rel_sp": "Spotify · titres populaires", "rel_note": "Apple Music et Spotify jouent les titres en entier si vous êtes connecté à votre compte. Sinon, extraits de 30 secondes."}};for(const k in T2)Object.assign(T[k],T2[k]);
 for(const [k,v] of Object.entries({"uk": {"st_p": "прослуховувань", "st_l": "лайків", "st_c": "коментарів"}, "en": {"st_p": "plays", "st_l": "likes", "st_c": "comments"}, "es": {"st_p": "reproducciones", "st_l": "me gusta", "st_c": "comentarios"}, "pt": {"st_p": "reproduções", "st_l": "curtidas", "st_c": "comentários"}, "de": {"st_p": "Plays", "st_l": "Likes", "st_c": "Kommentare"}, "fr": {"st_p": "écoutes", "st_l": "j’aime", "st_c": "commentaires"}}))Object.assign(T[k],v);
 for(const [k,v] of Object.entries({"uk": {"like_btn": "Лайк", "liked": "Вподобано", "login_sc": "Увійти через SoundCloud", "logout": "Вийти", "cm_ph": "Напиши коментар — він з’явиться під треком на SoundCloud", "send_at": "💬 Надіслати на {t}", "cm_ok": "Коментар опубліковано на SoundCloud", "like_ok": "Лайк зараховано на SoundCloud", "need_login": "Щоб лайкнути чи коментувати, увійди через SoundCloud", "as": "Ти увійшов як {u}", "err": "Не вдалося. Спробуй ще раз.", "in_ok": "Вхід через SoundCloud виконано"}, "en": {"like_btn": "Like", "liked": "Liked", "login_sc": "Sign in with SoundCloud", "logout": "Sign out", "cm_ph": "Write a comment — it will appear under the track on SoundCloud", "send_at": "💬 Post at {t}", "cm_ok": "Comment posted on SoundCloud", "like_ok": "Like counted on SoundCloud", "need_login": "Sign in with SoundCloud to like or comment", "as": "Signed in as {u}", "err": "Something went wrong. Try again.", "in_ok": "Signed in with SoundCloud"}, "es": {"like_btn": "Me gusta", "liked": "Te gusta", "login_sc": "Entrar con SoundCloud", "logout": "Salir", "cm_ph": "Escribe un comentario: aparecerá bajo el tema en SoundCloud", "send_at": "💬 Publicar en {t}", "cm_ok": "Comentario publicado en SoundCloud", "like_ok": "Me gusta registrado en SoundCloud", "need_login": "Entra con SoundCloud para dar me gusta o comentar", "as": "Sesión: {u}", "err": "Algo salió mal. Inténtalo de nuevo.", "in_ok": "Sesión iniciada con SoundCloud"}, "pt": {"like_btn": "Curtir", "liked": "Curtido", "login_sc": "Entrar com SoundCloud", "logout": "Sair", "cm_ph": "Escreva um comentário — ele aparecerá na faixa no SoundCloud", "send_at": "💬 Publicar em {t}", "cm_ok": "Comentário publicado no SoundCloud", "like_ok": "Curtida registrada no SoundCloud", "need_login": "Entre com o SoundCloud para curtir ou comentar", "as": "Conectado como {u}", "err": "Algo deu errado. Tente de novo.", "in_ok": "Conectado com SoundCloud"}, "de": {"like_btn": "Like", "liked": "Geliked", "login_sc": "Mit SoundCloud anmelden", "logout": "Abmelden", "cm_ph": "Schreib einen Kommentar – er erscheint beim Track auf SoundCloud", "send_at": "💬 Senden bei {t}", "cm_ok": "Kommentar auf SoundCloud veröffentlicht", "like_ok": "Like auf SoundCloud gezählt", "need_login": "Melde dich mit SoundCloud an, um zu liken oder zu kommentieren", "as": "Angemeldet als {u}", "err": "Etwas ist schiefgelaufen. Bitte erneut versuchen.", "in_ok": "Mit SoundCloud angemeldet"}, "fr": {"like_btn": "J’aime", "liked": "Aimé", "login_sc": "Se connecter avec SoundCloud", "logout": "Se déconnecter", "cm_ph": "Écrivez un commentaire — il apparaîtra sous le titre sur SoundCloud", "send_at": "💬 Publier à {t}", "cm_ok": "Commentaire publié sur SoundCloud", "like_ok": "J’aime compté sur SoundCloud", "need_login": "Connectez-vous avec SoundCloud pour aimer ou commenter", "as": "Connecté : {u}", "err": "Une erreur est survenue. Réessayez.", "in_ok": "Connecté avec SoundCloud"}}))Object.assign(T[k],v);
+for(const [k,v] of Object.entries({"uk": {"nav_m": "Музика", "mu_k": "Blagoday Music", "mu_h": "Музика", "mu_s": "Уся музика Blagoday Music в одному місці. Слухай прямо тут, став лайки, коментуй і підписуйся — усе зараховується на SoundCloud.", "t_all": "Усі треки", "t_str": "На стрімінгах", "t_kg": "Музика з відео", "mh_album": "Альбоми на SoundCloud. Натисни на обкладинку — і слухай тут.", "mh_single": "Окремі пісні та сингли.", "mh_all": "Кожен трек Blagoday Music. Пошук за назвою, сортування, ＋ — додати в чергу.", "mh_stream": "Релізи на Spotify, Apple Music, YouTube Music та інших платформах.", "mh_other": "Ранні треки, архівні збірки та плейлисти.", "mh_kg": "Музика, створена для відео.", "repost": "🔁 Репост", "reposted": "🔁 Репостнуто", "rp_ok": "Репост зроблено — трек у твоїй стрічці SoundCloud", "follow": "Підписатися", "following": "Ти підписаний", "followers": "{n} підписників", "fl_ok": "Ти підписався на Blagoday Music", "cm_tab": "Коментарі", "cm_none": "Ще немає коментарів. Будь першим!", "likers": "Лайкнули", "alb_like": "♥ Альбом", "alb_liked": "♥ Альбом вподобано"}, "en": {"nav_m": "Music", "mu_k": "Blagoday Music", "mu_h": "Music", "mu_s": "All Blagoday Music in one place. Listen right here, like, comment and follow — it all counts on SoundCloud.", "t_all": "All tracks", "t_str": "On streaming", "t_kg": "Music from videos", "mh_album": "Albums on SoundCloud. Tap a cover to listen here.", "mh_single": "Standalone songs and singles.", "mh_all": "Every Blagoday Music track. Search by title, sort, ＋ to add to the queue.", "mh_stream": "Releases on Spotify, Apple Music, YouTube Music and more.", "mh_other": "Early tracks, archive collections and playlists.", "mh_kg": "Music made for videos.", "repost": "🔁 Repost", "reposted": "🔁 Reposted", "rp_ok": "Reposted — the track is in your SoundCloud feed", "follow": "Follow", "following": "Following", "followers": "{n} followers", "fl_ok": "You now follow Blagoday Music", "cm_tab": "Comments", "cm_none": "No comments yet. Be the first!", "likers": "Liked by", "alb_like": "♥ Album", "alb_liked": "♥ Album liked"}, "es": {"nav_m": "Música", "mu_k": "Blagoday Music", "mu_h": "Música", "mu_s": "Toda la música de Blagoday Music en un solo lugar. Escucha aquí, da me gusta, comenta y sigue: todo cuenta en SoundCloud.", "t_all": "Todos los temas", "t_str": "En streaming", "t_kg": "Música de los videos", "mh_album": "Álbumes en SoundCloud. Toca una portada para escuchar aquí.", "mh_single": "Canciones y sencillos.", "mh_all": "Cada tema de Blagoday Music. Busca, ordena y usa ＋ para añadir a la cola.", "mh_stream": "Lanzamientos en Spotify, Apple Music, YouTube Music y más.", "mh_other": "Temas tempranos, colecciones de archivo y playlists.", "mh_kg": "Música creada para videos.", "repost": "🔁 Repost", "reposted": "🔁 Reposteado", "rp_ok": "Reposteado: el tema está en tu feed de SoundCloud", "follow": "Seguir", "following": "Siguiendo", "followers": "{n} seguidores", "fl_ok": "Ahora sigues a Blagoday Music", "cm_tab": "Comentarios", "cm_none": "Aún no hay comentarios. ¡Sé el primero!", "likers": "Les gusta a", "alb_like": "♥ Álbum", "alb_liked": "♥ Álbum guardado"}, "pt": {"nav_m": "Música", "mu_k": "Blagoday Music", "mu_h": "Música", "mu_s": "Toda a música de Blagoday Music num só lugar. Ouça aqui, curta, comente e siga — tudo conta no SoundCloud.", "t_all": "Todas as faixas", "t_str": "No streaming", "t_kg": "Música dos vídeos", "mh_album": "Álbuns no SoundCloud. Toque numa capa para ouvir aqui.", "mh_single": "Músicas e singles.", "mh_all": "Todas as faixas de Blagoday Music. Busque, ordene e use ＋ para adicionar à fila.", "mh_stream": "Lançamentos no Spotify, Apple Music, YouTube Music e outros.", "mh_other": "Faixas antigas, coleções de arquivo e playlists.", "mh_kg": "Música feita para vídeos.", "repost": "🔁 Repostar", "reposted": "🔁 Repostado", "rp_ok": "Repostado — a faixa está no seu feed do SoundCloud", "follow": "Seguir", "following": "Seguindo", "followers": "{n} seguidores", "fl_ok": "Agora você segue Blagoday Music", "cm_tab": "Comentários", "cm_none": "Ainda sem comentários. Seja o primeiro!", "likers": "Curtido por", "alb_like": "♥ Álbum", "alb_liked": "♥ Álbum curtido"}, "de": {"nav_m": "Musik", "mu_k": "Blagoday Music", "mu_h": "Musik", "mu_s": "Die ganze Musik von Blagoday Music an einem Ort. Hier hören, liken, kommentieren und folgen – alles zählt auf SoundCloud.", "t_all": "Alle Tracks", "t_str": "Im Streaming", "t_kg": "Musik aus Videos", "mh_album": "Alben auf SoundCloud. Tippe auf ein Cover, um hier zu hören.", "mh_single": "Einzelne Songs und Singles.", "mh_all": "Jeder Track von Blagoday Music. Suchen, sortieren, ＋ für die Warteschlange.", "mh_stream": "Releases auf Spotify, Apple Music, YouTube Music und mehr.", "mh_other": "Frühe Tracks, Archiv-Sammlungen und Playlists.", "mh_kg": "Musik, die für Videos entstanden ist.", "repost": "🔁 Reposten", "reposted": "🔁 Repostet", "rp_ok": "Repostet – der Track ist in deinem SoundCloud-Feed", "follow": "Folgen", "following": "Du folgst", "followers": "{n} Follower", "fl_ok": "Du folgst jetzt Blagoday Music", "cm_tab": "Kommentare", "cm_none": "Noch keine Kommentare. Sei der Erste!", "likers": "Gefällt", "alb_like": "♥ Album", "alb_liked": "♥ Album geliked"}, "fr": {"nav_m": "Musique", "mu_k": "Blagoday Music", "mu_h": "Musique", "mu_s": "Toute la musique de Blagoday Music au même endroit. Écoutez ici, aimez, commentez et abonnez-vous — tout compte sur SoundCloud.", "t_all": "Tous les titres", "t_str": "En streaming", "t_kg": "Musique des vidéos", "mh_album": "Albums sur SoundCloud. Touchez une pochette pour écouter ici.", "mh_single": "Chansons et singles.", "mh_all": "Chaque titre de Blagoday Music. Cherchez, triez, ＋ pour ajouter à la file.", "mh_stream": "Sorties sur Spotify, Apple Music, YouTube Music et plus.", "mh_other": "Premiers titres, archives et playlists.", "mh_kg": "Musique créée pour des vidéos.", "repost": "🔁 Republier", "reposted": "🔁 Republié", "rp_ok": "Republié — le titre est dans votre fil SoundCloud", "follow": "S’abonner", "following": "Abonné", "followers": "{n} abonnés", "fl_ok": "Vous suivez maintenant Blagoday Music", "cm_tab": "Commentaires", "cm_none": "Pas encore de commentaires. Soyez le premier !", "likers": "Aimé par", "alb_like": "♥ Album", "alb_liked": "♥ Album aimé"}}))Object.assign(T[k],v);
 const plural=n=>n===1?t("track"):t("tracks");
 
 /* ---------- RENDER ---------- */
@@ -773,7 +776,7 @@ function renderAlbums(){
     const [ti,slug,art,date,genre,n,,du,de,vid]=a; const d=L==="uk"?du:de;
     return `<article class="al"><button class="cover" data-sc="${slug}" aria-label="${esc(ti)}">${art?`<img loading="lazy" src="${ART(art)}" alt="">`:`<div class="ph">${esc(ti)}</div>`}<span class="badge sc mono">SoundCloud</span></button>
     <div class="ai"><h3>${esc(ti)}</h3><div class="m mono">${fmtD(date)} · ${n} ${plural(n)}${genre?` · ${esc(genre)}`:""}</div>${d?`<div class="d">${esc(d)}</div>`:""}
-    <div class="acts"><button class="chip hl" data-sc="${slug}">${t("play")}</button>${vid&&vid.trim()?`<button class="chip" data-yt="${vid}">${t("video")}</button>`:""}<a class="chip" href="${SCU(slug)}" target="_blank" rel="noopener">SoundCloud ↗</a></div></div></article>`;
+    <div class="acts"><button class="chip hl" data-sc="${slug}">${t("play")}</button>${vid&&vid.trim()?`<button class="chip" data-yt="${vid}">${t("video")}</button>`:""}<a class="chip" href="${SCU(slug)}" target="_blank" rel="noopener">SoundCloud ↗</a>${a[6]!=="single"?`<button class="chip alb${SOC.plLiked[slug]?" on":""}" data-alk="${slug}">${SOC.plLiked[slug]?t("alb_liked"):t("alb_like")}</button>`:""}</div></div></article>`;
   }).join("");
 }
 function renderReleases(){
@@ -793,7 +796,7 @@ function applyI18n(){
   document.querySelectorAll('a[href^="blog"]').forEach(a=>a.setAttribute("href",bl));
   document.getElementById("premA").setAttribute("href","this-song-is-about-a-cabinet"+sf);
   document.getElementById("jgrid").innerHTML=JR[L].map(([sl,k,h,d,im])=>`<a class="jc" href="${sl+sf}"><div class="im"><img loading="lazy" src="${im}" alt="${esc(h)}"></div><div class="tx"><div class="k mono">${esc(k)}</div><h3>${esc(h)}</h3><p>${esc(d)}</p></div></a>`).join("");
-  renderVideos(); renderAlbums(); renderReleases(); renderCat(); if(typeof pText==="function"){pText();updQ();}
+  renderVideos(); renderAlbums(); renderReleases(); renderCat(); if(typeof pText==="function"){pText();updQ();} if(typeof mCounts==="function"&&document.getElementById("mHint")){try{mCounts();document.getElementById("mHint").textContent=t("mh_"+mTab)||"";scFolUI();}catch(e){}}
 }
 
 
@@ -810,7 +813,6 @@ function catRows(){
   return r;
 }
 function renderCat(){
-  document.getElementById("catS").textContent=t("cat_s").replace("{n}",CAT.c.length);
   document.getElementById("catQ").placeholder=t("cat_q");
   const r=catRows(),albBy={};ALBUMS.forEach(a=>albBy[a[1]]=a);
   document.getElementById("clist").innerHTML=r.length?r.slice(0,cN).map((x,i)=>{
@@ -853,14 +855,14 @@ function pBuild(){
 <div class="pl-mh"><img id="plMi" alt=""><span><b id="plMt"></b><i>Blagoday Music</i></span><button data-pl="max" aria-label="Expand">⤢</button><button data-pl="x" aria-label="Close">✕</button></div>
 <button class="pl-x" data-pl="min">✕ ESC</button>
 <div class="scp" id="scp">
-<div class="scp-l"><div class="scp-cv"><img id="scpImg" alt=""></div><div class="scp-info"><div class="scp-k" id="scpK">SoundCloud</div><div class="scp-t" id="scpT"></div><div class="scp-a" id="scpA"></div><div class="scp-st" id="scpSt"></div></div></div>
+<div class="scp-l"><div class="scp-cv"><img id="scpImg" alt=""></div><div class="scp-info"><div class="scp-k" id="scpK">SoundCloud</div><div class="scp-t" id="scpT"></div><div class="scp-a" id="scpA"></div><div class="scp-st" id="scpSt"></div><div class="scp-lk" id="scpLkr"></div></div></div>
 <div class="scp-r">
-<div class="scp-act"><button class="chip hl" id="scpCm"></button><button class="chip" id="scpSh"></button><a class="chip" id="scpOp" target="_blank" rel="noopener">SoundCloud ↗</a></div>
+<div class="scp-act"><button class="chip hl" id="scpCm"></button><button class="chip rp" id="scpRp"></button><button class="chip" id="scpSh"></button><a class="chip" id="scpOp" target="_blank" rel="noopener">SoundCloud ↗</a></div>
 <div class="scp-cmt"><textarea id="scpTx" maxlength="1000" rows="2"></textarea><div class="scp-cr"><span class="scp-who" id="scpWho"></span><button class="scp-send" id="scpSend"></button></div></div>
-<div class="scp-tabs" id="scpTabs"><button data-t="tr"></button><button data-t="q"></button><button data-t="more"></button></div>
+<div class="scp-tabs" id="scpTabs"><button data-t="tr"></button><button data-t="q"></button><button data-t="cm"></button><button data-t="more"></button></div>
 <div class="scp-list" id="scpList"></div>
 <div class="scp-sub"><div class="scp-k" id="scpSubH"></div><div class="scp-subb">
-<a class="sb sc" href="https://soundcloud.com/blagodaymusic" target="_blank" rel="noopener"><b>SoundCloud ↗</b><i>Blagoday Music</i></a>
+<button class="sb sc" id="scpFol"><b id="scpFolB">SoundCloud</b><i id="scpFolI">Blagoday Music</i></button>
 <a class="sb yt" href="https://www.youtube.com/@TheBlagoday?sub_confirmation=1" target="_blank" rel="noopener"><b>YouTube ↗</b><i>Blagoday · @TheBlagoday</i></a>
 <a class="sb yt" href="https://www.youtube.com/@BlagodayVision?sub_confirmation=1" target="_blank" rel="noopener"><b>YouTube ↗</b><i>Blagoday Vision</i></a>
 </div></div>
@@ -871,6 +873,7 @@ function pBuild(){
   const $=id=>document.getElementById(id);
   d.addEventListener("click",e=>{
     const a=e.target.closest("[data-pl]");if(a){const k=a.dataset.pl;if(k==="min")pMin();else if(k==="max")pFull();else pClose();return;}
+    const sk=e.target.closest("[data-seek]");if(sk){if(P.w)P.w.seekTo(+sk.dataset.seek);return;}
     const tb=e.target.closest("#scpTabs button");if(tb){P.tab=tb.dataset.t;pTabs();pList();return;}
     if(e.target.closest("[data-qc]")){Q=[];saveQ();return;}
     const rm=e.target.closest("[data-qr]");if(rm){Q.splice(+rm.dataset.qr,1);saveQ();return;}
@@ -881,6 +884,7 @@ function pBuild(){
   $("scpNext").onclick=()=>pNext(true);$("scpPrev").onclick=pPrev;
   $("scpCm").onclick=()=>{if(!P.now)return;const u=(P.snd&&P.snd.permalink_url)||scUrl(P.now);open(u+"#t="+mmss(P.pos),"_blank","noopener");};
   $("scpSend").onclick=scComment;
+  $("scpRp").onclick=scRepost;$("scpFol").onclick=()=>scFollow();
   $("scpTx").addEventListener("keydown",e=>{if(e.key==="Enter"&&(e.ctrlKey||e.metaKey))scComment();});
   $("scpSh").onclick=async()=>{if(!P.now)return;const u=location.origin+location.pathname+"#play="+P.now[1];
     try{if(navigator.share){await navigator.share({title:P.now[0]+" — Blagoday Music",url:u});return;}}catch(e){return;}
@@ -889,14 +893,14 @@ function pBuild(){
 }
 function pText(){
   if(!P.el)return;const $=id=>document.getElementById(id);
-  $("scpSh").textContent=t("share");$("scpTx").placeholder=t("cm_ph");scWho();$("scpSubH").textContent=t("sub_h");
+  $("scpSh").textContent=t("share");$("scpTx").placeholder=t("cm_ph");scWho();scFolUI();scRpUI();$("scpSubH").textContent=t("sub_h");
   pCm();pTabs();pList();
 }
 function pCm(){const b=document.getElementById("scpCm");if(b)b.textContent=t("c_at").replace("{t}",mmss(P.pos));const s=document.getElementById("scpSend");if(s&&!s.disabled)s.textContent=t("send_at").replace("{t}",mmss(P.pos));}
 function pTabs(){
   if(!P.el)return;
   document.querySelectorAll("#scpTabs button").forEach(b=>{const k=b.dataset.t;
-    b.textContent=k==="tr"?t("tr_tab")+" · "+P.list.length:k==="q"?t("q_tab")+" · "+Q.length:t("more_tab");
+    b.textContent=k==="tr"?t("tr_tab")+" · "+P.list.length:k==="q"?t("q_tab")+" · "+Q.length:k==="cm"?t("cm_tab")+" · "+(P.snd?(P.snd.comment_count||0):"–"):t("more_tab");
     b.style.display=(k==="tr"&&!P.list.length)?"none":"";b.classList.toggle("on",k===P.tab);});
 }
 function pRow(x,i,mode){
@@ -908,6 +912,7 @@ function pList(){
   const L2=document.getElementById("scpList");if(!L2)return;let h="";
   if(P.tab==="tr")h=P.list.map((x,i)=>pRow(x,i,"tr")).join("");
   else if(P.tab==="q")h=Q.length?`<div class="scp-qh"><span class="scp-k">${esc(t("q_tab"))} · ${Q.length}</span><button class="chip" data-qc="1">${esc(t("q_clear"))}</button></div>`+Q.map((s,i)=>pRow(byP[s],i,"q")).join(""):`<div class="scp-empty">${esc(t("q_empty"))}</div>`;
+  else if(P.tab==="cm"){h=pComments();}
   else{const own=new Set(P.list.map(x=>x[1]));h=CAT.c.filter(x=>!own.has(x[1])).sort((a,b)=>b[5]-a[5]).slice(0,40).map((x,i)=>pRow(x,i,"more")).join("");}
   L2.innerHTML=h;const on=L2.querySelector(".on");if(on)on.scrollIntoView({block:"nearest"});
 }
@@ -945,12 +950,58 @@ async function scComment(){const s=P.snd,x=document.getElementById("scpTx"),b=do
     if(r&&r.ok){x.value="";s.comment_count=(s.comment_count||0)+1;pStats();toast(t("cm_ok"));}else if(r)toast(t("err"));}
   catch(e){toast(t("err"));}
   b.disabled=false;pCm();}
+/* ---------- social: comments list, likers, repost, follow, album like, live catalog ---------- */
+const SOC={cm:{},lk:{},fol:null,rp:{},pl:{},plLiked:{}};
+try{Object.assign(SOC.rp,JSON.parse(localStorage.getItem("bl_scrp")||"{}"));Object.assign(SOC.plLiked,JSON.parse(localStorage.getItem("bl_scpl")||"{}"));}catch(e){}
+function socSave(){try{localStorage.setItem("bl_scrp",JSON.stringify(SOC.rp));localStorage.setItem("bl_scpl",JSON.stringify(SOC.plLiked));}catch(e){}}
+async function socGet(path){try{const r=await fetch(SCB+path);if(!r.ok)return null;return await r.json();}catch(e){return null;}}
+let socLast=0;
+function pSocial(){const s=P.snd;if(!s||!s.id||socLast===s.id)return;socLast=s.id;const id=s.id;
+  socGet("/comments/"+id).then(c=>{if(c){SOC.cm[id]=c;if(P.snd&&P.snd.id===id){if(P.tab==="cm")pList();pTabs();}}});
+  socGet("/likers/"+id).then(l=>{if(l){SOC.lk[id]=l;pLikers();}});
+  scRpUI();}
+function pLikers(){const el=document.getElementById("scpLkr");if(!el)return;const s=P.snd,l=s&&SOC.lk[s.id];
+  if(!l||!l.length){el.innerHTML="";return;}
+  el.innerHTML=`<span class="mono">${esc(t("likers"))}</span>`+l.slice(0,10).map(u=>`<a href="${esc(u.url||"#")}" target="_blank" rel="noopener" title="${esc(u.name)}"><img loading="lazy" src="${esc(u.avatar||"")}" alt=""></a>`).join("");}
+function pComments(){const s=P.snd;if(!s)return`<div class="scp-empty">…</div>`;const c=SOC.cm[s.id];
+  if(!c)return`<div class="scp-empty">…</div>`;if(!c.length)return`<div class="scp-empty">${esc(t("cm_none"))}</div>`;
+  return c.slice().sort((a,b)=>(a.ts||0)-(b.ts||0)).map(x=>`<div class="cm-row"><img loading="lazy" src="${esc(x.user&&x.user.avatar||"")}" alt=""><div><b>${esc(x.user?x.user.name:"")}</b>${x.ts!=null?`<button class="ts" data-seek="${x.ts}">${mmss(x.ts)}</button>`:""}<p>${esc(x.body||"")}</p></div></div>`).join("");}
+function scRpUI(){const b=document.getElementById("scpRp");if(!b)return;const on=!!(P.snd&&SOC.rp[P.snd.id]);b.classList.toggle("on",on);b.textContent=on?t("reposted"):t("repost");}
+async function scRepost(){const s=P.snd;if(!s||!s.id)return;if(!SCT){scAsk();return;}const was=!!SOC.rp[s.id];
+  const r=await scCall("/repost/"+s.id,{method:was?"DELETE":"POST"});if(!r)return;
+  if(r.ok){if(was)delete SOC.rp[s.id];else SOC.rp[s.id]=1;socSave();scRpUI();if(!was)toast(t("rp_ok"));}else toast(t("err"));}
+async function scFolState(){if(!SCT){SOC.fol=null;return;}try{const r=await scCall("/follow");SOC.fol=!!(r&&r.ok);}catch(e){}}
+function scFolUI(){const n=SOC.artist?SOC.artist.followers:null;
+  const label=SOC.fol?t("following"):t("follow");
+  const b=document.getElementById("scpFolB"),i=document.getElementById("scpFolI");if(b){b.textContent=(SOC.fol?"✓ ":"+ ")+label;i.textContent="SoundCloud · Blagoday Music";}
+  const m=document.getElementById("muFol");if(m)m.innerHTML=`<button class="fol-btn${SOC.fol?" on":""}" id="muFolB">${SOC.fol?"✓":"＋"} ${esc(label)} · SoundCloud</button>${n!=null?`<span class="fol-n">${esc(t("followers").replace("{n}",fmtN(n)))}</span>`:""}`;
+  const mb=document.getElementById("muFolB");if(mb)mb.onclick=()=>scFollow();}
+async function scFollow(){if(!SCT){scLogin();return;}const was=!!SOC.fol;
+  const r=await scCall("/follow",{method:was?"DELETE":"PUT"});if(!r)return;
+  if(r.ok){SOC.fol=!was;if(SOC.artist)SOC.artist.followers+=was?-1:1;scFolUI();if(!was)toast(t("fl_ok"));}else toast(t("err"));}
+async function albLike(slug,btn){if(!SCT){scAsk();return;}let id=SOC.pl[slug];
+  if(!id){const j=await socGet("/resolve?url="+encodeURIComponent(SCSET+slug));if(!j||!j.id){toast(t("err"));return;}id=SOC.pl[slug]=j.id;}
+  const was=!!SOC.plLiked[slug];const r=await scCall("/likepl/"+id,{method:was?"DELETE":"POST"});if(!r)return;
+  if(r.ok){if(was)delete SOC.plLiked[slug];else SOC.plLiked[slug]=1;socSave();if(btn){btn.classList.toggle("on",!was);btn.textContent=!was?t("alb_liked"):t("alb_like");}if(!was)toast(t("like_ok"));}else toast(t("err"));}
+/* live catalog: new SoundCloud tracks appear automatically */
+async function liveCatalog(){const L3=await socGet("/catalog");if(!Array.isArray(L3)||!L3.length)return;
+  let added=0;const pl0=CAT.pls.indexOf("");
+  L3.forEach(t2=>{const x=byP[t2.permalink];
+    if(x){x[5]=Math.max(x[5],t2.plays||0);return;}
+    let ai=-1;if(t2.art){CAT.arts.push(t2.art.replace("-large.","-t500x500."));ai=CAT.arts.length-1;}
+    let gi=CAT.gens.indexOf(t2.genre||"");if(gi<0){CAT.gens.push(t2.genre||"");gi=CAT.gens.length-1;}
+    const d=(t2.created||"").slice(0,10).replace(/[^0-9]/g,"");
+    const row=[t2.title,t2.permalink,ai<0?CAT.arts.indexOf(""):ai,d,t2.dur||0,t2.plays||0,gi,0,pl0<0?0:pl0];
+    CAT.c.push(row);byP[row[1]]=row;added++;});
+  mCounts();renderCat();if(added&&P.el)pList();}
+(async()=>{SOC.artist=await socGet("/artist");await scFolState();scFolUI();liveCatalog();})();
 function pStats(){
   const s=P.snd,el=document.getElementById("scpSt");if(!el)return;
   const v=k=>s?fmtN(s[k]||0):"–";
   el.innerHTML=`<a class="stt" href="${P.now?scUrl(P.now):"#"}" target="_blank" rel="noopener"><i>▶</i><b>${v("playback_count")}</b><span>${esc(t("st_p"))}</span></a><button class="stt lk${P.snd&&scLiked(P.snd.id)?" on":""}" id="scpLk"><i>♥</i><b>${v("likes_count")}</b><span>${esc(P.snd&&scLiked(P.snd.id)?t("liked"):t("like_btn"))}</span></button><button class="stt cm" id="scpSc"><i>💬</i><b>${v("comment_count")}</b><span>${esc(t("st_c"))}</span></button>`;
   const c=document.getElementById("scpSc");if(c)c.onclick=()=>{const x=document.getElementById("scpTx");if(x)x.focus();};
   const l=document.getElementById("scpLk");if(l)l.onclick=scLike;
+  pLikers();pSocial();pTabs();
 }
 function pPlay(x,idx){
   if(!x)return;P.now=x;P.cur=idx;P.pos=0;P.snd=null;
@@ -1004,6 +1055,7 @@ function openRel(i){
 }
 document.addEventListener("click",e=>{
   const q=e.target.closest("[data-q]");if(q){e.preventDefault();e.stopPropagation();qAdd(q.dataset.q);return;}
+  const ak=e.target.closest("[data-alk]");if(ak){e.preventDefault();e.stopPropagation();albLike(ak.dataset.alk,ak);return;}
   const rl=e.target.closest("[data-rel]");if(rl){e.preventDefault();e.stopPropagation();openRel(+rl.dataset.rel);}
 },true);
 addEventListener("keydown",e=>{if(e.key==="Escape"&&P.el&&P.full&&!modal.classList.contains("open"))pMin();});
@@ -1022,7 +1074,20 @@ document.addEventListener("click",e=>{
 const lsw=document.getElementById("lsw");
 document.addEventListener("click",e=>{if(e.target.closest(".lsw>button")){lsw.classList.toggle("open");return;} const b=e.target.closest(".lsw-m button"); if(b){L=b.dataset.l;try{localStorage.setItem("bl_lang",L)}catch(x){}applyI18n();} if(!e.target.closest(".lsw>button"))lsw.classList.remove("open");});
 document.getElementById("vmore").onclick=()=>{vShown=vShown>=VIDEOS.length-1?8:VIDEOS.length;renderVideos(); if(vShown===8) document.getElementById("videos").scrollIntoView();};
-document.querySelectorAll("#atabs button").forEach(b=>b.onclick=()=>{aFilter=b.dataset.f;document.querySelectorAll("#atabs button").forEach(x=>x.classList.toggle("on",x===b));renderAlbums();});
+let mTab="album";
+function setMTab(k,scroll){mTab=k;document.querySelectorAll("#mtabs button").forEach(b=>{const on=b.dataset.t===k;b.classList.toggle("on",on);b.setAttribute("aria-selected",on);});
+  const grid=["album","single","other","kg"].includes(k);document.getElementById("mp-grid").hidden=!grid;document.getElementById("mp-all").hidden=k!=="all";document.getElementById("mp-stream").hidden=k!=="stream";
+  if(grid){aFilter=k;renderAlbums();}
+  document.getElementById("mHint").textContent=t("mh_"+k)||"";
+  try{sessionStorage.setItem("bl_mtab",k)}catch(e){}
+  if(scroll)document.getElementById("music").scrollIntoView({behavior:"smooth"});}
+document.querySelectorAll("#mtabs button").forEach(b=>b.onclick=()=>setMTab(b.dataset.t));
+function mCounts(){const c={album:0,single:0,other:0,kg:0};ALBUMS.forEach(a=>{if(c[a[6]]!==undefined)c[a[6]]++;});c.all=CAT.c.length;c.stream=RELEASES.length;
+  for(const k in c){const e=document.getElementById("mtc-"+k);if(e)e.textContent=c[k];}
+  const kg=document.querySelector('#mtabs [data-t="kg"]');if(kg)kg.hidden=!c.kg;}
+const HTAB={albums:"album",catalog:"all",releases:"stream",listen:"album",music:null};
+function hashTab(){const h=location.hash.slice(1);if(h in HTAB){if(HTAB[h])setMTab(HTAB[h]);document.getElementById("music").scrollIntoView();}}
+addEventListener("hashchange",hashTab);
 const links=document.getElementById("links");
 document.getElementById("burger").onclick=()=>links.classList.toggle("open");
 links.addEventListener("click",e=>{if(e.target.tagName==="A")links.classList.remove("open");});
@@ -1033,6 +1098,7 @@ document.querySelectorAll(".reveal").forEach(e=>io.observe(e));
 document.getElementById("yr").textContent=new Date().getFullYear();
 
 renderPlat(); applyI18n();
+mCounts();{let k0="album";try{k0=sessionStorage.getItem("bl_mtab")||"album"}catch(e){}setMTab(k0);}hashTab();
 {const qp=new URLSearchParams(location.search).get("play");const k=qp||(/^#play=/.test(location.hash)?decodeURIComponent(location.hash.slice(6)):"");if(k&&byP[k])openSC("track:"+k);
  if(window.__scJustIn)setTimeout(()=>toast(t("in_ok")),600);if(window.__scErr)setTimeout(()=>toast(t("err")),600);}
 
