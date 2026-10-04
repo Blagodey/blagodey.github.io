@@ -92,6 +92,7 @@ export class ChatRoom {
   constructor(state, env) {
     this.state = state; this.env = env; this.sql = state.storage.sql; this.rate = new Map();
     this.sql.exec(`CREATE TABLE IF NOT EXISTS msgs(id INTEGER PRIMARY KEY AUTOINCREMENT, ts INTEGER, name TEXT, avatar TEXT, uid TEXT, author INTEGER, text TEXT, deleted INTEGER DEFAULT 0)`);
+    try { this.sql.exec(`ALTER TABLE msgs ADD COLUMN cc TEXT DEFAULT ''`); } catch {}
     this.sql.exec(`CREATE TABLE IF NOT EXISTS plays(slug TEXT PRIMARY KEY, n INTEGER)`);
     this.sql.exec(`CREATE TABLE IF NOT EXISTS visits(day TEXT PRIMARY KEY, n INTEGER)`);
   }
@@ -99,15 +100,15 @@ export class ChatRoom {
   limited(key, ms) { const now = Date.now(), last = this.rate.get(key) || 0; if (now - last < ms) return true; this.rate.set(key, now); if (this.rate.size > 5000) this.rate.clear(); return false; }
   online() { return this.state.getWebSockets().length; }
   broadcast(obj) { const s = JSON.stringify(obj); for (const ws of this.state.getWebSockets()) { try { ws.send(s); } catch {} } }
-  history() { return this.rows(`SELECT id,ts,name,avatar,author,text FROM msgs WHERE deleted=0 ORDER BY id DESC LIMIT 80`).reverse(); }
+  history() { return this.rows(`SELECT id,ts,name,avatar,author,text,cc FROM msgs WHERE deleted=0 ORDER BY id DESC LIMIT 80`).reverse(); }
   async fetch(req) {
-    const url = new URL(req.url), p = url.pathname, ip = req.headers.get("X-IP") || "?";
+    const url = new URL(req.url), p = url.pathname, ip = req.headers.get("X-IP") || "?", cc = (req.headers.get("X-CC") || "").replace(/[^A-Z]/g, "").slice(0, 2);
     const ok = (d, s = 200) => new Response(JSON.stringify(d), { status: s, headers: { "Content-Type": "application/json" } });
     if (p === "/ws") {
       if (req.headers.get("Upgrade") !== "websocket") return ok({ error: "upgrade" }, 426);
       const pair = new WebSocketPair();
       this.state.acceptWebSocket(pair[1]);
-      pair[1].serializeAttachment({ ip, name: "", avatar: "", uid: "", author: 0 });
+      pair[1].serializeAttachment({ ip, cc, name: "", avatar: "", uid: "", author: 0 });
       pair[1].send(JSON.stringify({ type: "hist", msgs: this.history(), online: this.online() }));
       this.broadcast({ type: "online", n: this.online() });
       return new Response(null, { status: 101, webSocket: pair[0] });
@@ -159,9 +160,9 @@ export class ChatRoom {
       if (!me.author && this.limited("msg:" + (me.uid || me.ip), 4000)) { ws.send(JSON.stringify({ type: "err", e: "slow" })); return; }
       if (!me.sc && BAD.test(text)) { ws.send(JSON.stringify({ type: "err", e: "link" })); return; }
       const ts = Date.now();
-      this.sql.exec(`INSERT INTO msgs(ts,name,avatar,uid,author,text) VALUES(?,?,?,?,?,?)`, ts, me.name, me.avatar || "", me.uid || "", me.author ? 1 : 0, text);
+      this.sql.exec(`INSERT INTO msgs(ts,name,avatar,uid,author,text,cc) VALUES(?,?,?,?,?,?,?)`, ts, me.name, me.avatar || "", me.uid || "", me.author ? 1 : 0, text, me.cc || "");
       const id = this.rows(`SELECT last_insert_rowid() AS id`)[0].id;
-      this.broadcast({ type: "msg", m: { id, ts, name: me.name, avatar: me.avatar || "", author: me.author ? 1 : 0, text } });
+      this.broadcast({ type: "msg", m: { id, ts, name: me.name, avatar: me.avatar || "", author: me.author ? 1 : 0, text, cc: me.cc || "" } });
       return;
     }
     if (m.type === "del" && me.author) {
@@ -322,7 +323,7 @@ export default {
       if (p.startsWith("/chat/") || ["/play", "/visit"].includes(p)) {
         const stub = env.CHAT.get(env.CHAT.idFromName("main"));
         const sub = p.startsWith("/chat/") ? p.slice(5) : p;
-        const h = new Headers(req.headers); h.set("X-IP", req.headers.get("CF-Connecting-IP") || "?");
+        const h = new Headers(req.headers); h.set("X-IP", req.headers.get("CF-Connecting-IP") || "?"); h.set("X-CC", String((req.cf && req.cf.country) || "").slice(0, 2));
         if (sub !== "/ws" && sub !== "/history" && (req.headers.get("Origin") || "") !== SITE) return json({ error: "forbidden" }, 403);
         const r = await stub.fetch(new Request("https://do" + sub, { method: req.method, headers: h, body: req.method === "POST" ? await req.text() : undefined }));
         if (sub === "/ws") return r;
