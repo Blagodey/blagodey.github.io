@@ -1140,7 +1140,7 @@ const chName=()=>{try{return localStorage.getItem("bl_chname")||""}catch(e){retu
 function chStart(){if(CH.started)return;CH.started=true;chConnect();}
 function chConnect(){try{CH.ws=new WebSocket(SCB.replace("https://","wss://")+"/chat/ws");}catch(e){return chRetry();}
   const ws=CH.ws;chStatus(t("ch_conn"));
-  ws.onopen=()=>{CH.tries=0;chStatus("");ws.send(JSON.stringify({type:"hello",token:SCT?SCT.at:"",name:chName()}));};
+  ws.onopen=async()=>{CH.tries=0;chStatus("");let tk="";try{tk=SCT?await scTok():""}catch(e){}ws.send(JSON.stringify({type:"hello",token:tk||"",name:chName()}));};
   ws.onmessage=e=>{let m;try{m=JSON.parse(e.data)}catch(x){return}
     if(m.type==="hist"){CH.msgs=m.msgs||[];chOnline(m.online);chRender(true);chAutoTr();}
     else if(m.type==="msg"){CH.msgs.push(m.m);if(CH.msgs.length>200)CH.msgs.shift();chRender(true);chAutoTr();}
