@@ -199,12 +199,12 @@ export default {
         for (const it of items.slice(0, 20)) {
           const text = String(it && it.text || "").slice(0, 1200);
           if (!text.trim()) { out.push({ id: it && it.id, text: "", lang: "" }); continue; }
-          const ck = new Request("https://cache.blagoday/tr2/" + encodeURIComponent(target) + "/" + (await sha256(text)));
+          const ck = new Request("https://cache.blagoday/tr3/" + encodeURIComponent(target) + "/" + (await sha256(text)));
           const hit = await caches.default.match(ck);
           if (hit) { const j = await hit.json(); out.push({ id: it.id, ...j }); continue; }
           let res = { text, lang: "" };
           try {
-            const r = await env.AI.run("@cf/meta/llama-3.1-8b-instruct-fp8-fast", {
+            const r = await env.AI.run("@cf/google/gemma-3-12b-it", {
               messages: [
                 { role: "system", content: "You are a professional translator for a music website. Detect the language of the user's text and translate it into " + target + ". Keep names, emojis and the tone. Reply ONLY with compact JSON: {\"lang\":\"<ISO 639-1 code of the source language>\",\"text\":\"<translation>\"}. If the text is already in " + target + ", return it unchanged." },
                 { role: "user", content: text },
