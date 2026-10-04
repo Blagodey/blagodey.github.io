@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Музика з відео Капітана Германа | Blagoday Music</title>
+<meta name="description" content="Музика Blagoday Music у відео каналу «Капитан ГЕРМАН»: пісні, фрагменти відео, де вони звучать, і посилання на повні відео.">
+<meta property="og:title" content="Музика з відео Капітана Германа — Blagoday Music">
+<meta property="og:description" content="Пісні Blagoday, які звучать у відео Капітана Германа.">
+<meta property="og:image" content="https://blagodey.github.io/blagoday-production/og-image.jpg">
+<meta property="og:url" content="https://blagodey.github.io/blagoday-production/kapitan-german.html">
+<link rel="canonical" href="https://blagodey.github.io/blagoday-production/kapitan-german.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&family=Exo+2:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#080808;--card:#131317;--line:#22222a;--txt:#f2f2f6;--mut:#a7a7b4;--mag:#ff00aa;--cy:#00e5ff}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--txt);font-family:Rajdhani,"Exo 2",system-ui,sans-serif;font-size:18px;line-height:1.5}
+a{color:inherit}
+.mono{font-family:"Share Tech Mono","JetBrains Mono",monospace;letter-spacing:.12em;text-transform:uppercase}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+header{position:sticky;top:0;z-index:20;background:rgba(8,8,8,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:60px;gap:12px}
+.logo{font-weight:700;letter-spacing:.08em;text-decoration:none;text-transform:uppercase}
+.logo b{color:var(--mag)}
+.lng{display:flex;gap:6px}
+.lng button{background:none;border:1px solid var(--line);color:var(--mut);border-radius:8px;padding:4px 9px;font:inherit;font-size:14px;cursor:pointer}
+.lng button.on{border-color:var(--mag);color:#fff}
+.hero{padding-top:56px;padding-bottom:30px}
+.k{color:var(--mag);font-size:12px}
+h1{font-size:clamp(34px,6vw,64px);line-height:1.02;margin:10px 0 14px}
+.lead{color:var(--mut);max-width:760px;font-size:20px;margin:0 0 22px}
+.btns{display:flex;flex-wrap:wrap;gap:10px}
+.btn{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:12px 20px;font:inherit;font-weight:700;text-decoration:none;cursor:pointer;border:1px solid var(--line);background:var(--card);color:var(--txt)}
+.btn.p{background:var(--mag);border-color:var(--mag);color:#fff}
+.btn.yt{background:#ff0033;border-color:#ff0033;color:#fff}
+.btn:hover{border-color:var(--cy)}
+section{padding:26px 0}
+h2{font-size:clamp(26px,4vw,38px);margin:0 0 6px}
+.sub{color:var(--mut);margin:0 0 18px}
+.songs{display:grid;gap:12px}
+.song{display:grid;grid-template-columns:120px minmax(0,1fr) auto;gap:14px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px}
+.song img{width:120px;aspect-ratio:16/9;object-fit:cover;border-radius:8px;display:block}
+.song h3{margin:0;font-size:20px}
+.song .m{color:var(--mut);font-size:15px}
+.song .a{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.empty{background:var(--card);border:1px dashed var(--line);border-radius:14px;padding:22px;color:var(--mut)}
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
+.v{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;text-align:left;color:inherit;font:inherit;padding:0;cursor:pointer;display:flex;flex-direction:column}
+.v:hover{border-color:var(--cy)}
+.v .th{position:relative;aspect-ratio:16/9;background:#000}
+.v .th img{width:100%;height:100%;object-fit:cover;display:block}
+.v .d{position:absolute;right:8px;bottom:8px;background:rgba(0,0,0,.8);border-radius:6px;padding:1px 7px;font-size:13px}
+.v .tx{padding:10px 12px 14px}
+.v h3{font-size:17px;line-height:1.25;margin:0 0 6px}
+.v .m{color:var(--mut);font-size:13px}
+.more{display:flex;justify-content:center;margin-top:18px}
+footer{border-top:1px solid var(--line);margin-top:30px;padding:24px 0 40px;color:var(--mut);font-size:15px}
+.modal{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;padding:16px}
+.modal.on{display:flex}
+.mbox{width:min(1000px,100%)}
+.mbox .fr{position:relative;aspect-ratio:16/9;background:#000;border-radius:12px;overflow:hidden}
+.mbox iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.mbar{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.mbar .t{font-weight:700}
+@media(max-width:640px){.song{grid-template-columns:96px minmax(0,1fr)}.song img{width:96px}.song .a{grid-column:1/-1;justify-content:flex-start}.hero{padding-top:36px!important}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <a class="logo" href="./">Blagoday <b>Production</b></a>
+  <div class="lng"><button data-l="uk">UA</button><button data-l="en">EN</button></div>
+</div></header>
+<main>
+  <div class="wrap hero">
+    <div class="k mono" data-i="k">Blagoday Music × Капитан ГЕРМАН</div>
+    <h1 data-i="h">Музика з відео Капітана Германа</h1>
+    <p class="lead" data-i="lead">Пісні Blagoday Music звучать у відео каналу «Капитан ГЕРМАН» про кругосвітню подорож на яхті. Тут зібрано, яка пісня де звучить: дивись фрагмент або відкривай повне відео.</p>
+    <div class="btns">
+      <a class="btn yt" href="https://www.youtube.com/@%D0%9A%D0%B0%D0%BF%D0%B8%D1%82%D0%B0%D0%BD%D0%93%D0%95%D0%A0%D0%9C%D0%90%D0%9D" target="_blank" rel="noopener" data-i="b_ch">Канал Капітана Германа ↗</a>
+      <a class="btn p" href="./#music" data-i="b_music">♪ Уся музика Blagoday</a>
+    </div>
+  </div>
+
+  <section id="songs"><div class="wrap">
+    <h2 data-i="s_h">Пісні у відео</h2>
+    <p class="sub" data-i="s_s">Кожна пісня з фрагментом відео, де вона звучить.</p>
+    <div class="songs" id="songs-list"></div>
+  </div></section>
+
+  <section id="videos"><div class="wrap">
+    <h2 data-i="v_h">Відео з каналу</h2>
+    <p class="sub" data-i="v_s">Останні відео Капітана Германа на YouTube.</p>
+    <div class="vgrid" id="vgrid"></div>
+    <div class="more"><a class="btn" href="https://www.youtube.com/@%D0%9A%D0%B0%D0%BF%D0%B8%D1%82%D0%B0%D0%BD%D0%93%D0%95%D0%A0%D0%9C%D0%90%D0%9D/videos" target="_blank" rel="noopener" data-i="v_all">Усі відео на YouTube ↗</a></div>
+  </div></section>
+</main>
+<footer><div class="wrap">© <span id="yr"></span> Blagoday Production · <a href="./">blagodey.github.io/blagoday-production</a></div></footer>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true">
+  <div class="mbox">
+    <div class="mbar"><span class="t" id="mT"></span><span class="btns"><a class="btn" id="mFull" target="_blank" rel="noopener" data-i="full">Повне відео ↗</a><button class="btn" id="mX">✕</button></span></div>
+    <div class="fr" id="mFr"></div>
+  </div>
+</div>
+
+<script>
+/* ===== DATA =====
+   SONGS: one entry per song appearance.
+   {n:"Song title", v:"YouTube video id", s:"10:30", e:"11:40", sc:"soundcloud-permalink (optional)"}
+*/
+const SONGS=[];
+/* Videos of the channel (id, title, date, length) */
+const VIDS=[
+["fTidrdOVN_I","Leaving Phuket! Our final route through Thailand via Phang Nga","2026-10-03","27:15"],
+["MW7IYExSeog","We were robbed on a deserted beach! Chasing the thieves with the Thai police","2026-09-29","26:07"],
+["3faHj4xJPNU","Leaving Phuket. Our final days here and the whole truth about yachting in Thailand","2026-09-13","39:25"],
+["j1zKjkkVVro","Better than new! We completely redid the boat galley | Beneteau Oceanis 45 Refit","2026-09-06","23:00"],
+["Vw3D0BxJvXo","We completely renovated the boat entrance!","2026-09-04","19:25"],
+["z-jRfvmKiNw","The refit continues. Rigging setup, furniture upgrades","2026-09-04","32:29"],
+["Zxeot0LK1qY","We bought an electric scrubber for the boat","2026-09-04","20:20"],
+["jcLsMCA1ljk","Bringing the boat back to life: mast is up, heading to the water","2026-09-04","34:34"],
+["BYJwAIWSGE0","Preparing the yacht for launch: antifouling, Sikaflex, and a new sprayhood","2026-09-04","32:33"],
+["86hAnXRCOL0","Full standing rigging refit on a Beneteau Oceanis 45","2026-08-04","32:06"],
+["BFYNMeavJFA","Removing the mast. A sailor's worst nightmare","2026-08-04","29:28"],
+["jqFg4dwib88","Sikaflex, 3M, and others. Choosing the right marine sealant","2026-08-04","23:13"],
+["y45M-h2cFTU","Preparing to remove the mast and off the shore again!","2026-08-04","30:00"],
+["xJ8wuc7-edY","Finally at sea! Heading to Phuket","2026-08-04","28:37"],
+["u6i43brnfeM","The boat is almost ready! Final repairs, launch preparations","2026-08-04","35:37"],
+["045lPk_KXIM","Лодка начинает быть красивой","2026-07-04","33:32"],
+["5njGdQBBfwQ","Yacht life without the romance: grime, repairs, and big expenses","2026-07-04","31:43"],
+["GunuJFVxd20","Can we make it at low tide? Narrow river channel, shallows","2026-07-04","30:51"],
+["EanarMiVv-c","Langkawi, everyone says it's paradise","2026-07-04","28:20"],
+["UvNX2SIPenQ","Shallows, cargo ships, and incredible views – Entering Langkawi by boat","2026-06-04","27:29"],
+["PyIaZZomds0","Thailand. Paradise islands and terrible weather","2026-06-04","38:26"],
+["jIOHB9dndjA","Lost islands on the way to Ko Lanta","2026-06-04","30:51"],
+["-OedJZX0JUA","Mangroves of Koh Yao Yai island on a SUP","2026-06-04","31:38"],
+["JTJvusOFiEo","We got screwed on a fridge… Bought a second fridge","2026-05-04","23:53"],
+["p0yLFlemjqU","Разнесли пол лодки ради холодильника. BBQ на пляже","2026-05-04","34:30"],
+["--KrnS2Bg2Y","Huge Japanese flea market in Phuket","2026-05-04","1:03:16"],
+["k3MsXwD9tlI","What else does the Phuket night market have to offer?","2026-05-04","26:31"],
+["hxGfP6HH73E","Exce1sior Yachts 2.9 tender – detailed review","2026-03-04","47:17"],
+["U8mmd4ciz7M","Ko Yao Yai was Thailand 30 years ago","2026-03-04","33:14"],
+["99syv4OJAso","Offshore to Phuket: night entry, open sea","2026-03-04","23:27"]
+];
+
+const T={
+uk:{k:"Blagoday Music × Капитан ГЕРМАН",h:"Музика з відео Капітана Германа",lead:"Пісні Blagoday Music звучать у відео каналу «Капитан ГЕРМАН» про кругосвітню подорож на яхті. Тут зібрано, яка пісня де звучить: дивись фрагмент або відкривай повне відео.",b_ch:"Канал Капітана Германа ↗",b_music:"♪ Уся музика Blagoday",s_h:"Пісні у відео",s_s:"Кожна пісня з фрагментом відео, де вона звучить.",v_h:"Відео з каналу",v_s:"Останні відео Капітана Германа на YouTube.",v_all:"Усі відео на YouTube ↗",full:"Повне відео ↗",seg:"▶ Фрагмент",listen:"♪ Слухати",empty:"Список пісень готується: ми звіряємо, яка пісня звучить у кожному відео. Скоро тут з’являться фрагменти.",more:"Показати більше",in:"у відео"},
+en:{k:"Blagoday Music × Captain German",h:"Music from Captain German’s videos",lead:"Songs by Blagoday Music play in the videos of the “Captain German” channel about sailing around the world. Here you can see which song plays where: watch the clip or open the full video.",b_ch:"Captain German’s channel ↗",b_music:"♪ All Blagoday music",s_h:"Songs in the videos",s_s:"Every song with the part of the video where it plays.",v_h:"Videos from the channel",v_s:"Latest Captain German videos on YouTube.",v_all:"All videos on YouTube ↗",full:"Full video ↗",seg:"▶ Clip",listen:"♪ Listen",empty:"The song list is being prepared: we are matching which song plays in each video. Clips will appear here soon.",more:"Show more",in:"in"}
+};
+let L="uk";try{const s=localStorage.getItem("bl_lang");L=s==="uk"?"uk":s?"en":(navigator.language||"").startsWith("uk")?"uk":"en"}catch(e){}
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const sec=t=>{const p=String(t).split(":").map(Number);return p.reduce((a,b)=>a*60+b,0)};
+const vById=Object.fromEntries(VIDS.map(v=>[v[0],v]));
+const thumb=id=>`https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
+let shown=VIDS.length;
+function render(){
+  document.documentElement.lang=L;
+  document.querySelectorAll("[data-i]").forEach(e=>{const v=T[L][e.dataset.i];if(v)e.textContent=v});
+  document.querySelectorAll(".lng button").forEach(b=>b.classList.toggle("on",b.dataset.l===L));
+  $("songs-list").innerHTML=SONGS.length?SONGS.map((x,i)=>{const v=vById[x.v];return `<div class="song"><img loading="lazy" src="${thumb(x.v)}" alt=""><div><h3>${esc(x.n)}</h3><div class="m">${x.s}–${x.e} · ${T[L].in} «${esc(v?v[1]:x.v)}»</div></div><div class="a"><button class="btn p" data-seg="${i}">${T[L].seg}</button>${x.sc?`<a class="btn" href="./?play=${encodeURIComponent(x.sc)}">${T[L].listen}</a>`:""}<a class="btn" target="_blank" rel="noopener" href="https://youtu.be/${x.v}?t=${sec(x.s)}">${T[L].full}</a></div></div>`}).join(""):`<div class="empty">${T[L].empty}</div>`;
+  $("vgrid").innerHTML=VIDS.slice(0,shown).map(v=>`<button class="v" data-v="${v[0]}"><div class="th"><img loading="lazy" src="${thumb(v[0])}" alt=""><span class="d">${v[3]}</span></div><div class="tx"><h3>${esc(v[1])}</h3><div class="m mono">${new Date(v[2]).toLocaleDateString(L==="uk"?"uk-UA":"en-GB",{day:"numeric",month:"short",year:"numeric"})}</div></div></button>`).join("");
+  $("vgrid").nextElementSibling.querySelector(".btn").textContent=T[L].v_all;
+}
+function openV(id,start,end,title){
+  let q="autoplay=1&rel=0&modestbranding=1";if(start)q+="&start="+start;if(end)q+="&end="+end;
+  $("mFr").innerHTML=`<iframe src="https://www.youtube-nocookie.com/embed/${id}?${q}" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>`;
+  $("mT").textContent=title||"";$("mFull").href=`https://youtu.be/${id}${start?"?t="+start:""}`;$("mFull").textContent=T[L].full;$("modal").classList.add("on");
+}
+function closeV(){$("modal").classList.remove("on");$("mFr").innerHTML=""}
+document.addEventListener("click",e=>{
+  const s=e.target.closest("[data-seg]");if(s){const x=SONGS[+s.dataset.seg];openV(x.v,sec(x.s),sec(x.e),x.n);return}
+  const v=e.target.closest("[data-v]");if(v){openV(v.dataset.v,0,0,(vById[v.dataset.v]||[])[1]);return}
+  const l=e.target.closest(".lng button");if(l){L=l.dataset.l;try{localStorage.setItem("bl_lang",L)}catch(_){}render();return}
+  if(e.target.id==="mX"||e.target.id==="modal")closeV();
+});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeV()});
+$("yr").textContent=new Date().getFullYear();
+render();
+</script>
+</body>
+</html>
