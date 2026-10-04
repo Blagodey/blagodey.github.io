@@ -400,6 +400,20 @@ p{font-weight:500}
 .stt span{font-size:12px;color:#b9b9c8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
 .stt:hover{border-color:#00e5ff;background:rgba(0,229,255,.07)}
 @media(max-width:760px){.scp-l{align-items:flex-start}.scp-info{flex:1;min-width:0}.stt{padding:8px 4px}.stt b{font-size:19px}.stt span{white-space:normal;text-align:center;font-size:11px}}
+.scp-cmt{display:flex;flex-direction:column;gap:8px}
+.scp-cmt textarea{width:100%;resize:vertical;min-height:58px;max-height:160px;padding:10px 12px;border-radius:12px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.04);color:#fff;font:inherit;font-size:15px;line-height:1.4}
+.scp-cmt textarea:focus{outline:none;border-color:#00e5ff;background:rgba(0,229,255,.05)}
+.scp-cr{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.scp-who{font-size:13px;color:#b9b9c8;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.scp-who.pulse .scp-login{animation:scpPulse 1s ease 2}
+@keyframes scpPulse{50%{box-shadow:0 0 0 6px rgba(255,106,26,.35)}}
+.scp-login{background:#ff5500;border:0;color:#fff;font:inherit;font-size:14px;font-weight:600;padding:9px 14px;border-radius:999px;cursor:pointer}
+.scp-out{background:none;border:1px solid rgba(255,255,255,.18);color:#b9b9c8;font:inherit;font-size:12px;padding:4px 10px;border-radius:999px;cursor:pointer}
+.scp-send{background:#ff00aa;border:0;color:#fff;font:inherit;font-size:14px;font-weight:600;padding:9px 16px;border-radius:999px;cursor:pointer;box-shadow:0 6px 20px rgba(255,0,170,.35)}
+.scp-send:disabled{opacity:.6;cursor:wait}
+.stt.lk.on{border-color:#ff3b8d;background:rgba(255,59,141,.14)}
+.stt.lk.on span{color:#ff8fbf}
+#scpCm{display:none}
 </style>
 <script src="https://w.soundcloud.com/player/api.js"></script>
 </head>
@@ -736,6 +750,7 @@ const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",
 const fmtD=d=>new Date(d+"T00:00:00").toLocaleDateString(LOC[L],{year:"numeric",month:"short",day:"numeric"});
 const T2={"uk": {"here": "▶ Слухати тут", "q_add": "Додати в чергу", "q_added": "Додано в чергу · {n}", "q_tab": "Черга", "q_empty": "Черга порожня. Натисни ＋ біля будь-якого треку в каталозі або тут у списку.", "q_clear": "Очистити", "q_play": "Слухати чергу", "tr_tab": "Треки", "more_tab": "Ще музика", "c_at": "💬 Коментар на {t}", "share": "↗ Поділитися", "copied": "Посилання скопійовано", "hint": "♥ у плеєрі — лайк на SoundCloud. Коментарі слухачів видно на хвилі треку. Кнопка «Коментар» відкриває трек на SoundCloud саме на цій секунді.", "sub_h": "Підпишись на Blagoday", "rel_sp": "Spotify · популярні треки", "rel_note": "Apple Music і Spotify грають повні треки, якщо ти увійшов у свій акаунт. Без входу — 30-секундні уривки."}, "en": {"here": "▶ Listen here", "q_add": "Add to queue", "q_added": "Added to queue · {n}", "q_tab": "Queue", "q_empty": "The queue is empty. Tap ＋ next to any track in the catalog or in this list.", "q_clear": "Clear", "q_play": "Play queue", "tr_tab": "Tracks", "more_tab": "More music", "c_at": "💬 Comment at {t}", "share": "↗ Share", "copied": "Link copied", "hint": "♥ in the player likes the track on SoundCloud. Listener comments show on the waveform. The Comment button opens the track on SoundCloud at this exact second.", "sub_h": "Follow Blagoday", "rel_sp": "Spotify · top tracks", "rel_note": "Apple Music and Spotify play full tracks when you are signed in to your account. Without signing in you hear 30-second previews."}, "es": {"here": "▶ Escuchar aquí", "q_add": "Añadir a la cola", "q_added": "Añadido a la cola · {n}", "q_tab": "Cola", "q_empty": "La cola está vacía. Toca ＋ junto a cualquier tema del catálogo o de esta lista.", "q_clear": "Vaciar", "q_play": "Escuchar la cola", "tr_tab": "Temas", "more_tab": "Más música", "c_at": "💬 Comentar en {t}", "share": "↗ Compartir", "copied": "Enlace copiado", "hint": "♥ en el reproductor da like en SoundCloud. Los comentarios aparecen sobre la onda del tema. El botón Comentar abre el tema en SoundCloud en este segundo.", "sub_h": "Sigue a Blagoday", "rel_sp": "Spotify · temas populares", "rel_note": "Apple Music y Spotify reproducen temas completos si iniciaste sesión en tu cuenta. Sin sesión, fragmentos de 30 segundos."}, "pt": {"here": "▶ Ouvir aqui", "q_add": "Adicionar à fila", "q_added": "Adicionado à fila · {n}", "q_tab": "Fila", "q_empty": "A fila está vazia. Toque em ＋ ao lado de qualquer faixa do catálogo ou desta lista.", "q_clear": "Limpar", "q_play": "Ouvir a fila", "tr_tab": "Faixas", "more_tab": "Mais músicas", "c_at": "💬 Comentar em {t}", "share": "↗ Compartilhar", "copied": "Link copiado", "hint": "♥ no player curte a faixa no SoundCloud. Os comentários aparecem na onda da faixa. O botão Comentar abre a faixa no SoundCloud neste segundo.", "sub_h": "Siga Blagoday", "rel_sp": "Spotify · faixas populares", "rel_note": "Apple Music e Spotify tocam faixas completas quando você está conectado à sua conta. Sem login, prévias de 30 segundos."}, "de": {"here": "▶ Hier anhören", "q_add": "Zur Warteschlange", "q_added": "Zur Warteschlange hinzugefügt · {n}", "q_tab": "Warteschlange", "q_empty": "Die Warteschlange ist leer. Tippe auf ＋ neben einem Track im Katalog oder in dieser Liste.", "q_clear": "Leeren", "q_play": "Warteschlange abspielen", "tr_tab": "Tracks", "more_tab": "Mehr Musik", "c_at": "💬 Kommentar bei {t}", "share": "↗ Teilen", "copied": "Link kopiert", "hint": "♥ im Player liked den Track auf SoundCloud. Kommentare erscheinen auf der Wellenform. Der Kommentar-Button öffnet den Track auf SoundCloud genau an dieser Sekunde.", "sub_h": "Blagoday folgen", "rel_sp": "Spotify · Top-Tracks", "rel_note": "Apple Music und Spotify spielen ganze Tracks, wenn du in deinem Konto angemeldet bist. Ohne Anmeldung hörst du 30-Sekunden-Ausschnitte."}, "fr": {"here": "▶ Écouter ici", "q_add": "Ajouter à la file", "q_added": "Ajouté à la file · {n}", "q_tab": "File d'attente", "q_empty": "La file est vide. Touchez ＋ à côté d'un titre du catalogue ou de cette liste.", "q_clear": "Vider", "q_play": "Écouter la file", "tr_tab": "Titres", "more_tab": "Plus de musique", "c_at": "💬 Commenter à {t}", "share": "↗ Partager", "copied": "Lien copié", "hint": "♥ dans le lecteur aime le titre sur SoundCloud. Les commentaires s'affichent sur la forme d'onde. Le bouton Commenter ouvre le titre sur SoundCloud à cette seconde.", "sub_h": "Suivre Blagoday", "rel_sp": "Spotify · titres populaires", "rel_note": "Apple Music et Spotify jouent les titres en entier si vous êtes connecté à votre compte. Sinon, extraits de 30 secondes."}};for(const k in T2)Object.assign(T[k],T2[k]);
 for(const [k,v] of Object.entries({"uk": {"st_p": "прослуховувань", "st_l": "лайків", "st_c": "коментарів"}, "en": {"st_p": "plays", "st_l": "likes", "st_c": "comments"}, "es": {"st_p": "reproducciones", "st_l": "me gusta", "st_c": "comentarios"}, "pt": {"st_p": "reproduções", "st_l": "curtidas", "st_c": "comentários"}, "de": {"st_p": "Plays", "st_l": "Likes", "st_c": "Kommentare"}, "fr": {"st_p": "écoutes", "st_l": "j’aime", "st_c": "commentaires"}}))Object.assign(T[k],v);
+for(const [k,v] of Object.entries({"uk": {"like_btn": "Лайк", "liked": "Вподобано", "login_sc": "Увійти через SoundCloud", "logout": "Вийти", "cm_ph": "Напиши коментар — він з’явиться під треком на SoundCloud", "send_at": "💬 Надіслати на {t}", "cm_ok": "Коментар опубліковано на SoundCloud", "like_ok": "Лайк зараховано на SoundCloud", "need_login": "Щоб лайкнути чи коментувати, увійди через SoundCloud", "as": "Ти увійшов як {u}", "err": "Не вдалося. Спробуй ще раз.", "in_ok": "Вхід через SoundCloud виконано"}, "en": {"like_btn": "Like", "liked": "Liked", "login_sc": "Sign in with SoundCloud", "logout": "Sign out", "cm_ph": "Write a comment — it will appear under the track on SoundCloud", "send_at": "💬 Post at {t}", "cm_ok": "Comment posted on SoundCloud", "like_ok": "Like counted on SoundCloud", "need_login": "Sign in with SoundCloud to like or comment", "as": "Signed in as {u}", "err": "Something went wrong. Try again.", "in_ok": "Signed in with SoundCloud"}, "es": {"like_btn": "Me gusta", "liked": "Te gusta", "login_sc": "Entrar con SoundCloud", "logout": "Salir", "cm_ph": "Escribe un comentario: aparecerá bajo el tema en SoundCloud", "send_at": "💬 Publicar en {t}", "cm_ok": "Comentario publicado en SoundCloud", "like_ok": "Me gusta registrado en SoundCloud", "need_login": "Entra con SoundCloud para dar me gusta o comentar", "as": "Sesión: {u}", "err": "Algo salió mal. Inténtalo de nuevo.", "in_ok": "Sesión iniciada con SoundCloud"}, "pt": {"like_btn": "Curtir", "liked": "Curtido", "login_sc": "Entrar com SoundCloud", "logout": "Sair", "cm_ph": "Escreva um comentário — ele aparecerá na faixa no SoundCloud", "send_at": "💬 Publicar em {t}", "cm_ok": "Comentário publicado no SoundCloud", "like_ok": "Curtida registrada no SoundCloud", "need_login": "Entre com o SoundCloud para curtir ou comentar", "as": "Conectado como {u}", "err": "Algo deu errado. Tente de novo.", "in_ok": "Conectado com SoundCloud"}, "de": {"like_btn": "Like", "liked": "Geliked", "login_sc": "Mit SoundCloud anmelden", "logout": "Abmelden", "cm_ph": "Schreib einen Kommentar – er erscheint beim Track auf SoundCloud", "send_at": "💬 Senden bei {t}", "cm_ok": "Kommentar auf SoundCloud veröffentlicht", "like_ok": "Like auf SoundCloud gezählt", "need_login": "Melde dich mit SoundCloud an, um zu liken oder zu kommentieren", "as": "Angemeldet als {u}", "err": "Etwas ist schiefgelaufen. Bitte erneut versuchen.", "in_ok": "Mit SoundCloud angemeldet"}, "fr": {"like_btn": "J’aime", "liked": "Aimé", "login_sc": "Se connecter avec SoundCloud", "logout": "Se déconnecter", "cm_ph": "Écrivez un commentaire — il apparaîtra sous le titre sur SoundCloud", "send_at": "💬 Publier à {t}", "cm_ok": "Commentaire publié sur SoundCloud", "like_ok": "J’aime compté sur SoundCloud", "need_login": "Connectez-vous avec SoundCloud pour aimer ou commenter", "as": "Connecté : {u}", "err": "Une erreur est survenue. Réessayez.", "in_ok": "Connecté avec SoundCloud"}}))Object.assign(T[k],v);
 const plural=n=>n===1?t("track"):t("tracks");
 
 /* ---------- RENDER ---------- */
@@ -841,7 +856,7 @@ function pBuild(){
 <div class="scp-l"><div class="scp-cv"><img id="scpImg" alt=""></div><div class="scp-info"><div class="scp-k" id="scpK">SoundCloud</div><div class="scp-t" id="scpT"></div><div class="scp-a" id="scpA"></div><div class="scp-st" id="scpSt"></div></div></div>
 <div class="scp-r">
 <div class="scp-act"><button class="chip hl" id="scpCm"></button><button class="chip" id="scpSh"></button><a class="chip" id="scpOp" target="_blank" rel="noopener">SoundCloud ↗</a></div>
-<p class="scp-hint" id="scpHint"></p>
+<div class="scp-cmt"><textarea id="scpTx" maxlength="1000" rows="2"></textarea><div class="scp-cr"><span class="scp-who" id="scpWho"></span><button class="scp-send" id="scpSend"></button></div></div>
 <div class="scp-tabs" id="scpTabs"><button data-t="tr"></button><button data-t="q"></button><button data-t="more"></button></div>
 <div class="scp-list" id="scpList"></div>
 <div class="scp-sub"><div class="scp-k" id="scpSubH"></div><div class="scp-subb">
@@ -865,6 +880,8 @@ function pBuild(){
   });
   $("scpNext").onclick=()=>pNext(true);$("scpPrev").onclick=pPrev;
   $("scpCm").onclick=()=>{if(!P.now)return;const u=(P.snd&&P.snd.permalink_url)||scUrl(P.now);open(u+"#t="+mmss(P.pos),"_blank","noopener");};
+  $("scpSend").onclick=scComment;
+  $("scpTx").addEventListener("keydown",e=>{if(e.key==="Enter"&&(e.ctrlKey||e.metaKey))scComment();});
   $("scpSh").onclick=async()=>{if(!P.now)return;const u=location.origin+location.pathname+"#play="+P.now[1];
     try{if(navigator.share){await navigator.share({title:P.now[0]+" — Blagoday Music",url:u});return;}}catch(e){return;}
     try{await navigator.clipboard.writeText(u);toast(t("copied"));}catch(e){prompt("URL",u);}};
@@ -872,10 +889,10 @@ function pBuild(){
 }
 function pText(){
   if(!P.el)return;const $=id=>document.getElementById(id);
-  $("scpSh").textContent=t("share");$("scpHint").textContent=t("hint");$("scpSubH").textContent=t("sub_h");
+  $("scpSh").textContent=t("share");$("scpTx").placeholder=t("cm_ph");scWho();$("scpSubH").textContent=t("sub_h");
   pCm();pTabs();pList();
 }
-function pCm(){const b=document.getElementById("scpCm");if(b)b.textContent=t("c_at").replace("{t}",mmss(P.pos));}
+function pCm(){const b=document.getElementById("scpCm");if(b)b.textContent=t("c_at").replace("{t}",mmss(P.pos));const s=document.getElementById("scpSend");if(s&&!s.disabled)s.textContent=t("send_at").replace("{t}",mmss(P.pos));}
 function pTabs(){
   if(!P.el)return;
   document.querySelectorAll("#scpTabs button").forEach(b=>{const k=b.dataset.t;
@@ -895,11 +912,45 @@ function pList(){
   L2.innerHTML=h;const on=L2.querySelector(".on");if(on)on.scrollIntoView({block:"nearest"});
 }
 function pSetPlay(p){P.playing=p;const s=document.getElementById("scp");if(s)s.classList.toggle("playing",p);}
+/* ---------- SoundCloud likes & comments via bridge ---------- */
+const SCB="https://blagoday-sc.blagodaymusic.workers.dev";
+let SCT=null;try{SCT=JSON.parse(localStorage.getItem("bl_sc")||"null");}catch(e){}
+let SCLK={};try{SCLK=JSON.parse(localStorage.getItem("bl_sclk")||"{}");}catch(e){}
+const scLiked=id=>!!(id&&SCLK[id]);
+function scSave(){try{SCT?localStorage.setItem("bl_sc",JSON.stringify(SCT)):localStorage.removeItem("bl_sc");localStorage.setItem("bl_sclk",JSON.stringify(SCLK));}catch(e){}}
+(function(){const h=location.hash;if(h.indexOf("sc_at=")>=0||h.indexOf("sc_err=")>=0){const q=new URLSearchParams(h.slice(1));
+  if(q.get("sc_at")){SCT={at:q.get("sc_at"),rt:q.get("sc_rt")||"",exp:+q.get("sc_exp")||0,u:""};scSave();window.__scJustIn=1;} else window.__scErr=q.get("sc_err");
+  history.replaceState(null,"",location.pathname+location.search);}})();
+function scLogin(){const slug=P.now?P.now[1]:"";location.href=SCB+"/login?return="+encodeURIComponent(location.origin+location.pathname+(slug?"?play="+encodeURIComponent(slug):""));}
+function scLogout(){SCT=null;scSave();scWho();}
+async function scTok(){if(!SCT)return null;if(SCT.exp&&Date.now()>SCT.exp-60000&&SCT.rt){try{const r=await fetch(SCB+"/refresh",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({refresh_token:SCT.rt})});if(r.ok){const j=await r.json();SCT.at=j.access_token;SCT.rt=j.refresh_token||SCT.rt;SCT.exp=j.expires_at;scSave();}else{SCT=null;scSave();return null;}}catch(e){}}return SCT.at;}
+async function scCall(path,opt){const tk=await scTok();if(!tk){scAsk();return null;}
+  const r=await fetch(SCB+path,Object.assign({},opt,{headers:Object.assign({"Authorization":"OAuth "+tk},(opt&&opt.headers)||{})}));
+  if(r.status===401){SCT=null;scSave();scWho();scAsk();return null;}
+  return r;}
+function scAsk(){toast(t("need_login"));const w=document.getElementById("scpWho");if(w)w.classList.add("pulse");}
+async function scWho(){const w=document.getElementById("scpWho");if(!w)return;
+  if(!SCT){w.innerHTML=`<button class="scp-login" id="scpIn">${esc(t("login_sc"))}</button>`;document.getElementById("scpIn").onclick=scLogin;return;}
+  if(!SCT.u){try{const r=await scCall("/me");if(r&&r.ok){const j=await r.json();SCT.u=j.username||j.permalink||"";scSave();}}catch(e){}}
+  if(!SCT)return scWho();
+  w.innerHTML=`<span>${esc(t("as").replace("{u}",SCT.u||"SoundCloud"))}</span> <button class="scp-out" id="scpOut">${esc(t("logout"))}</button>`;document.getElementById("scpOut").onclick=scLogout;}
+async function scLike(){const s=P.snd;if(!s||!s.id)return;if(!SCT){scAsk();return;}
+  const was=scLiked(s.id);const r=await scCall("/like/"+s.id,{method:was?"DELETE":"POST"});if(!r)return;
+  if(r.ok){if(was)delete SCLK[s.id];else SCLK[s.id]=1;scSave();s.likes_count=Math.max(0,(s.likes_count||0)+(was?-1:1));pStats();if(!was)toast(t("like_ok"));}
+  else toast(t("err"));}
+async function scComment(){const s=P.snd,x=document.getElementById("scpTx"),b=document.getElementById("scpSend");if(!s||!s.id||!x)return;
+  const body=x.value.trim();if(!body){x.focus();return;}if(!SCT){scAsk();return;}
+  b.disabled=true;b.textContent="…";
+  try{const r=await scCall("/comment/"+s.id,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({body,timestamp:Math.floor(P.pos||0)})});
+    if(r&&r.ok){x.value="";s.comment_count=(s.comment_count||0)+1;pStats();toast(t("cm_ok"));}else if(r)toast(t("err"));}
+  catch(e){toast(t("err"));}
+  b.disabled=false;pCm();}
 function pStats(){
   const s=P.snd,el=document.getElementById("scpSt");if(!el)return;
   const v=k=>s?fmtN(s[k]||0):"–";
-  el.innerHTML=`<a class="stt" href="${P.now?scUrl(P.now):"#"}" target="_blank" rel="noopener"><i>▶</i><b>${v("playback_count")}</b><span>${esc(t("st_p"))}</span></a><a class="stt lk" href="${P.now?scUrl(P.now):"#"}" target="_blank" rel="noopener"><i>♥</i><b>${v("likes_count")}</b><span>${esc(t("st_l"))}</span></a><button class="stt cm" id="scpSc"><i>💬</i><b>${v("comment_count")}</b><span>${esc(t("st_c"))}</span></button>`;
-  const c=document.getElementById("scpSc");if(c)c.onclick=()=>document.getElementById("scpCm").click();
+  el.innerHTML=`<a class="stt" href="${P.now?scUrl(P.now):"#"}" target="_blank" rel="noopener"><i>▶</i><b>${v("playback_count")}</b><span>${esc(t("st_p"))}</span></a><button class="stt lk${P.snd&&scLiked(P.snd.id)?" on":""}" id="scpLk"><i>♥</i><b>${v("likes_count")}</b><span>${esc(P.snd&&scLiked(P.snd.id)?t("liked"):t("like_btn"))}</span></button><button class="stt cm" id="scpSc"><i>💬</i><b>${v("comment_count")}</b><span>${esc(t("st_c"))}</span></button>`;
+  const c=document.getElementById("scpSc");if(c)c.onclick=()=>{const x=document.getElementById("scpTx");if(x)x.focus();};
+  const l=document.getElementById("scpLk");if(l)l.onclick=scLike;
 }
 function pPlay(x,idx){
   if(!x)return;P.now=x;P.cur=idx;P.pos=0;P.snd=null;
@@ -982,7 +1033,8 @@ document.querySelectorAll(".reveal").forEach(e=>io.observe(e));
 document.getElementById("yr").textContent=new Date().getFullYear();
 
 renderPlat(); applyI18n();
-if(/^#play=/.test(location.hash)){const k=decodeURIComponent(location.hash.slice(6));if(byP[k])openSC("track:"+k);}
+{const qp=new URLSearchParams(location.search).get("play");const k=qp||(/^#play=/.test(location.hash)?decodeURIComponent(location.hash.slice(6)):"");if(k&&byP[k])openSC("track:"+k);
+ if(window.__scJustIn)setTimeout(()=>toast(t("in_ok")),600);if(window.__scErr)setTimeout(()=>toast(t("err")),600);}
 
 (function(){
 var sl=[...document.querySelectorAll("#slides .sl")],ds=[...document.querySelectorAll("#dots .dot")],i=0,tm;
