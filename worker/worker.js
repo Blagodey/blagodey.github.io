@@ -142,13 +142,14 @@ export class ChatRoom {
     if (m.type === "hello") {
       if (m.token) {
         try {
-          const r = await fetch(API + "/me", { headers: { accept: "application/json; charset=utf-8", Authorization: "OAuth " + String(m.token).slice(0, 200) } });
+          const r = await fetch(API + "/me", { headers: { accept: "application/json; charset=utf-8", Authorization: "OAuth " + String(m.token).slice(0, 4000) } });
           if (r.ok) { const u = await r.json(); Object.assign(me, { name: u.username || "", avatar: u.avatar_url || "", uid: String(u.id || ""), author: String(u.id) === ARTIST ? 1 : 0, sc: 1 }); }
-        } catch {}
+          else me.dbg = "me " + r.status + " " + (await r.text()).slice(0, 120);
+        } catch (e) { me.dbg = "ex " + String(e && e.message || e).slice(0, 120); }
       }
       if (!me.sc) me.name = String(m.name || "").replace(/[<>]/g, "").trim().slice(0, 32);
       ws.serializeAttachment(me);
-      ws.send(JSON.stringify({ type: "me", name: me.name, author: me.author, sc: !!me.sc }));
+      ws.send(JSON.stringify({ type: "me", name: me.name, author: me.author, sc: !!me.sc, dbg: me.dbg || "" }));
       return;
     }
     if (m.type === "msg") {
