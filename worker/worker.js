@@ -149,6 +149,7 @@ export class ChatRoom {
         } catch (e) { me.dbg = "ex " + String(e && e.message || e).slice(0, 120); }
       }
       if (!me.sc) me.name = String(m.name || "").replace(/[<>]/g, "").trim().slice(0, 32);
+      if (!me.sc && /bl[a@4]g[o0]d[a@4][yi]/i.test(me.name.replace(/[^a-z0-9@]/gi, ""))) { me.name = ""; ws.serializeAttachment(me); ws.send(JSON.stringify({ type: "err", e: "name" })); ws.send(JSON.stringify({ type: "me", name: "", author: 0, sc: false })); return; }
       ws.serializeAttachment(me);
       ws.send(JSON.stringify({ type: "me", name: me.name, author: me.author, sc: !!me.sc, dbg: me.dbg || "" }));
       return;
