@@ -510,6 +510,48 @@ button.sb{font:inherit;text-align:left;cursor:pointer;width:100%}
 .ch-tr select option{background:#111}
 .ch-hint{font-size:12px;color:#9a9aa8}
 @media(max-width:760px){.ch-id input{width:100%}.ch-list{height:56svh}}
+
+/* ===== player layout v3: left = track & actions, right = tabs ===== */
+.scp{grid-template-columns:minmax(260px,330px) minmax(0,1fr)}
+.scp-l{overflow-y:auto;gap:12px;scrollbar-width:thin;scrollbar-color:#ff00aa transparent;padding-right:4px}
+.scp-hd{display:flex;gap:14px;align-items:center}
+.scp-hd .scp-cv{width:120px;flex:0 0 120px;aspect-ratio:1}
+.scp-hd .scp-t{font-size:20px}
+.scp-st{margin-top:0}
+.scp-l .scp-act{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.scp-l .scp-act .chip{justify-content:center;text-align:center;display:flex;align-items:center}
+.scp-l .scp-act a.chip{grid-column:1/-1}
+.scp-l .scp-sub{border-top:1px solid rgba(255,255,255,.08);padding-top:10px}
+.scp-l .scp-subb{grid-template-columns:1fr;gap:6px}
+.scp-l .sb{flex-direction:row;align-items:center;justify-content:space-between;padding:8px 12px}
+.scp-r{gap:10px}
+.scp-tabs{padding-bottom:6px;border-bottom:1px solid rgba(255,255,255,.08)}
+.scp-cmt{border-top:1px solid rgba(255,255,255,.08);padding-top:10px}
+.scp-cmt[hidden]{display:none!important}
+@media(max-width:760px){.scp-hd .scp-cv{width:96px;flex-basis:96px}.scp-l{overflow:visible}.scp-l .scp-act{grid-template-columns:1fr 1fr}}
+
+/* ===== floating chat ===== */
+.chw{position:fixed;right:16px;bottom:var(--chb,16px);z-index:112;display:flex;flex-direction:column;align-items:flex-end;gap:10px;transition:bottom .25s}
+.chw.hide{display:none}
+.ch-fab{position:relative;display:inline-flex;align-items:center;gap:8px;height:52px;padding:0 20px 0 16px;border-radius:999px;border:1px solid rgba(255,255,255,.14);background:linear-gradient(135deg,#ff00aa,#a100ff);color:#fff;font:inherit;font-weight:700;font-size:16px;cursor:pointer;box-shadow:0 10px 30px rgba(255,0,170,.45)}
+.ch-fab span{font-size:20px}
+.chw.open .ch-fab{background:#16161c;box-shadow:none}
+.ch-cnt{position:absolute;top:-6px;right:-6px;min-width:22px;height:22px;padding:0 6px;border-radius:999px;background:#ff3b30;color:#fff;font-style:normal;font-size:12px;font-weight:700;display:grid;place-items:center;border:2px solid #080808}
+.ch-cnt[hidden],.ch-peek[hidden],.ch-panel[hidden]{display:none!important}
+.ch-peek{max-width:300px;background:#16161c;border:1px solid rgba(0,229,255,.5);border-radius:14px 14px 4px 14px;padding:10px 14px;font-size:14px;color:#e8e8f0;cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.5);animation:fadeUp .3s ease}
+.ch-peek b{color:#00e5ff}
+.ch-panel{width:min(400px,calc(100vw - 32px));height:min(600px,calc(100svh - var(--chb,16px) - 90px));display:flex;flex-direction:column;background:linear-gradient(160deg,rgba(255,0,170,.08),rgba(0,229,255,.05) 60%,transparent),#0d0d12;border:1px solid rgba(255,255,255,.12);border-radius:18px;overflow:hidden;box-shadow:0 24px 70px rgba(0,0,0,.65)}
+.ch-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;border-bottom:1px solid var(--line)}
+.ch-head b{font-size:18px;color:#fff}
+.ch-head .ch-on{margin-top:2px}
+.ch-close{width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,255,255,.16);background:none;color:#fff;cursor:pointer}
+.ch-panel .ch-list{height:auto;flex:1;min-height:0}
+.ch-panel .ch-bar{padding:8px 14px}
+.ch-panel .ch-in{padding:10px 12px}
+@media(max-width:760px){.chw.open{right:0;bottom:0;left:0;top:0;align-items:stretch}.chw.open .ch-panel{width:100%;height:100svh;border-radius:0}.chw.open .ch-fab{display:none}.ch-fab em{display:none}.ch-fab{padding:0 16px}}
+@media(max-width:760px){.scp{grid-template-columns:1fr!important;grid-template-rows:none!important}.scp>*{min-height:auto}.scp-l{overflow:visible!important}.scp-l{flex-direction:column!important;align-items:stretch!important}.scp-l .scp-hd{align-items:center}.scp-l .scp-sub{display:none}}
+.chw.open{z-index:130}
+.scp-lk:empty{display:none}
 </style>
 <script src="https://w.soundcloud.com/player/api.js"></script>
 </head>
@@ -649,39 +691,17 @@ button.sb{font:inherit;text-align:left;cursor:pointer;width:100%}
     </div>
   </section>
 
-  <!-- CHAT -->
-  <section id="chat">
-    <div class="wrap">
-      <div class="sh reveal">
-        <div><div class="mono" data-i="ch_k">Blagoday · Live</div><h2 data-i="ch_h">Чат слухачів</h2>
-        <p class="sub" data-i="ch_s"></p></div>
-        <div class="ch-on"><i></i><span id="chOn">…</span></div>
-      </div>
-      <div class="chat reveal" id="chatBox">
-        <div class="ch-bar">
-          <label class="ch-auto"><input type="checkbox" id="chAuto"> <span id="chAutoL"></span></label>
-          <span class="ch-st mono" id="chSt"></span>
-        </div>
-        <div class="ch-list" id="chList"></div>
-        <div class="ch-in">
-          <div class="ch-id" id="chId"></div>
-          <div class="ch-row"><textarea id="chTx" rows="1" maxlength="600"></textarea><button class="ch-send" id="chSend">➤</button></div>
-          <div class="ch-tr"><select id="chLang" aria-label="Language"></select><button class="cm-b" id="chTrB"></button><span class="ch-hint mono" id="chHint"></span></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- SUPPORT -->
   <section id="support">
     <div class="wrap reveal">
       <div class="support">
         <div class="mono" style="color:var(--mag);font-size:12px;margin-bottom:10px" data-i="su_k">Підтримка</div>
-        <h2 data-i="su_h">Готовий до подорожі у 2250 рік?</h2>
+        <h2 data-i="su_h">Підтримай Blagoday</h2>
         <p data-i="su_s">Нові кінематографічні мандрівки та тривалі ембієнт-мікси завантажуються регулярно.</p>
         <div class="btns" style="justify-content:center">
           <a class="btn p" href="https://www.youtube.com/@BlagodayVision?sub_confirmation=1" target="_blank" rel="noopener" data-i="su_yt">Підписатись на YouTube ↗</a>
           <a class="btn c" href="https://ko-fi.com/blagodayvision" target="_blank" rel="noopener">☕ Ko-fi ↗</a>
+          <a class="btn c" id="mailBtn" href="mailto:blagodaymusic@gmail.com?subject=Blagoday" data-i="mail_btn">✉ Написати автору</a>
         </div>
       </div>
     </div>
@@ -694,6 +714,21 @@ button.sb{font:inherit;text-align:left;cursor:pointer;width:100%}
     <div class="flinks" id="flinks"></div>
   </div>
 </footer>
+<div class="chw" id="chw">
+  <div class="ch-panel" id="chPanel" role="dialog" aria-label="Chat" hidden>
+    <div class="ch-head"><div><b data-i="ch_h">Чат слухачів</b><div class="ch-on"><i></i><span id="chOn">…</span></div></div><button class="ch-close" id="chClose" aria-label="Close">✕</button></div>
+    <div class="ch-bar"><label class="ch-auto"><input type="checkbox" id="chAuto"> <span id="chAutoL"></span></label><span class="ch-st mono" id="chSt"></span></div>
+    <div class="ch-list" id="chList"></div>
+    <div class="ch-in">
+      <div class="ch-id" id="chId"></div>
+      <div class="ch-row"><textarea id="chTx" rows="1" maxlength="600"></textarea><button class="ch-send" id="chSend">➤</button></div>
+      <div class="ch-tr"><select id="chLang" aria-label="Language"></select><button class="cm-b" id="chTrB"></button><span class="ch-hint mono" id="chHint"></span></div>
+    </div>
+  </div>
+  <div class="ch-peek" id="chPeek" hidden></div>
+  <button class="ch-fab" id="chFab" aria-label="Chat"><span>💬</span><em id="chFabL" data-i="nav_c">Чат</em><i class="ch-cnt" id="chBadge" hidden>0</i></button>
+</div>
+
 
 <div class="modal" id="modal" role="dialog" aria-modal="true">
   <div class="mbox" id="mbox">
@@ -844,6 +879,7 @@ for(const [k,v] of Object.entries({"uk": {"prem_sub": "🔔 Підписатис
 for(const [k,v] of Object.entries({"uk": {"t_gen": "Жанри", "mh_genres": "Музика за жанрами. Натисни на жанр — і слухай усі його треки підряд.", "play_genre": "▶ Слухати жанр", "g_list": "Список треків", "g_all": "Усі жанри", "tr_all": "🌐 Перекласти всі", "tr_hint": "Переклад на {l}", "tr_one": "🌐 Переклад", "reply": "↩ Відповісти", "tr_to": "🌐 Перекласти", "lang_pick": "Мова відповіді…", "lang_need": "Обери мову, на яку перекласти", "orig": "Оригінал", "undo": "Повернути", "from": "з мови"}, "en": {"t_gen": "Genres", "mh_genres": "Music by genre. Tap a genre to play all of its tracks.", "play_genre": "▶ Play genre", "g_list": "Track list", "g_all": "All genres", "tr_all": "🌐 Translate all", "tr_hint": "Translation into {l}", "tr_one": "🌐 Translate", "reply": "↩ Reply", "tr_to": "🌐 Translate", "lang_pick": "Reply language…", "lang_need": "Choose a language to translate into", "orig": "Original", "undo": "Undo", "from": "from"}, "es": {"t_gen": "Géneros", "mh_genres": "Música por géneros. Toca un género para escuchar todos sus temas.", "play_genre": "▶ Escuchar género", "g_list": "Lista de temas", "g_all": "Todos los géneros", "tr_all": "🌐 Traducir todo", "tr_hint": "Traducción al {l}", "tr_one": "🌐 Traducir", "reply": "↩ Responder", "tr_to": "🌐 Traducir", "lang_pick": "Idioma de respuesta…", "lang_need": "Elige el idioma de destino", "orig": "Original", "undo": "Deshacer", "from": "del"}, "pt": {"t_gen": "Gêneros", "mh_genres": "Música por gênero. Toque num gênero para ouvir todas as faixas.", "play_genre": "▶ Ouvir gênero", "g_list": "Lista de faixas", "g_all": "Todos os gêneros", "tr_all": "🌐 Traduzir tudo", "tr_hint": "Tradução para {l}", "tr_one": "🌐 Traduzir", "reply": "↩ Responder", "tr_to": "🌐 Traduzir", "lang_pick": "Idioma da resposta…", "lang_need": "Escolha o idioma de destino", "orig": "Original", "undo": "Desfazer", "from": "do"}, "de": {"t_gen": "Genres", "mh_genres": "Musik nach Genres. Tippe auf ein Genre, um alle Tracks zu hören.", "play_genre": "▶ Genre abspielen", "g_list": "Trackliste", "g_all": "Alle Genres", "tr_all": "🌐 Alle übersetzen", "tr_hint": "Übersetzung ins {l}", "tr_one": "🌐 Übersetzen", "reply": "↩ Antworten", "tr_to": "🌐 Übersetzen", "lang_pick": "Antwortsprache…", "lang_need": "Wähle die Zielsprache", "orig": "Original", "undo": "Rückgängig", "from": "aus"}, "fr": {"t_gen": "Genres", "mh_genres": "La musique par genre. Touchez un genre pour écouter tous ses titres.", "play_genre": "▶ Écouter le genre", "g_list": "Liste des titres", "g_all": "Tous les genres", "tr_all": "🌐 Tout traduire", "tr_hint": "Traduction en {l}", "tr_one": "🌐 Traduire", "reply": "↩ Répondre", "tr_to": "🌐 Traduire", "lang_pick": "Langue de réponse…", "lang_need": "Choisissez la langue cible", "orig": "Original", "undo": "Annuler", "from": "depuis"}}))Object.assign(T[k],v);
 for(const [k,v] of Object.entries({"uk": {"kick": "Авторська музика і відео", "lead": "Музика і відео, створені для душі."}, "en": {"kick": "Original music & video", "lead": "Music and video created for the soul."}, "es": {"kick": "Música y video de autor", "lead": "Música y videos creados para el alma."}, "pt": {"kick": "Música e vídeo autorais", "lead": "Música e vídeos criados para a alma."}, "de": {"kick": "Eigene Musik & Videos", "lead": "Musik und Videos, geschaffen für die Seele."}, "fr": {"kick": "Musique et vidéo d’auteur", "lead": "De la musique et des vidéos créées pour l’âme."}}))Object.assign(T[k],v);
 for(const [k,v] of Object.entries({"uk": {"nav_c": "Чат", "ch_k": "Blagoday · Live", "ch_h": "Чат слухачів", "ch_s": "Спілкуйся з автором і слухачами з усього світу. Повідомлення можна автоматично перекладати на твою мову.", "ch_online": "{n} онлайн", "ch_conn": "Підключення…", "ch_off": "Немає зв’язку, перепідключаюсь…", "ch_empty": "Тут ще тихо. Напиши перше повідомлення!", "ch_author": "Автор", "ch_name": "Твоє ім’я", "ch_or": "або", "ch_ph": "Повідомлення… (Enter — надіслати)", "ch_auto": "Автопереклад на {l}", "ch_e_name": "Вкажи ім’я або увійди через SoundCloud", "ch_e_slow": "Зачекай кілька секунд", "ch_e_link": "Посилання можуть надсилати тільки ті, хто увійшов через SoundCloud"}, "en": {"nav_c": "Chat", "ch_k": "Blagoday · Live", "ch_h": "Listeners’ chat", "ch_s": "Talk with the artist and listeners from around the world. Messages can be translated into your language automatically.", "ch_online": "{n} online", "ch_conn": "Connecting…", "ch_off": "Connection lost, reconnecting…", "ch_empty": "It’s quiet here. Write the first message!", "ch_author": "Artist", "ch_name": "Your name", "ch_or": "or", "ch_ph": "Message… (Enter to send)", "ch_auto": "Auto-translate into {l}", "ch_e_name": "Enter a name or sign in with SoundCloud", "ch_e_slow": "Wait a few seconds", "ch_e_link": "Only people signed in with SoundCloud can post links"}, "es": {"nav_c": "Chat", "ch_k": "Blagoday · Live", "ch_h": "Chat de oyentes", "ch_s": "Habla con el artista y con oyentes de todo el mundo. Los mensajes se pueden traducir automáticamente a tu idioma.", "ch_online": "{n} en línea", "ch_conn": "Conectando…", "ch_off": "Sin conexión, reconectando…", "ch_empty": "Todo está tranquilo. ¡Escribe el primer mensaje!", "ch_author": "Artista", "ch_name": "Tu nombre", "ch_or": "o", "ch_ph": "Mensaje… (Enter para enviar)", "ch_auto": "Traducir automáticamente al {l}", "ch_e_name": "Escribe un nombre o entra con SoundCloud", "ch_e_slow": "Espera unos segundos", "ch_e_link": "Solo quienes entran con SoundCloud pueden enviar enlaces"}, "pt": {"nav_c": "Chat", "ch_k": "Blagoday · Live", "ch_h": "Chat dos ouvintes", "ch_s": "Converse com o artista e com ouvintes do mundo todo. As mensagens podem ser traduzidas automaticamente para o seu idioma.", "ch_online": "{n} online", "ch_conn": "Conectando…", "ch_off": "Sem conexão, reconectando…", "ch_empty": "Está tudo calmo. Escreva a primeira mensagem!", "ch_author": "Artista", "ch_name": "Seu nome", "ch_or": "ou", "ch_ph": "Mensagem… (Enter para enviar)", "ch_auto": "Traduzir automaticamente para {l}", "ch_e_name": "Digite um nome ou entre com o SoundCloud", "ch_e_slow": "Aguarde alguns segundos", "ch_e_link": "Só quem entrou com o SoundCloud pode enviar links"}, "de": {"nav_c": "Chat", "ch_k": "Blagoday · Live", "ch_h": "Hörer-Chat", "ch_s": "Sprich mit dem Künstler und mit Hörern aus aller Welt. Nachrichten können automatisch in deine Sprache übersetzt werden.", "ch_online": "{n} online", "ch_conn": "Verbinde…", "ch_off": "Verbindung verloren, verbinde neu…", "ch_empty": "Noch ist es ruhig. Schreib die erste Nachricht!", "ch_author": "Künstler", "ch_name": "Dein Name", "ch_or": "oder", "ch_ph": "Nachricht… (Enter zum Senden)", "ch_auto": "Automatisch übersetzen ins {l}", "ch_e_name": "Gib einen Namen ein oder melde dich mit SoundCloud an", "ch_e_slow": "Warte ein paar Sekunden", "ch_e_link": "Links dürfen nur mit SoundCloud angemeldete Nutzer senden"}, "fr": {"nav_c": "Chat", "ch_k": "Blagoday · Live", "ch_h": "Chat des auditeurs", "ch_s": "Discutez avec l’artiste et des auditeurs du monde entier. Les messages peuvent être traduits automatiquement dans votre langue.", "ch_online": "{n} en ligne", "ch_conn": "Connexion…", "ch_off": "Connexion perdue, reconnexion…", "ch_empty": "C’est calme ici. Écrivez le premier message !", "ch_author": "Artiste", "ch_name": "Votre nom", "ch_or": "ou", "ch_ph": "Message… (Entrée pour envoyer)", "ch_auto": "Traduire automatiquement en {l}", "ch_e_name": "Entrez un nom ou connectez-vous avec SoundCloud", "ch_e_slow": "Attendez quelques secondes", "ch_e_link": "Seules les personnes connectées avec SoundCloud peuvent envoyer des liens"}}))Object.assign(T[k],v);
+for(const [k,v] of Object.entries({"uk": {"mail_btn": "✉ Написати автору", "su_h": "Підтримай Blagoday", "su_s": "Нова музика і відео виходять регулярно. Підписуйся, слухай, пиши — так музика знаходить своїх слухачів."}, "en": {"mail_btn": "✉ Write to the artist", "su_h": "Support Blagoday", "su_s": "New music and videos come out regularly. Subscribe, listen and write — that’s how music finds its listeners."}, "es": {"mail_btn": "✉ Escribir al artista", "su_h": "Apoya a Blagoday", "su_s": "Nueva música y videos salen con regularidad. Suscríbete, escucha y escribe: así la música encuentra a sus oyentes."}, "pt": {"mail_btn": "✉ Escrever ao artista", "su_h": "Apoie Blagoday", "su_s": "Novas músicas e vídeos saem regularmente. Inscreva-se, ouça e escreva — é assim que a música encontra seus ouvintes."}, "de": {"mail_btn": "✉ Dem Künstler schreiben", "su_h": "Unterstütze Blagoday", "su_s": "Neue Musik und Videos erscheinen regelmäßig. Abonniere, hör zu und schreib – so findet Musik ihre Hörer."}, "fr": {"mail_btn": "✉ Écrire à l’artiste", "su_h": "Soutenez Blagoday", "su_s": "De la nouvelle musique et des vidéos sortent régulièrement. Abonnez-vous, écoutez et écrivez — c’est ainsi que la musique trouve ses auditeurs."}}))Object.assign(T[k],v);
 const plural=n=>n===1?t("track"):t("tracks");
 
 /* ---------- RENDER ---------- */
@@ -953,6 +989,7 @@ function updQ(){
   if(!p){p=document.createElement("button");p.id="qpill";p.onclick=()=>{if(!Q.length)return;pBuild();P.list=[];P.title=t("q_tab");P.tab="q";pFull();pNext(true);};document.body.appendChild(p);}
   p.textContent="▶ "+t("q_play")+" · "+Q.length;
   p.classList.toggle("on",Q.length>0&&!P.el);
+  if(typeof chPos==="function")setTimeout(chPos,30);
   if(P.el){pTabs();if(P.tab==="q")pList();}
 }
 function pBuild(){
@@ -962,17 +999,16 @@ function pBuild(){
 <div class="pl-mh"><img id="plMi" alt=""><span><b id="plMt"></b><i>Blagoday Music</i></span><button data-pl="max" aria-label="Expand">⤢</button><button data-pl="x" aria-label="Close">✕</button></div>
 <button class="pl-x" data-pl="min">✕ ESC</button>
 <div class="scp" id="scp">
-<div class="scp-l"><div class="scp-cv"><img id="scpImg" alt=""></div><div class="scp-info"><div class="scp-k" id="scpK">SoundCloud</div><div class="scp-t" id="scpT"></div><div class="scp-a" id="scpA"></div><div class="scp-st" id="scpSt"></div><div class="scp-lk" id="scpLkr"></div></div></div>
-<div class="scp-r">
-<div class="scp-act"><button class="chip hl" id="scpCm"></button><button class="chip rp" id="scpRp"></button><button class="chip" id="scpSh"></button><a class="chip" id="scpOp" target="_blank" rel="noopener">SoundCloud ↗</a></div>
-<div class="scp-cmt"><textarea id="scpTx" maxlength="1000" rows="2"></textarea><div class="scp-trb"><select id="scpLang" aria-label="Reply language"></select><button class="chip" id="scpTr"></button><span class="scp-orig" id="scpOrig"></span></div><div class="scp-cr"><span class="scp-who" id="scpWho"></span><button class="scp-send" id="scpSend"></button></div></div>
-<div class="scp-tabs" id="scpTabs"><button data-t="tr"></button><button data-t="q"></button><button data-t="cm"></button><button data-t="more"></button></div>
-<div class="scp-list" id="scpList"></div>
-<div class="scp-sub"><div class="scp-k" id="scpSubH"></div><div class="scp-subb">
+<div class="scp-l"><div class="scp-hd"><div class="scp-cv"><img id="scpImg" alt=""></div><div class="scp-info"><div class="scp-k" id="scpK">SoundCloud</div><div class="scp-t" id="scpT"></div><div class="scp-a" id="scpA"></div></div></div><div class="scp-st" id="scpSt"></div><div class="scp-lk" id="scpLkr"></div><div class="scp-act"><button class="chip hl" id="scpCm"></button><button class="chip rp" id="scpRp"></button><button class="chip" id="scpSh"></button><a class="chip" id="scpOp" target="_blank" rel="noopener">SoundCloud ↗</a></div><div class="scp-sub"><div class="scp-k" id="scpSubH"></div><div class="scp-subb">
 <button class="sb sc" id="scpFol"><b id="scpFolB">SoundCloud</b><i id="scpFolI">Blagoday Music</i></button>
 <a class="sb yt" href="https://www.youtube.com/@TheBlagoday?sub_confirmation=1" target="_blank" rel="noopener"><b>YouTube ↗</b><i>Blagoday · @TheBlagoday</i></a>
 <a class="sb yt" href="https://www.youtube.com/@BlagodayVision?sub_confirmation=1" target="_blank" rel="noopener"><b>YouTube ↗</b><i>Blagoday Vision</i></a>
-</div></div>
+</div></div></div>
+<div class="scp-r">
+<div class="scp-tabs" id="scpTabs"><button data-t="tr"></button><button data-t="q"></button><button data-t="cm"></button><button data-t="more"></button></div>
+<div class="scp-list" id="scpList"></div>
+<div class="scp-cmt" id="scpCmt" hidden><textarea id="scpTx" maxlength="1000" rows="2"></textarea><div class="scp-trb"><select id="scpLang" aria-label="Reply language"></select><button class="chip" id="scpTr"></button><span class="scp-orig" id="scpOrig"></span></div><div class="scp-cr"><span class="scp-who" id="scpWho"></span><button class="scp-send" id="scpSend"></button></div></div>
+
 </div>
 <div class="scp-b"><button id="scpPrev" aria-label="Previous">⏮</button><div class="scp-w"><iframe id="scpW" allow="autoplay" title="SoundCloud player"></iframe></div><button id="scpNext" aria-label="Next">⏭</button></div>
 </div></div>`;
@@ -1021,6 +1057,7 @@ function pList(){
   else if(P.tab==="q")h=Q.length?`<div class="scp-qh"><span class="scp-k">${esc(t("q_tab"))} · ${Q.length}</span><button class="chip" data-qc="1">${esc(t("q_clear"))}</button></div>`+Q.map((s,i)=>pRow(byP[s],i,"q")).join(""):`<div class="scp-empty">${esc(t("q_empty"))}</div>`;
   else if(P.tab==="cm"){h=pComments();}
   else{const own=new Set(P.list.map(x=>x[1]));h=CAT.c.filter(x=>!own.has(x[1])).sort((a,b)=>b[5]-a[5]).slice(0,40).map((x,i)=>pRow(x,i,"more")).join("");}
+  const cb=document.getElementById("scpCmt");if(cb)cb.hidden=P.tab!=="cm";
   L2.innerHTML=h;const on=L2.querySelector(".on");if(on)on.scrollIntoView({block:"nearest"});
 }
 function pSetPlay(p){P.playing=p;const s=document.getElementById("scp");if(s)s.classList.toggle("playing",p);}
@@ -1138,12 +1175,22 @@ const CH={ws:null,me:null,msgs:[],tr:{},auto:false,tries:0,started:false,ownerTo
 try{CH.auto=localStorage.getItem("bl_chauto")==="1";}catch(e){}
 const chName=()=>{try{return localStorage.getItem("bl_chname")||""}catch(e){return""}};
 function chStart(){if(CH.started)return;CH.started=true;chConnect();}
+CH.open=false;CH.lastSeen=0;try{CH.lastSeen=+localStorage.getItem("bl_chseen")||0}catch(e){}
+function chSeen(){const m=CH.msgs[CH.msgs.length-1];if(m&&m.id>CH.lastSeen){CH.lastSeen=m.id;try{localStorage.setItem("bl_chseen",String(m.id))}catch(e){}}chBadge();}
+function chUnread(){if(CH.open)return 0;return CH.msgs.filter(m=>m.id>CH.lastSeen&&!(CH.me&&CH.me.name===m.name)).length;}
+const T0=document.title;
+function chBadge(){const n=chUnread(),b=document.getElementById("chBadge");if(b){b.hidden=!n;b.textContent=n>99?"99+":n;}document.title=(n?"("+n+") ":"")+T0;}
+function chPeek(m){if(CH.open||(CH.me&&CH.me.name===m.name))return;const p=document.getElementById("chPeek");if(!p)return;p.innerHTML=`<b>${esc(m.name)}</b> ${esc(m.text.slice(0,90))}${m.text.length>90?"…":""}`;p.hidden=false;clearTimeout(p._t);p._t=setTimeout(()=>{p.hidden=true;},6000);}
+function chOpen(){chStart();CH.open=true;document.getElementById("chPanel").hidden=false;document.getElementById("chw").classList.add("open");document.getElementById("chPeek").hidden=true;chSeen();chRender(true);chPos();setTimeout(()=>{const t=document.getElementById("chTx");if(t&&matchMedia("(pointer:fine)").matches)t.focus();},50);}
+function chClose(){CH.open=false;document.getElementById("chPanel").hidden=true;document.getElementById("chw").classList.remove("open");chBadge();}
+function chPos(){const w=document.getElementById("chw");if(!w)return;const mini=P.el&&!P.full?P.el.querySelector(".pl-box"):null;
+  const off=mini?Math.round(mini.getBoundingClientRect().height)+28:16;w.style.setProperty("--chb",off+"px");w.classList.toggle("hide",!!(P.el&&P.full));}
 function chConnect(){try{CH.ws=new WebSocket(SCB.replace("https://","wss://")+"/chat/ws");}catch(e){return chRetry();}
   const ws=CH.ws;chStatus(t("ch_conn"));
   ws.onopen=async()=>{CH.tries=0;chStatus("");let tk="";try{tk=SCT?await scTok():""}catch(e){}ws.send(JSON.stringify({type:"hello",token:tk||"",name:chName()}));};
   ws.onmessage=e=>{let m;try{m=JSON.parse(e.data)}catch(x){return}
-    if(m.type==="hist"){CH.msgs=m.msgs||[];chOnline(m.online);chRender(true);chAutoTr();}
-    else if(m.type==="msg"){CH.msgs.push(m.m);if(CH.msgs.length>200)CH.msgs.shift();chRender(true);chAutoTr();}
+    if(m.type==="hist"){CH.msgs=m.msgs||[];chOnline(m.online);chRender(true);chAutoTr();if(CH.open)chSeen();else chBadge();}
+    else if(m.type==="msg"){CH.msgs.push(m.m);if(CH.msgs.length>200)CH.msgs.shift();chRender(true);chAutoTr();if(CH.open)chSeen();else{chBadge();chPeek(m.m);}}
     else if(m.type==="del"){CH.msgs=CH.msgs.filter(x=>x.id!==m.id);chRender();}
     else if(m.type==="online")chOnline(m.n);
     else if(m.type==="me"){CH.me=m;chIdUI();chRender();}
@@ -1188,8 +1235,14 @@ document.addEventListener("click",e=>{
   tx.addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();chSend();}});
   tx.addEventListener("input",()=>{tx.style.height="";tx.style.height=Math.min(140,tx.scrollHeight)+"px";});
   document.getElementById("chAuto").addEventListener("change",e=>{CH.auto=e.target.checked;try{localStorage.setItem("bl_chauto",CH.auto?"1":"0")}catch(x){}chAutoTr();});
-  const io2=new IntersectionObserver(es=>{if(es.some(x=>x.isIntersecting)){chStart();io2.disconnect();}},{rootMargin:"300px"});io2.observe(document.getElementById("chat"));
-  if(new URLSearchParams(location.search).get("go")==="chat")setTimeout(()=>{document.getElementById("chat").scrollIntoView();chStart();},400);})();
+  document.getElementById("chFab").onclick=()=>CH.open?chClose():chOpen();
+  document.getElementById("chClose").onclick=chClose;
+  document.getElementById("chPeek").onclick=chOpen;
+  document.querySelectorAll('a[href="#chat"]').forEach(a=>a.addEventListener("click",e=>{e.preventDefault();chOpen();}));
+  addEventListener("keydown",e=>{if(e.key==="Escape"&&CH.open&&!(P.el&&P.full))chClose();});
+  addEventListener("resize",chPos);
+  setTimeout(chStart,2500);
+  if(new URLSearchParams(location.search).get("go")==="chat"||location.hash==="#chat")setTimeout(chOpen,500);})();
 /* ---------- own counters: site visits & plays on the site ---------- */
 (function(){try{if(!sessionStorage.getItem("bl_v")){sessionStorage.setItem("bl_v","1");fetch(SCB+"/visit",{method:"POST",headers:{"Content-Type":"application/json"},body:"{}"}).catch(()=>{});}}catch(e){}})();
 const PLAYED={};function countPlay(){const x=P.now;if(!x||PLAYED[x[1]])return;PLAYED[x[1]]=1;fetch(SCB+"/play",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({slug:x[1]})}).catch(()=>{});}
@@ -1197,7 +1250,7 @@ function pStats(){
   const s=P.snd,el=document.getElementById("scpSt");if(!el)return;
   const v=k=>s?fmtN(s[k]||0):"–";
   el.innerHTML=`<a class="stt" href="${P.now?scUrl(P.now):"#"}" target="_blank" rel="noopener"><i>▶</i><b>${v("playback_count")}</b><span>${esc(t("st_p"))}</span></a><button class="stt lk${P.snd&&scLiked(P.snd.id)?" on":""}" id="scpLk"><i>♥</i><b>${v("likes_count")}</b><span>${esc(P.snd&&scLiked(P.snd.id)?t("liked"):t("like_btn"))}</span></button><button class="stt cm" id="scpSc"><i>💬</i><b>${v("comment_count")}</b><span>${esc(t("st_c"))}</span></button>`;
-  const c=document.getElementById("scpSc");if(c)c.onclick=()=>{const x=document.getElementById("scpTx");if(x)x.focus();};
+  const c=document.getElementById("scpSc");if(c)c.onclick=()=>{P.tab="cm";pTabs();pList();const x=document.getElementById("scpTx");if(x)x.focus();};
   const l=document.getElementById("scpLk");if(l)l.onclick=scLike;
   pLikers();pSocial();pTabs();
 }
