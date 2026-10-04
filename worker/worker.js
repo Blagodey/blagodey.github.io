@@ -85,6 +85,93 @@ async function scApi(req, path, init = {}) {
   return json(data, r.status);
 }
 
+
+// ================= Durable Object: chat + site data =================
+const BAD = /(https?:\/\/|www\.)\S+/i;
+export class ChatRoom {
+  constructor(state, env) {
+    this.state = state; this.env = env; this.sql = state.storage.sql; this.rate = new Map();
+    this.sql.exec(`CREATE TABLE IF NOT EXISTS msgs(id INTEGER PRIMARY KEY AUTOINCREMENT, ts INTEGER, name TEXT, avatar TEXT, uid TEXT, author INTEGER, text TEXT, deleted INTEGER DEFAULT 0)`);
+    this.sql.exec(`CREATE TABLE IF NOT EXISTS plays(slug TEXT PRIMARY KEY, n INTEGER)`);
+    this.sql.exec(`CREATE TABLE IF NOT EXISTS visits(day TEXT PRIMARY KEY, n INTEGER)`);
+  }
+  rows(q, ...a) { return [...this.sql.exec(q, ...a)]; }
+  limited(key, ms) { const now = Date.now(), last = this.rate.get(key) || 0; if (now - last < ms) return true; this.rate.set(key, now); if (this.rate.size > 5000) this.rate.clear(); return false; }
+  online() { return this.state.getWebSockets().length; }
+  broadcast(obj) { const s = JSON.stringify(obj); for (const ws of this.state.getWebSockets()) { try { ws.send(s); } catch {} } }
+  history() { return this.rows(`SELECT id,ts,name,avatar,author,text FROM msgs WHERE deleted=0 ORDER BY id DESC LIMIT 80`).reverse(); }
+  async fetch(req) {
+    const url = new URL(req.url), p = url.pathname, ip = req.headers.get("X-IP") || "?";
+    const ok = (d, s = 200) => new Response(JSON.stringify(d), { status: s, headers: { "Content-Type": "application/json" } });
+    if (p === "/ws") {
+      if (req.headers.get("Upgrade") !== "websocket") return ok({ error: "upgrade" }, 426);
+      const pair = new WebSocketPair();
+      this.state.acceptWebSocket(pair[1]);
+      pair[1].serializeAttachment({ ip, name: "", avatar: "", uid: "", author: 0 });
+      pair[1].send(JSON.stringify({ type: "hist", msgs: this.history(), online: this.online() }));
+      this.broadcast({ type: "online", n: this.online() });
+      return new Response(null, { status: 101, webSocket: pair[0] });
+    }
+    if (p === "/history") return ok({ msgs: this.history(), online: this.online() });
+    const body = req.method === "POST" ? await req.json().catch(() => ({})) : {};
+    if (p === "/play") {
+      const slug = String(body.slug || "").replace(/[^a-z0-9_-]/gi, "").slice(0, 120);
+      if (!slug || this.limited("pl:" + ip + slug, 60000)) return ok({ ok: true });
+      this.sql.exec(`INSERT INTO plays(slug,n) VALUES(?,1) ON CONFLICT(slug) DO UPDATE SET n=n+1`, slug);
+      return ok({ ok: true });
+    }
+    if (p === "/visit") {
+      if (this.limited("v:" + ip, 6 * 3600000)) return ok({ ok: true });
+      const day = new Date().toISOString().slice(0, 10);
+      this.sql.exec(`INSERT INTO visits(day,n) VALUES(?,1) ON CONFLICT(day) DO UPDATE SET n=n+1`, day);
+      return ok({ ok: true });
+    }
+    if (p === "/admin") {
+      return ok({
+        plays: this.rows(`SELECT slug,n FROM plays ORDER BY n DESC LIMIT 200`),
+        visits: this.rows(`SELECT day,n FROM visits ORDER BY day DESC LIMIT 60`),
+        chat: this.rows(`SELECT COUNT(*) AS n FROM msgs WHERE deleted=0`)[0],
+        online: this.online(),
+      });
+    }
+    return ok({ error: "not_found" }, 404);
+  }
+  async webSocketMessage(ws, raw) {
+    let m; try { m = JSON.parse(raw); } catch { return; }
+    const me = ws.deserializeAttachment() || {};
+    if (m.type === "hello") {
+      if (m.token) {
+        try {
+          const r = await fetch(API + "/me", { headers: { accept: "application/json; charset=utf-8", Authorization: "OAuth " + String(m.token).slice(0, 200) } });
+          if (r.ok) { const u = await r.json(); Object.assign(me, { name: u.username || "", avatar: u.avatar_url || "", uid: String(u.id || ""), author: String(u.id) === ARTIST ? 1 : 0, sc: 1 }); }
+        } catch {}
+      }
+      if (!me.sc) me.name = String(m.name || "").replace(/[<>]/g, "").trim().slice(0, 32);
+      ws.serializeAttachment(me);
+      ws.send(JSON.stringify({ type: "me", name: me.name, author: me.author, sc: !!me.sc }));
+      return;
+    }
+    if (m.type === "msg") {
+      const text = String(m.text || "").replace(/\s+\n/g, "\n").trim().slice(0, 600);
+      if (!text) return;
+      if (!me.name) { ws.send(JSON.stringify({ type: "err", e: "name" })); return; }
+      if (!me.author && this.limited("msg:" + (me.uid || me.ip), 4000)) { ws.send(JSON.stringify({ type: "err", e: "slow" })); return; }
+      if (!me.sc && BAD.test(text)) { ws.send(JSON.stringify({ type: "err", e: "link" })); return; }
+      const ts = Date.now();
+      this.sql.exec(`INSERT INTO msgs(ts,name,avatar,uid,author,text) VALUES(?,?,?,?,?,?)`, ts, me.name, me.avatar || "", me.uid || "", me.author ? 1 : 0, text);
+      const id = this.rows(`SELECT last_insert_rowid() AS id`)[0].id;
+      this.broadcast({ type: "msg", m: { id, ts, name: me.name, avatar: me.avatar || "", author: me.author ? 1 : 0, text } });
+      return;
+    }
+    if (m.type === "del" && me.author) {
+      this.sql.exec(`UPDATE msgs SET deleted=1 WHERE id=?`, Number(m.id) || 0);
+      this.broadcast({ type: "del", id: Number(m.id) || 0 });
+    }
+  }
+  async webSocketClose(ws) { try { ws.close(); } catch {} this.broadcast({ type: "online", n: Math.max(0, this.online() - 1) }); }
+  async webSocketError(ws) { try { ws.close(); } catch {} }
+}
+
 export default {
   async fetch(req, env, ctx) {
     const url = new URL(req.url);
@@ -229,7 +316,28 @@ export default {
         }
         return json(out);
       }
-      if (p === "/") return json({ ok: true, service: "blagoday-soundcloud", v: 3 });
+
+      // ---- chat + site data (Durable Object) ----
+      if (p.startsWith("/chat/") || ["/play", "/visit"].includes(p)) {
+        const stub = env.CHAT.get(env.CHAT.idFromName("main"));
+        const sub = p.startsWith("/chat/") ? p.slice(5) : p;
+        const h = new Headers(req.headers); h.set("X-IP", req.headers.get("CF-Connecting-IP") || "?");
+        if (sub !== "/ws" && sub !== "/history" && (req.headers.get("Origin") || "") !== SITE) return json({ error: "forbidden" }, 403);
+        const r = await stub.fetch(new Request("https://do" + sub, { method: req.method, headers: h, body: req.method === "POST" ? await req.text() : undefined }));
+        if (sub === "/ws") return r;
+        return new Response(r.body, { status: r.status, headers: { "Content-Type": "application/json", ...cors() } });
+      }
+      if (p === "/admin") {
+        const auth = req.headers.get("Authorization") || "";
+        const me = await fetch(API + "/me", { headers: { accept: "application/json; charset=utf-8", Authorization: auth } });
+        if (!me.ok) return json({ error: "login_required" }, 401);
+        const u = await me.json();
+        if (String(u.id) !== ARTIST) return json({ error: "forbidden" }, 403);
+        const stub = env.CHAT.get(env.CHAT.idFromName("main"));
+        const r = await stub.fetch(new Request("https://do/admin"));
+        return new Response(r.body, { status: r.status, headers: { "Content-Type": "application/json", ...cors() } });
+      }
+      if (p === "/") return json({ ok: true, service: "blagoday-soundcloud", v: 4 });
       return json({ error: "not_found" }, 404);
     } catch (e) {
       return json({ error: "server", message: String(e && e.message || e) }, 500);
