@@ -476,6 +476,40 @@ button.sb{font:inherit;text-align:left;cursor:pointer;width:100%}
 .hero .now.now-top{position:static;right:auto;bottom:auto;align-items:flex-start;margin:0 0 24px;animation:fadeUp .9s ease forwards}
 .hero .now-top .now-card{max-width:560px}
 @media(max-width:860px){.hero{padding-bottom:96px}.hero .now.now-top{align-items:stretch}.hero .now-top .dots{justify-content:flex-start}}
+
+/* ===== chat ===== */
+.ch-on{display:flex;align-items:center;gap:8px;font-family:"Share Tech Mono",monospace;font-size:13px;color:var(--mut)}
+.ch-on i{width:9px;height:9px;border-radius:50%;background:#2bff88;box-shadow:0 0 10px #2bff88}
+.chat{background:linear-gradient(160deg,rgba(255,0,170,.07),rgba(0,229,255,.05) 60%,transparent),var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;display:flex;flex-direction:column;max-width:900px}
+.ch-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:12px 16px;border-bottom:1px solid var(--line)}
+.ch-auto{display:flex;align-items:center;gap:8px;font-size:14px;color:#cfcfd8;cursor:pointer}
+.ch-auto input{accent-color:#ff00aa;width:18px;height:18px}
+.ch-st{font-size:12px;color:#ffb020}
+.ch-list{height:min(460px,60svh);overflow-y:auto;padding:12px 14px;display:flex;flex-direction:column;gap:4px;scrollbar-width:thin;scrollbar-color:#ff00aa transparent}
+.ch-m{display:grid;grid-template-columns:36px 1fr;gap:10px;padding:8px 6px;border-radius:12px}
+.ch-m:hover{background:rgba(255,255,255,.03)}
+.ch-m.au{background:rgba(255,0,170,.08);border:1px solid rgba(255,0,170,.25)}
+.ch-m img,.ch-av{width:36px;height:36px;border-radius:50%;object-fit:cover;background:#222}
+.ch-av{display:grid;place-items:center;font-weight:700;color:#fff;background:linear-gradient(135deg,#ff00aa,#00e5ff)}
+.ch-h{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.ch-h b{font-size:15px;color:#fff}
+.ch-h .mono{font-size:11px;color:#9a9aa8}
+.ch-badge{font-family:"Share Tech Mono",monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#fff;background:#ff00aa;border-radius:999px;padding:2px 8px}
+.ch-x{background:none;border:0;color:#9a9aa8;cursor:pointer;font-size:13px;padding:0 2px;opacity:.6}
+.ch-x:hover{opacity:1;color:#00e5ff}
+.ch-b p{margin:3px 0 0;font-size:16px;line-height:1.45;color:#e8e8f0;white-space:pre-wrap;word-break:break-word}
+.ch-in{border-top:1px solid var(--line);padding:12px 14px;display:flex;flex-direction:column;gap:8px}
+.ch-id{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:13px;color:#b9b9c8}
+.ch-id input{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.16);color:#fff;border-radius:999px;padding:8px 14px;font:inherit;font-size:14px;width:200px}
+.ch-row{display:flex;gap:8px;align-items:flex-end}
+.ch-row textarea{flex:1;resize:none;min-height:46px;max-height:140px;padding:12px 14px;border-radius:14px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.04);color:#fff;font:inherit;font-size:16px;line-height:1.4}
+.ch-row textarea:focus{outline:none;border-color:#00e5ff}
+.ch-send{width:48px;height:48px;border-radius:50%;border:0;background:#ff00aa;color:#fff;font-size:18px;cursor:pointer;box-shadow:0 6px 20px rgba(255,0,170,.4);flex:none}
+.ch-tr{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.ch-tr select{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.16);color:#fff;border-radius:999px;padding:6px 12px;font:inherit;font-size:13px}
+.ch-tr select option{background:#111}
+.ch-hint{font-size:12px;color:#9a9aa8}
+@media(max-width:760px){.ch-id input{width:100%}.ch-list{height:56svh}}
 </style>
 <script src="https://w.soundcloud.com/player/api.js"></script>
 </head>
@@ -488,6 +522,7 @@ button.sb{font:inherit;text-align:left;cursor:pointer;width:100%}
       <a href="#videos" data-i="nav_v">Відео</a>
       <a href="#music" data-i="nav_m">Музика</a>
       <a href="blog.html" data-i="nav_j">Журнал</a>
+      <a href="#chat" data-i="nav_c">Чат</a>
       <a href="#support" data-i="nav_s">Підтримка</a>
     </nav>
     <div class="right">
@@ -611,6 +646,29 @@ button.sb{font:inherit;text-align:left;cursor:pointer;width:100%}
         <a class="more mono" href="blog.html" data-i="j_all">Усі статті ↗</a>
       </div>
       <div class="jgrid reveal" id="jgrid"><a class="jc" href="sci-fi-ambient-music.html"><div class="im"><img loading="lazy" src="https://i.ytimg.com/vi/R165O33tUc8/hqdefault.jpg" alt="Sci-Fi Ambient Music: Futuristic Soundscapes for Focus and Calm"></div><div class="tx"><div class="k mono">Sci-fi ambience</div><h3>Sci-Fi Ambient Music: Futuristic Soundscapes for Focus and Calm</h3><p>Sci-fi ambient music and futuristic city ambience for focus, sleep and deep work. Cinematic 4K soundscapes of life in 2250 by Blagoday Vision.</p></div></a><a class="jc" href="ambient-music-for-focus.html"><div class="im"><img loading="lazy" src="https://i.ytimg.com/vi/EKD5ktbVi-I/hqdefault.jpg" alt="Ambient Music for Focus: How to Build Your Deep Work Soundtrack"></div><div class="tx"><div class="k mono">Focus music</div><h3>Ambient Music for Focus: How to Build Your Deep Work Soundtrack</h3><p>How to use ambient music for focus, study and deep work. Tips, session ideas and one-hour 4K ambient mixes with no lyrics from Blagoday Vision.</p></div></a><a class="jc" href="deep-house-for-studying.html"><div class="im"><img loading="lazy" src="https://i.ytimg.com/vi/KQvhsQ0w5Us/hqdefault.jpg" alt="Deep House Music for Studying and Work (No Vocals)"></div><div class="tx"><div class="k mono">Deep house for focus</div><h3>Deep House Music for Studying and Work (No Vocals)</h3><p>Deep house music for studying and work with no vocals. Why a slow 80 BPM groove helps concentration, plus instrumental Deep House albums and 1-hour mixes.</p></div></a><a class="jc" href="chillout-lounge-music.html"><div class="im"><img loading="lazy" src="https://i1.sndcdn.com/artworks-n0nuWdbytmwcAp1q-ODTOOg-t500x500.jpg" alt="Chillout Lounge Music for Relaxing by the Pool and the Sea"></div><div class="tx"><div class="k mono">Chillout &amp; lounge</div><h3>Chillout Lounge Music for Relaxing by the Pool and the Sea</h3><p>Chillout lounge music for relaxing by the pool, watching the sea or slow evenings. Skyline Drift: 23 original chillout tracks with vinyl scratch by Blagoday Music.</p></div></a><a class="jc" href="life-in-2250.html"><div class="im"><img loading="lazy" src="https://i.ytimg.com/vi/HsCic-KPgzc/hqdefault.jpg" alt="Life in 2250: A Cinematic Journey Through the Cities of the Future"></div><div class="tx"><div class="k mono">The series</div><h3>Life in 2250: A Cinematic Journey Through the Cities of the Future</h3><p>Life in 2250 by Blagoday Vision: a cinematic 4K series about eco-megacities and future cities, scored with original ambient and deep house music.</p></div></a></div>
+    </div>
+  </section>
+
+  <!-- CHAT -->
+  <section id="chat">
+    <div class="wrap">
+      <div class="sh reveal">
+        <div><div class="mono" data-i="ch_k">Blagoday · Live</div><h2 data-i="ch_h">Чат слухачів</h2>
+        <p class="sub" data-i="ch_s"></p></div>
+        <div class="ch-on"><i></i><span id="chOn">…</span></div>
+      </div>
+      <div class="chat reveal" id="chatBox">
+        <div class="ch-bar">
+          <label class="ch-auto"><input type="checkbox" id="chAuto"> <span id="chAutoL"></span></label>
+          <span class="ch-st mono" id="chSt"></span>
+        </div>
+        <div class="ch-list" id="chList"></div>
+        <div class="ch-in">
+          <div class="ch-id" id="chId"></div>
+          <div class="ch-row"><textarea id="chTx" rows="1" maxlength="600"></textarea><button class="ch-send" id="chSend">➤</button></div>
+          <div class="ch-tr"><select id="chLang" aria-label="Language"></select><button class="cm-b" id="chTrB"></button><span class="ch-hint mono" id="chHint"></span></div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -785,6 +843,7 @@ for(const [k,v] of Object.entries({"uk": {"nav_m": "Музика", "mu_k": "Blag
 for(const [k,v] of Object.entries({"uk": {"prem_sub": "🔔 Підписатися на @TheBlagoday", "prem_sh": "↗ Поділитися кліпом", "prem_more": "Більше кліпів ↓"}, "en": {"prem_sub": "🔔 Subscribe to @TheBlagoday", "prem_sh": "↗ Share the video", "prem_more": "More videos ↓"}, "es": {"prem_sub": "🔔 Suscríbete a @TheBlagoday", "prem_sh": "↗ Compartir el videoclip", "prem_more": "Más videoclips ↓"}, "pt": {"prem_sub": "🔔 Inscreva-se em @TheBlagoday", "prem_sh": "↗ Compartilhar o clipe", "prem_more": "Mais clipes ↓"}, "de": {"prem_sub": "🔔 @TheBlagoday abonnieren", "prem_sh": "↗ Video teilen", "prem_more": "Mehr Videos ↓"}, "fr": {"prem_sub": "🔔 S’abonner à @TheBlagoday", "prem_sh": "↗ Partager le clip", "prem_more": "Plus de clips ↓"}}))Object.assign(T[k],v);
 for(const [k,v] of Object.entries({"uk": {"t_gen": "Жанри", "mh_genres": "Музика за жанрами. Натисни на жанр — і слухай усі його треки підряд.", "play_genre": "▶ Слухати жанр", "g_list": "Список треків", "g_all": "Усі жанри", "tr_all": "🌐 Перекласти всі", "tr_hint": "Переклад на {l}", "tr_one": "🌐 Переклад", "reply": "↩ Відповісти", "tr_to": "🌐 Перекласти", "lang_pick": "Мова відповіді…", "lang_need": "Обери мову, на яку перекласти", "orig": "Оригінал", "undo": "Повернути", "from": "з мови"}, "en": {"t_gen": "Genres", "mh_genres": "Music by genre. Tap a genre to play all of its tracks.", "play_genre": "▶ Play genre", "g_list": "Track list", "g_all": "All genres", "tr_all": "🌐 Translate all", "tr_hint": "Translation into {l}", "tr_one": "🌐 Translate", "reply": "↩ Reply", "tr_to": "🌐 Translate", "lang_pick": "Reply language…", "lang_need": "Choose a language to translate into", "orig": "Original", "undo": "Undo", "from": "from"}, "es": {"t_gen": "Géneros", "mh_genres": "Música por géneros. Toca un género para escuchar todos sus temas.", "play_genre": "▶ Escuchar género", "g_list": "Lista de temas", "g_all": "Todos los géneros", "tr_all": "🌐 Traducir todo", "tr_hint": "Traducción al {l}", "tr_one": "🌐 Traducir", "reply": "↩ Responder", "tr_to": "🌐 Traducir", "lang_pick": "Idioma de respuesta…", "lang_need": "Elige el idioma de destino", "orig": "Original", "undo": "Deshacer", "from": "del"}, "pt": {"t_gen": "Gêneros", "mh_genres": "Música por gênero. Toque num gênero para ouvir todas as faixas.", "play_genre": "▶ Ouvir gênero", "g_list": "Lista de faixas", "g_all": "Todos os gêneros", "tr_all": "🌐 Traduzir tudo", "tr_hint": "Tradução para {l}", "tr_one": "🌐 Traduzir", "reply": "↩ Responder", "tr_to": "🌐 Traduzir", "lang_pick": "Idioma da resposta…", "lang_need": "Escolha o idioma de destino", "orig": "Original", "undo": "Desfazer", "from": "do"}, "de": {"t_gen": "Genres", "mh_genres": "Musik nach Genres. Tippe auf ein Genre, um alle Tracks zu hören.", "play_genre": "▶ Genre abspielen", "g_list": "Trackliste", "g_all": "Alle Genres", "tr_all": "🌐 Alle übersetzen", "tr_hint": "Übersetzung ins {l}", "tr_one": "🌐 Übersetzen", "reply": "↩ Antworten", "tr_to": "🌐 Übersetzen", "lang_pick": "Antwortsprache…", "lang_need": "Wähle die Zielsprache", "orig": "Original", "undo": "Rückgängig", "from": "aus"}, "fr": {"t_gen": "Genres", "mh_genres": "La musique par genre. Touchez un genre pour écouter tous ses titres.", "play_genre": "▶ Écouter le genre", "g_list": "Liste des titres", "g_all": "Tous les genres", "tr_all": "🌐 Tout traduire", "tr_hint": "Traduction en {l}", "tr_one": "🌐 Traduire", "reply": "↩ Répondre", "tr_to": "🌐 Traduire", "lang_pick": "Langue de réponse…", "lang_need": "Choisissez la langue cible", "orig": "Original", "undo": "Annuler", "from": "depuis"}}))Object.assign(T[k],v);
 for(const [k,v] of Object.entries({"uk": {"kick": "Авторська музика і відео", "lead": "Музика і відео, створені для душі."}, "en": {"kick": "Original music & video", "lead": "Music and video created for the soul."}, "es": {"kick": "Música y video de autor", "lead": "Música y videos creados para el alma."}, "pt": {"kick": "Música e vídeo autorais", "lead": "Música e vídeos criados para a alma."}, "de": {"kick": "Eigene Musik & Videos", "lead": "Musik und Videos, geschaffen für die Seele."}, "fr": {"kick": "Musique et vidéo d’auteur", "lead": "De la musique et des vidéos créées pour l’âme."}}))Object.assign(T[k],v);
+for(const [k,v] of Object.entries({"uk": {"nav_c": "Чат", "ch_k": "Blagoday · Live", "ch_h": "Чат слухачів", "ch_s": "Спілкуйся з автором і слухачами з усього світу. Повідомлення можна автоматично перекладати на твою мову.", "ch_online": "{n} онлайн", "ch_conn": "Підключення…", "ch_off": "Немає зв’язку, перепідключаюсь…", "ch_empty": "Тут ще тихо. Напиши перше повідомлення!", "ch_author": "Автор", "ch_name": "Твоє ім’я", "ch_or": "або", "ch_ph": "Повідомлення… (Enter — надіслати)", "ch_auto": "Автопереклад на {l}", "ch_e_name": "Вкажи ім’я або увійди через SoundCloud", "ch_e_slow": "Зачекай кілька секунд", "ch_e_link": "Посилання можуть надсилати тільки ті, хто увійшов через SoundCloud"}, "en": {"nav_c": "Chat", "ch_k": "Blagoday · Live", "ch_h": "Listeners’ chat", "ch_s": "Talk with the artist and listeners from around the world. Messages can be translated into your language automatically.", "ch_online": "{n} online", "ch_conn": "Connecting…", "ch_off": "Connection lost, reconnecting…", "ch_empty": "It’s quiet here. Write the first message!", "ch_author": "Artist", "ch_name": "Your name", "ch_or": "or", "ch_ph": "Message… (Enter to send)", "ch_auto": "Auto-translate into {l}", "ch_e_name": "Enter a name or sign in with SoundCloud", "ch_e_slow": "Wait a few seconds", "ch_e_link": "Only people signed in with SoundCloud can post links"}, "es": {"nav_c": "Chat", "ch_k": "Blagoday · Live", "ch_h": "Chat de oyentes", "ch_s": "Habla con el artista y con oyentes de todo el mundo. Los mensajes se pueden traducir automáticamente a tu idioma.", "ch_online": "{n} en línea", "ch_conn": "Conectando…", "ch_off": "Sin conexión, reconectando…", "ch_empty": "Todo está tranquilo. ¡Escribe el primer mensaje!", "ch_author": "Artista", "ch_name": "Tu nombre", "ch_or": "o", "ch_ph": "Mensaje… (Enter para enviar)", "ch_auto": "Traducir automáticamente al {l}", "ch_e_name": "Escribe un nombre o entra con SoundCloud", "ch_e_slow": "Espera unos segundos", "ch_e_link": "Solo quienes entran con SoundCloud pueden enviar enlaces"}, "pt": {"nav_c": "Chat", "ch_k": "Blagoday · Live", "ch_h": "Chat dos ouvintes", "ch_s": "Converse com o artista e com ouvintes do mundo todo. As mensagens podem ser traduzidas automaticamente para o seu idioma.", "ch_online": "{n} online", "ch_conn": "Conectando…", "ch_off": "Sem conexão, reconectando…", "ch_empty": "Está tudo calmo. Escreva a primeira mensagem!", "ch_author": "Artista", "ch_name": "Seu nome", "ch_or": "ou", "ch_ph": "Mensagem… (Enter para enviar)", "ch_auto": "Traduzir automaticamente para {l}", "ch_e_name": "Digite um nome ou entre com o SoundCloud", "ch_e_slow": "Aguarde alguns segundos", "ch_e_link": "Só quem entrou com o SoundCloud pode enviar links"}, "de": {"nav_c": "Chat", "ch_k": "Blagoday · Live", "ch_h": "Hörer-Chat", "ch_s": "Sprich mit dem Künstler und mit Hörern aus aller Welt. Nachrichten können automatisch in deine Sprache übersetzt werden.", "ch_online": "{n} online", "ch_conn": "Verbinde…", "ch_off": "Verbindung verloren, verbinde neu…", "ch_empty": "Noch ist es ruhig. Schreib die erste Nachricht!", "ch_author": "Künstler", "ch_name": "Dein Name", "ch_or": "oder", "ch_ph": "Nachricht… (Enter zum Senden)", "ch_auto": "Automatisch übersetzen ins {l}", "ch_e_name": "Gib einen Namen ein oder melde dich mit SoundCloud an", "ch_e_slow": "Warte ein paar Sekunden", "ch_e_link": "Links dürfen nur mit SoundCloud angemeldete Nutzer senden"}, "fr": {"nav_c": "Chat", "ch_k": "Blagoday · Live", "ch_h": "Chat des auditeurs", "ch_s": "Discutez avec l’artiste et des auditeurs du monde entier. Les messages peuvent être traduits automatiquement dans votre langue.", "ch_online": "{n} en ligne", "ch_conn": "Connexion…", "ch_off": "Connexion perdue, reconnexion…", "ch_empty": "C’est calme ici. Écrivez le premier message !", "ch_author": "Artiste", "ch_name": "Votre nom", "ch_or": "ou", "ch_ph": "Message… (Entrée pour envoyer)", "ch_auto": "Traduire automatiquement en {l}", "ch_e_name": "Entrez un nom ou connectez-vous avec SoundCloud", "ch_e_slow": "Attendez quelques secondes", "ch_e_link": "Seules les personnes connectées avec SoundCloud peuvent envoyer des liens"}}))Object.assign(T[k],v);
 const plural=n=>n===1?t("track"):t("tracks");
 
 /* ---------- RENDER ---------- */
@@ -826,7 +885,7 @@ function applyI18n(){
   const bl=L==="en"?"blog.html":"blog-"+L+".html", sf=L==="en"?".html":"-"+L+".html";
   document.querySelectorAll('a[href^="blog"]').forEach(a=>a.setAttribute("href",bl));
   document.getElementById("jgrid").innerHTML=JR[L].map(([sl,k,h,d,im])=>`<a class="jc" href="${sl+sf}"><div class="im"><img loading="lazy" src="${im}" alt="${esc(h)}"></div><div class="tx"><div class="k mono">${esc(k)}</div><h3>${esc(h)}</h3><p>${esc(d)}</p></div></a>`).join("");
-  renderVideos(); renderAlbums(); renderReleases(); renderCat(); if(typeof pText==="function"){pText();updQ();} if(typeof mCounts==="function"&&document.getElementById("mHint")){try{mCounts();document.getElementById("mHint").textContent=t("mh_"+mTab)||"";scFolUI();}catch(e){}}
+  renderVideos(); renderAlbums(); renderReleases(); renderCat(); if(typeof pText==="function"){pText();updQ();} if(typeof chLangs==="function"){try{chLangs()}catch(e){}} if(typeof mCounts==="function"&&document.getElementById("mHint")){try{mCounts();document.getElementById("mHint").textContent=t("mh_"+mTab)||"";scFolUI();}catch(e){}}
 }
 
 
@@ -1074,6 +1133,66 @@ document.addEventListener("click",e=>{
     if(x.lang)go(x.lang);else trApi([{id:"d",text:x.body}],"English").then(r=>{if(r&&r[0])go(r[0].lang);}).catch(()=>{});}
   if(e.target.closest("#scpTr"))trReply();
 });
+/* ---------- live chat (Cloudflare Durable Object) ---------- */
+const CH={ws:null,me:null,msgs:[],tr:{},auto:false,tries:0,started:false,ownerTok:false};
+try{CH.auto=localStorage.getItem("bl_chauto")==="1";}catch(e){}
+const chName=()=>{try{return localStorage.getItem("bl_chname")||""}catch(e){return""}};
+function chStart(){if(CH.started)return;CH.started=true;chConnect();}
+function chConnect(){try{CH.ws=new WebSocket(SCB.replace("https://","wss://")+"/chat/ws");}catch(e){return chRetry();}
+  const ws=CH.ws;chStatus(t("ch_conn"));
+  ws.onopen=()=>{CH.tries=0;chStatus("");ws.send(JSON.stringify({type:"hello",token:SCT?SCT.at:"",name:chName()}));};
+  ws.onmessage=e=>{let m;try{m=JSON.parse(e.data)}catch(x){return}
+    if(m.type==="hist"){CH.msgs=m.msgs||[];chOnline(m.online);chRender(true);chAutoTr();}
+    else if(m.type==="msg"){CH.msgs.push(m.m);if(CH.msgs.length>200)CH.msgs.shift();chRender(true);chAutoTr();}
+    else if(m.type==="del"){CH.msgs=CH.msgs.filter(x=>x.id!==m.id);chRender();}
+    else if(m.type==="online")chOnline(m.n);
+    else if(m.type==="me"){CH.me=m;chIdUI();chRender();}
+    else if(m.type==="err")toast(t("ch_e_"+m.e)||t("err"));};
+  ws.onclose=()=>chRetry();ws.onerror=()=>{};}
+function chRetry(){chStatus(t("ch_off"));CH.tries++;setTimeout(chConnect,Math.min(30000,1500*CH.tries));}
+function chStatus(x){const e=document.getElementById("chSt");if(e)e.textContent=x;}
+function chOnline(n){const e=document.getElementById("chOn");if(e)e.textContent=t("ch_online").replace("{n}",n||0);}
+function chTime(ts){const d=new Date(ts);return d.toLocaleTimeString(L==="uk"?"uk-UA":L,{hour:"2-digit",minute:"2-digit"});}
+function chRender(stick){const el=document.getElementById("chList");if(!el)return;const near=el.scrollHeight-el.scrollTop-el.clientHeight<80;
+  if(!CH.msgs.length){el.innerHTML=`<div class="scp-empty">${esc(t("ch_empty"))}</div>`;return;}
+  el.innerHTML=CH.msgs.map(m=>{const tr=CH.tr[m.id+"|"+L];const mine=CH.me&&CH.me.name===m.name;
+    return `<div class="ch-m${m.author?" au":""}${mine?" me":""}">${m.avatar?`<img src="${esc(m.avatar)}" alt="">`:`<span class="ch-av">${esc((m.name||"?").charAt(0).toUpperCase())}</span>`}
+    <div class="ch-b"><div class="ch-h"><b>${esc(m.name)}</b>${m.author?`<span class="ch-badge">${esc(t("ch_author"))}</span>`:""}<span class="mono">${chTime(m.ts)}</span>
+    <button class="ch-x" data-chtr="${m.id}" title="🌐">🌐</button>${CH.me&&CH.me.author?`<button class="ch-x" data-chdel="${m.id}" title="✕">✕</button>`:""}</div>
+    <p>${esc(m.text)}</p>${tr&&tr.text&&tr.text!==m.text?`<p class="cm-tr"><span class="mono">🌐 ${esc(LNAME[L]||L)}${tr.lang&&LNAME[tr.lang]?" · "+esc(t("from"))+" "+esc(LNAME[tr.lang]):""}</span>${esc(tr.text)}</p>`:""}</div></div>`;}).join("");
+  if(stick||near)el.scrollTop=el.scrollHeight;}
+async function chTranslate(ids){const todo=CH.msgs.filter(m=>ids.includes(m.id)&&!CH.tr[m.id+"|"+L]).slice(-20);if(!todo.length)return;
+  try{const res=await trApi(todo.map(m=>({id:String(m.id),text:m.text})),LENG[L]||"English");res.forEach(r=>{CH.tr[r.id+"|"+L]={text:r.text,lang:r.lang};});chRender();}catch(e){}}
+function chAutoTr(){if(CH.auto)chTranslate(CH.msgs.slice(-20).map(m=>m.id));}
+function chIdUI(){const el=document.getElementById("chId");if(!el)return;
+  if(CH.me&&CH.me.sc){el.innerHTML=`<span>${esc(t("as").replace("{u}",CH.me.name))}</span>${CH.me.author?` <span class="ch-badge">${esc(t("ch_author"))}</span>`:""}`;return;}
+  el.innerHTML=`<input id="chNm" maxlength="32" placeholder="${esc(t("ch_name"))}" value="${esc(chName())}"> <span class="mono">${esc(t("ch_or"))}</span> <button class="scp-login" id="chIn">${esc(t("login_sc"))}</button>`;
+  document.getElementById("chIn").onclick=()=>{location.href=SCB+"/login?return="+encodeURIComponent(location.origin+location.pathname+"?go=chat");};
+  const nm=document.getElementById("chNm");nm.onchange=()=>{const v=nm.value.replace(/[<>]/g,"").trim().slice(0,32);try{localStorage.setItem("bl_chname",v)}catch(e){}if(CH.ws&&CH.ws.readyState===1)CH.ws.send(JSON.stringify({type:"hello",name:v}));};}
+function chSend(){const tx=document.getElementById("chTx");const text=tx.value.trim();if(!text)return;
+  if(!(CH.me&&CH.me.sc)){const nm=document.getElementById("chNm");const v=(nm&&nm.value||"").trim();if(!v){nm&&nm.focus();toast(t("ch_e_name"));return;}
+    if(!CH.me||CH.me.name!==v){try{localStorage.setItem("bl_chname",v)}catch(e){}CH.ws.send(JSON.stringify({type:"hello",name:v}));}}
+  if(!CH.ws||CH.ws.readyState!==1){toast(t("ch_off"));return;}
+  CH.ws.send(JSON.stringify({type:"msg",text}));tx.value="";tx.style.height="";document.getElementById("chHint").textContent="";}
+function chLangs(){const sel=document.getElementById("chLang");if(!sel)return;const cur=sel.value;sel.innerHTML=`<option value="">${esc(t("lang_pick"))}</option>`+LANGS.map(([c,n])=>`<option value="${c}">${esc(n)}</option>`).join("");sel.value=cur;
+  document.getElementById("chTrB").textContent=t("tr_to");document.getElementById("chTx").placeholder=t("ch_ph");document.getElementById("chAutoL").textContent=t("ch_auto").replace("{l}",LNAME[L]||L);
+  const a=document.getElementById("chAuto");a.checked=CH.auto;chIdUI();if(CH.msgs.length)chRender();}
+async function chTrMine(){const tx=document.getElementById("chTx"),sel=document.getElementById("chLang");const text=tx.value.trim();if(!text){tx.focus();return;}if(!sel.value){sel.focus();toast(t("lang_need"));return;}
+  try{const [r]=await trApi([{id:"x",text}],LENG[sel.value]);if(r&&r.text){const h=document.getElementById("chHint");h.dataset.o=text;h.innerHTML=`${esc(t("orig"))}: ${esc(text.slice(0,60))}${text.length>60?"…":""} <button class="cm-b" id="chUndo">${esc(t("undo"))}</button>`;tx.value=r.text;document.getElementById("chUndo").onclick=()=>{tx.value=h.dataset.o;h.textContent="";};}}catch(e){toast(t("err"));}}
+document.addEventListener("click",e=>{
+  const a=e.target.closest("[data-chtr]");if(a){chTranslate([+a.dataset.chtr]);return;}
+  const d=e.target.closest("[data-chdel]");if(d&&CH.ws){CH.ws.send(JSON.stringify({type:"del",id:+d.dataset.chdel}));return;}
+  if(e.target.closest("#chSend"))chSend();
+  if(e.target.closest("#chTrB"))chTrMine();});
+(function(){const tx=document.getElementById("chTx");if(!tx)return;
+  tx.addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();chSend();}});
+  tx.addEventListener("input",()=>{tx.style.height="";tx.style.height=Math.min(140,tx.scrollHeight)+"px";});
+  document.getElementById("chAuto").addEventListener("change",e=>{CH.auto=e.target.checked;try{localStorage.setItem("bl_chauto",CH.auto?"1":"0")}catch(x){}chAutoTr();});
+  const io2=new IntersectionObserver(es=>{if(es.some(x=>x.isIntersecting)){chStart();io2.disconnect();}},{rootMargin:"300px"});io2.observe(document.getElementById("chat"));
+  if(new URLSearchParams(location.search).get("go")==="chat")setTimeout(()=>{document.getElementById("chat").scrollIntoView();chStart();},400);})();
+/* ---------- own counters: site visits & plays on the site ---------- */
+(function(){try{if(!sessionStorage.getItem("bl_v")){sessionStorage.setItem("bl_v","1");fetch(SCB+"/visit",{method:"POST",headers:{"Content-Type":"application/json"},body:"{}"}).catch(()=>{});}}catch(e){}})();
+const PLAYED={};function countPlay(){const x=P.now;if(!x||PLAYED[x[1]])return;PLAYED[x[1]]=1;fetch(SCB+"/play",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({slug:x[1]})}).catch(()=>{});}
 function pStats(){
   const s=P.snd,el=document.getElementById("scpSt");if(!el)return;
   const v=k=>s?fmtN(s[k]||0):"–";
@@ -1096,7 +1215,7 @@ function pPlay(x,idx){
     const init=()=>{if(!window.SC||!window.SC.Widget){setTimeout(init,200);return;}
       P.w=window.SC.Widget(W);const E=window.SC.Widget.Events;
       P.w.bind(E.READY,()=>P.w.getCurrentSound(s=>{P.snd=s;pStats();}));
-      P.w.bind(E.PLAY,()=>{pSetPlay(true);P.w.getCurrentSound(s=>{P.snd=s;pStats();});});
+      P.w.bind(E.PLAY,()=>{pSetPlay(true);countPlay();P.w.getCurrentSound(s=>{P.snd=s;pStats();});});
       P.w.bind(E.PAUSE,()=>pSetPlay(false));
       P.w.bind(E.FINISH,()=>pNext(false));
       let lt=0;P.w.bind(E.PLAY_PROGRESS,e=>{P.pos=e.currentPosition;const n=Date.now();if(n-lt>900){lt=n;pCm();}});

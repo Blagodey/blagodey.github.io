@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Blagoday — статистика</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#080808;--card:#131317;--line:#22222a;--txt:#f2f2f6;--mut:#a7a7b4;--mag:#ff00aa;--cy:#00e5ff}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--txt);font-family:Rajdhani,system-ui,sans-serif;font-size:17px;line-height:1.45}
+.wrap{max-width:1100px;margin:0 auto;padding:28px 16px 60px}
+h1{font-size:clamp(30px,5vw,44px);margin:0 0 4px}
+.k{font-family:"Share Tech Mono",monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--mag)}
+.sub{color:var(--mut);margin:0 0 24px}
+.bar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:24px}
+.btn{display:inline-flex;align-items:center;gap:8px;border:0;border-radius:999px;padding:11px 18px;font:inherit;font-weight:700;cursor:pointer;color:#fff;background:#ff5500;text-decoration:none}
+.btn.g{background:none;border:1px solid var(--line);color:var(--txt);font-weight:600}
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px;margin-bottom:28px}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.tile b{display:block;font-size:34px;line-height:1.1}
+.tile span{color:var(--mut);font-size:14px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px}
+.card h2{font-size:20px;margin:0 0 4px}
+.card p.n{color:var(--mut);font-size:14px;margin:0 0 12px}
+.rows{display:flex;flex-direction:column;gap:6px}
+.row{display:grid;grid-template-columns:minmax(0,1fr) 64px;gap:10px;align-items:center;font-size:15px}
+.row .t{position:relative;padding:5px 8px;border-radius:6px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.row .t i{position:absolute;left:0;top:0;bottom:0;border-radius:4px;background:rgba(0,229,255,.18);z-index:0}
+.row .t em{position:relative;z-index:1;font-style:normal}
+.row .v{text-align:right;font-family:"Share Tech Mono",monospace;color:var(--txt)}
+.cols{display:flex;align-items:flex-end;gap:3px;height:160px;border-bottom:1px solid var(--line);padding-top:6px}
+.cols div{flex:1;min-width:4px;background:var(--cy);border-radius:4px 4px 0 0;position:relative}
+.cols div:hover{background:#7ff3ff}
+.axis{display:flex;justify-content:space-between;font-family:"Share Tech Mono",monospace;font-size:11px;color:var(--mut);margin-top:6px}
+.msg{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;color:var(--mut)}
+#tip{position:fixed;pointer-events:none;background:#000;border:1px solid var(--line);border-radius:8px;padding:6px 10px;font-size:13px;display:none;z-index:9}
+@media(max-width:820px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="k">Blagoday Music · тільки для автора</div>
+  <h1>Статистика</h1>
+  <p class="sub">Сайт, чат і SoundCloud в одному місці.</p>
+  <div class="bar" id="bar"></div>
+  <div id="out"></div>
+</div>
+<div id="tip"></div>
+<script>
+const SCB="https://blagoday-sc.blagodaymusic.workers.dev";
+const $=id=>document.getElementById(id);
+const esc=s=>String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const fmt=n=>Number(n||0).toLocaleString("uk-UA");
+let SCT=null;try{SCT=JSON.parse(localStorage.getItem("bl_sc")||"null")}catch(e){}
+(function(){const h=location.hash;if(h.indexOf("sc_at=")>=0){const q=new URLSearchParams(h.slice(1));SCT={at:q.get("sc_at"),rt:q.get("sc_rt")||"",exp:+q.get("sc_exp")||0,u:""};try{localStorage.setItem("bl_sc",JSON.stringify(SCT))}catch(e){}history.replaceState(null,"",location.pathname);}})();
+function login(){location.href=SCB+"/login?return="+encodeURIComponent(location.origin+location.pathname);}
+async function tok(){if(!SCT)return null;if(SCT.exp&&Date.now()>SCT.exp-60000&&SCT.rt){const r=await fetch(SCB+"/refresh",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({refresh_token:SCT.rt})});if(r.ok){const j=await r.json();SCT.at=j.access_token;SCT.rt=j.refresh_token||SCT.rt;SCT.exp=j.expires_at;localStorage.setItem("bl_sc",JSON.stringify(SCT));}else return null;}return SCT.at;}
+function rows(list,label,value){const max=Math.max(1,...list.map(value));return `<div class="rows">${list.map(x=>`<div class="row" title="${esc(label(x))}: ${fmt(value(x))}"><div class="t"><i style="width:${(value(x)/max*100).toFixed(1)}%"></i><em>${esc(label(x))}</em></div><div class="v">${fmt(value(x))}</div></div>`).join("")}</div>`;}
+async function load(){
+  $("bar").innerHTML=`<a class="btn g" href="./">← На сайт</a>`;
+  const t=await tok();
+  if(!t){$("bar").innerHTML+=`<button class="btn" onclick="login()">Увійти через SoundCloud</button>`;$("out").innerHTML=`<div class="msg">Увійди своїм акаунтом SoundCloud (Blagoday Music). Сторінка відкривається тільки автору.</div>`;return;}
+  $("out").innerHTML=`<div class="msg">Завантаження…</div>`;
+  const [ad,cat,art]=await Promise.all([
+    fetch(SCB+"/admin",{headers:{Authorization:"OAuth "+t}}).then(r=>r.ok?r.json():{error:r.status}),
+    fetch(SCB+"/catalog").then(r=>r.json()).catch(()=>[]),
+    fetch(SCB+"/artist").then(r=>r.json()).catch(()=>({}))]);
+  if(ad.error){$("bar").innerHTML+=`<button class="btn" onclick="login()">Увійти через SoundCloud</button>`;$("out").innerHTML=`<div class="msg">${ad.error===403?"Цей акаунт SoundCloud не є акаунтом автора.":"Потрібно увійти ще раз."}</div>`;return;}
+  $("bar").innerHTML+=`<button class="btn g" onclick="load()">↻ Оновити</button>`;
+  const title={};cat.forEach(x=>title[x.permalink]=x.title);
+  const vis=(ad.visits||[]).slice().reverse();const today=new Date().toISOString().slice(0,10);
+  const sum=(a,d)=>a.slice(-d).reduce((s,x)=>s+x.n,0);
+  const scPlays=cat.reduce((s,x)=>s+(x.plays||0),0),scLikes=cat.reduce((s,x)=>s+(x.likes||0),0),scCm=cat.reduce((s,x)=>s+(x.comments||0),0);
+  const sitePlays=(ad.plays||[]).reduce((s,x)=>s+x.n,0);
+  const tiles=[["Відвідувань сьогодні",(vis.find(v=>v.day===today)||{}).n||0],["Відвідувань за 7 днів",sum(vis,7)],["Відвідувань за 30 днів",sum(vis,30)],["Прослуховувань на сайті",sitePlays],["Онлайн у чаті зараз",ad.online||0],["Повідомлень у чаті",(ad.chat||{}).n||0],["Підписників SoundCloud",art.followers||0],["Прослуховувань SoundCloud",scPlays],["Лайків SoundCloud",scLikes],["Коментарів SoundCloud",scCm]];
+  const last=vis.slice(-30);const vmax=Math.max(1,...last.map(v=>v.n));
+  $("out").innerHTML=`<div class="tiles">${tiles.map(([k,v])=>`<div class="tile"><b>${fmt(v)}</b><span>${k}</span></div>`).join("")}</div>
+  <div class="grid">
+    <div class="card"><h2>Відвідування сайту по днях</h2><p class="n">Останні ${last.length} днів · один відвідувач рахується раз на 6 годин</p>
+      ${last.length?`<div class="cols">${last.map(v=>`<div data-tip="${v.day}: ${fmt(v.n)}" style="height:${Math.max(2,v.n/vmax*100)}%"></div>`).join("")}</div><div class="axis"><span>${last[0].day}</span><span>${last[last.length-1].day}</span></div>`:`<p class="n">Ще немає даних — лічильник щойно запущено.</p>`}</div>
+    <div class="card"><h2>Найбільше слухають на сайті</h2><p class="n">Запуски треків у плеєрі сайту</p>${(ad.plays||[]).length?rows(ad.plays.slice(0,15),x=>title[x.slug]||x.slug,x=>x.n):`<p class="n">Ще немає даних.</p>`}</div>
+    <div class="card"><h2>Топ на SoundCloud — прослуховування</h2><p class="n">Усі ${cat.length} треків</p>${rows(cat.slice().sort((a,b)=>b.plays-a.plays).slice(0,15),x=>x.title,x=>x.plays)}</div>
+    <div class="card"><h2>Топ на SoundCloud — лайки</h2><p class="n">Вподобання слухачів</p>${rows(cat.slice().sort((a,b)=>b.likes-a.likes).slice(0,15),x=>x.title,x=>x.likes)}</div>
+  </div>`;
+}
+document.addEventListener("mousemove",e=>{const d=e.target.closest("[data-tip]"),tp=$("tip");if(!d){tp.style.display="none";return;}tp.textContent=d.dataset.tip;tp.style.display="block";tp.style.left=(e.clientX+12)+"px";tp.style.top=(e.clientY-30)+"px";});
+load();
+</script>
+</body>
+</html>
