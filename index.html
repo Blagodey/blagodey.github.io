@@ -451,6 +451,28 @@ button.sb{font:inherit;text-align:left;cursor:pointer;width:100%}
 .chip.alb.on{color:#ff8fbf;border-color:rgba(255,59,141,.6)}
 .mtabs button[hidden],.mpanel[hidden]{display:none!important}
 .prem-yt{background:#ff0033!important;border-color:#ff0033!important;box-shadow:0 0 24px rgba(255,0,51,.35)!important}
+
+.scp-trb{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.scp-trb select{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.16);color:#fff;border-radius:999px;padding:7px 12px;font:inherit;font-size:13px}
+.scp-trb select option{background:#111;color:#fff}
+.scp-orig{font-size:12px;color:#9a9aa8}
+.cm-top{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:4px 6px 10px}
+.cm-top .mono{font-size:11px;color:#9a9aa8;letter-spacing:.06em}
+.cm-tr{margin:6px 0 0!important;padding:8px 10px;border-left:2px solid #00e5ff;background:rgba(0,229,255,.06);border-radius:0 8px 8px 0;color:#fff!important}
+.cm-tr .mono{display:block;font-size:10px;color:#00e5ff;letter-spacing:.1em;text-transform:uppercase;margin-bottom:3px}
+.cm-act{display:flex;gap:6px;margin-top:6px}
+.cm-b{background:none;border:1px solid rgba(255,255,255,.14);color:#b9b9c8;font:inherit;font-size:12px;padding:3px 10px;border-radius:999px;cursor:pointer}
+.cm-b:hover{border-color:#00e5ff;color:#00e5ff}
+.ggrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:18px}
+.gcard{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
+.gcov{position:relative;display:grid;grid-template-columns:1fr 1fr;aspect-ratio:1;border:0;padding:0;background:#111;cursor:pointer;overflow:hidden}
+.gcov img{width:100%;height:100%;object-fit:cover;display:block}
+.gcov:hover .play{opacity:1}
+.gi{padding:14px 16px 16px;display:flex;flex-direction:column;gap:6px;flex:1}
+.gi h3{margin:0;font-size:19px}
+.gi .m{font-size:12px;color:var(--mut)}
+.gi .acts{margin-top:auto}
+.cat-bar select{max-width:100%}
 </style>
 <script src="https://w.soundcloud.com/player/api.js"></script>
 </head>
@@ -553,6 +575,7 @@ button.sb{font:inherit;text-align:left;cursor:pointer;width:100%}
         <button data-t="album" role="tab"><b data-i="t_alb">Альбоми</b><i id="mtc-album"></i></button>
         <button data-t="single" role="tab"><b data-i="t_sgl">Сингли</b><i id="mtc-single"></i></button>
         <button data-t="all" role="tab"><b data-i="t_all">Усі треки</b><i id="mtc-all"></i></button>
+        <button data-t="genres" role="tab"><b data-i="t_gen">Жанри</b><i id="mtc-genres"></i></button>
         <button data-t="stream" role="tab"><b data-i="t_str">На стрімінгах</b><i id="mtc-stream"></i></button>
         <button data-t="other" role="tab"><b data-i="t_arch">Архів і плейлисти</b><i id="mtc-other"></i></button>
         <button data-t="kg" role="tab" hidden><b data-i="t_kg">Музика з відео</b><i id="mtc-kg"></i></button>
@@ -562,11 +585,13 @@ button.sb{font:inherit;text-align:left;cursor:pointer;width:100%}
       <div class="mpanel" id="mp-all" hidden>
         <div class="cat-bar">
           <input type="search" id="catQ" autocomplete="off">
+          <select id="catG" aria-label="Genre"></select>
           <select id="catO" aria-label="Sort"><option value="new" data-i="s_new">Newest</option><option value="pop" data-i="s_pop">Most played</option><option value="az">A–Z</option></select>
         </div>
         <div class="clist" id="clist"></div>
         <div class="loadmore"><button class="btn" id="cmore" data-i="more">Show more</button></div>
       </div>
+      <div class="mpanel" id="mp-genres" hidden><div class="ggrid" id="ggrid"></div></div>
       <div class="mpanel" id="mp-stream" hidden><div class="agrid" id="rgrid"></div></div>
       <div class="plat-row reveal">
         <div class="mono" data-i="l_h">Де слухати</div>
@@ -756,6 +781,7 @@ for(const [k,v] of Object.entries({"uk": {"st_p": "прослуховувань"
 for(const [k,v] of Object.entries({"uk": {"like_btn": "Лайк", "liked": "Вподобано", "login_sc": "Увійти через SoundCloud", "logout": "Вийти", "cm_ph": "Напиши коментар — він з’явиться під треком на SoundCloud", "send_at": "💬 Надіслати на {t}", "cm_ok": "Коментар опубліковано на SoundCloud", "like_ok": "Лайк зараховано на SoundCloud", "need_login": "Щоб лайкнути чи коментувати, увійди через SoundCloud", "as": "Ти увійшов як {u}", "err": "Не вдалося. Спробуй ще раз.", "in_ok": "Вхід через SoundCloud виконано"}, "en": {"like_btn": "Like", "liked": "Liked", "login_sc": "Sign in with SoundCloud", "logout": "Sign out", "cm_ph": "Write a comment — it will appear under the track on SoundCloud", "send_at": "💬 Post at {t}", "cm_ok": "Comment posted on SoundCloud", "like_ok": "Like counted on SoundCloud", "need_login": "Sign in with SoundCloud to like or comment", "as": "Signed in as {u}", "err": "Something went wrong. Try again.", "in_ok": "Signed in with SoundCloud"}, "es": {"like_btn": "Me gusta", "liked": "Te gusta", "login_sc": "Entrar con SoundCloud", "logout": "Salir", "cm_ph": "Escribe un comentario: aparecerá bajo el tema en SoundCloud", "send_at": "💬 Publicar en {t}", "cm_ok": "Comentario publicado en SoundCloud", "like_ok": "Me gusta registrado en SoundCloud", "need_login": "Entra con SoundCloud para dar me gusta o comentar", "as": "Sesión: {u}", "err": "Algo salió mal. Inténtalo de nuevo.", "in_ok": "Sesión iniciada con SoundCloud"}, "pt": {"like_btn": "Curtir", "liked": "Curtido", "login_sc": "Entrar com SoundCloud", "logout": "Sair", "cm_ph": "Escreva um comentário — ele aparecerá na faixa no SoundCloud", "send_at": "💬 Publicar em {t}", "cm_ok": "Comentário publicado no SoundCloud", "like_ok": "Curtida registrada no SoundCloud", "need_login": "Entre com o SoundCloud para curtir ou comentar", "as": "Conectado como {u}", "err": "Algo deu errado. Tente de novo.", "in_ok": "Conectado com SoundCloud"}, "de": {"like_btn": "Like", "liked": "Geliked", "login_sc": "Mit SoundCloud anmelden", "logout": "Abmelden", "cm_ph": "Schreib einen Kommentar – er erscheint beim Track auf SoundCloud", "send_at": "💬 Senden bei {t}", "cm_ok": "Kommentar auf SoundCloud veröffentlicht", "like_ok": "Like auf SoundCloud gezählt", "need_login": "Melde dich mit SoundCloud an, um zu liken oder zu kommentieren", "as": "Angemeldet als {u}", "err": "Etwas ist schiefgelaufen. Bitte erneut versuchen.", "in_ok": "Mit SoundCloud angemeldet"}, "fr": {"like_btn": "J’aime", "liked": "Aimé", "login_sc": "Se connecter avec SoundCloud", "logout": "Se déconnecter", "cm_ph": "Écrivez un commentaire — il apparaîtra sous le titre sur SoundCloud", "send_at": "💬 Publier à {t}", "cm_ok": "Commentaire publié sur SoundCloud", "like_ok": "J’aime compté sur SoundCloud", "need_login": "Connectez-vous avec SoundCloud pour aimer ou commenter", "as": "Connecté : {u}", "err": "Une erreur est survenue. Réessayez.", "in_ok": "Connecté avec SoundCloud"}}))Object.assign(T[k],v);
 for(const [k,v] of Object.entries({"uk": {"nav_m": "Музика", "mu_k": "Blagoday Music", "mu_h": "Музика", "mu_s": "Уся музика Blagoday Music в одному місці. Слухай прямо тут, став лайки, коментуй і підписуйся — усе зараховується на SoundCloud.", "t_all": "Усі треки", "t_str": "На стрімінгах", "t_kg": "Музика з відео", "mh_album": "Альбоми на SoundCloud. Натисни на обкладинку — і слухай тут.", "mh_single": "Окремі пісні та сингли.", "mh_all": "Кожен трек Blagoday Music. Пошук за назвою, сортування, ＋ — додати в чергу.", "mh_stream": "Релізи на Spotify, Apple Music, YouTube Music та інших платформах.", "mh_other": "Ранні треки, архівні збірки та плейлисти.", "mh_kg": "Музика, створена для відео.", "repost": "🔁 Репост", "reposted": "🔁 Репостнуто", "rp_ok": "Репост зроблено — трек у твоїй стрічці SoundCloud", "follow": "Підписатися", "following": "Ти підписаний", "followers": "{n} підписників", "fl_ok": "Ти підписався на Blagoday Music", "cm_tab": "Коментарі", "cm_none": "Ще немає коментарів. Будь першим!", "likers": "Лайкнули", "alb_like": "♥ Альбом", "alb_liked": "♥ Альбом вподобано"}, "en": {"nav_m": "Music", "mu_k": "Blagoday Music", "mu_h": "Music", "mu_s": "All Blagoday Music in one place. Listen right here, like, comment and follow — it all counts on SoundCloud.", "t_all": "All tracks", "t_str": "On streaming", "t_kg": "Music from videos", "mh_album": "Albums on SoundCloud. Tap a cover to listen here.", "mh_single": "Standalone songs and singles.", "mh_all": "Every Blagoday Music track. Search by title, sort, ＋ to add to the queue.", "mh_stream": "Releases on Spotify, Apple Music, YouTube Music and more.", "mh_other": "Early tracks, archive collections and playlists.", "mh_kg": "Music made for videos.", "repost": "🔁 Repost", "reposted": "🔁 Reposted", "rp_ok": "Reposted — the track is in your SoundCloud feed", "follow": "Follow", "following": "Following", "followers": "{n} followers", "fl_ok": "You now follow Blagoday Music", "cm_tab": "Comments", "cm_none": "No comments yet. Be the first!", "likers": "Liked by", "alb_like": "♥ Album", "alb_liked": "♥ Album liked"}, "es": {"nav_m": "Música", "mu_k": "Blagoday Music", "mu_h": "Música", "mu_s": "Toda la música de Blagoday Music en un solo lugar. Escucha aquí, da me gusta, comenta y sigue: todo cuenta en SoundCloud.", "t_all": "Todos los temas", "t_str": "En streaming", "t_kg": "Música de los videos", "mh_album": "Álbumes en SoundCloud. Toca una portada para escuchar aquí.", "mh_single": "Canciones y sencillos.", "mh_all": "Cada tema de Blagoday Music. Busca, ordena y usa ＋ para añadir a la cola.", "mh_stream": "Lanzamientos en Spotify, Apple Music, YouTube Music y más.", "mh_other": "Temas tempranos, colecciones de archivo y playlists.", "mh_kg": "Música creada para videos.", "repost": "🔁 Repost", "reposted": "🔁 Reposteado", "rp_ok": "Reposteado: el tema está en tu feed de SoundCloud", "follow": "Seguir", "following": "Siguiendo", "followers": "{n} seguidores", "fl_ok": "Ahora sigues a Blagoday Music", "cm_tab": "Comentarios", "cm_none": "Aún no hay comentarios. ¡Sé el primero!", "likers": "Les gusta a", "alb_like": "♥ Álbum", "alb_liked": "♥ Álbum guardado"}, "pt": {"nav_m": "Música", "mu_k": "Blagoday Music", "mu_h": "Música", "mu_s": "Toda a música de Blagoday Music num só lugar. Ouça aqui, curta, comente e siga — tudo conta no SoundCloud.", "t_all": "Todas as faixas", "t_str": "No streaming", "t_kg": "Música dos vídeos", "mh_album": "Álbuns no SoundCloud. Toque numa capa para ouvir aqui.", "mh_single": "Músicas e singles.", "mh_all": "Todas as faixas de Blagoday Music. Busque, ordene e use ＋ para adicionar à fila.", "mh_stream": "Lançamentos no Spotify, Apple Music, YouTube Music e outros.", "mh_other": "Faixas antigas, coleções de arquivo e playlists.", "mh_kg": "Música feita para vídeos.", "repost": "🔁 Repostar", "reposted": "🔁 Repostado", "rp_ok": "Repostado — a faixa está no seu feed do SoundCloud", "follow": "Seguir", "following": "Seguindo", "followers": "{n} seguidores", "fl_ok": "Agora você segue Blagoday Music", "cm_tab": "Comentários", "cm_none": "Ainda sem comentários. Seja o primeiro!", "likers": "Curtido por", "alb_like": "♥ Álbum", "alb_liked": "♥ Álbum curtido"}, "de": {"nav_m": "Musik", "mu_k": "Blagoday Music", "mu_h": "Musik", "mu_s": "Die ganze Musik von Blagoday Music an einem Ort. Hier hören, liken, kommentieren und folgen – alles zählt auf SoundCloud.", "t_all": "Alle Tracks", "t_str": "Im Streaming", "t_kg": "Musik aus Videos", "mh_album": "Alben auf SoundCloud. Tippe auf ein Cover, um hier zu hören.", "mh_single": "Einzelne Songs und Singles.", "mh_all": "Jeder Track von Blagoday Music. Suchen, sortieren, ＋ für die Warteschlange.", "mh_stream": "Releases auf Spotify, Apple Music, YouTube Music und mehr.", "mh_other": "Frühe Tracks, Archiv-Sammlungen und Playlists.", "mh_kg": "Musik, die für Videos entstanden ist.", "repost": "🔁 Reposten", "reposted": "🔁 Repostet", "rp_ok": "Repostet – der Track ist in deinem SoundCloud-Feed", "follow": "Folgen", "following": "Du folgst", "followers": "{n} Follower", "fl_ok": "Du folgst jetzt Blagoday Music", "cm_tab": "Kommentare", "cm_none": "Noch keine Kommentare. Sei der Erste!", "likers": "Gefällt", "alb_like": "♥ Album", "alb_liked": "♥ Album geliked"}, "fr": {"nav_m": "Musique", "mu_k": "Blagoday Music", "mu_h": "Musique", "mu_s": "Toute la musique de Blagoday Music au même endroit. Écoutez ici, aimez, commentez et abonnez-vous — tout compte sur SoundCloud.", "t_all": "Tous les titres", "t_str": "En streaming", "t_kg": "Musique des vidéos", "mh_album": "Albums sur SoundCloud. Touchez une pochette pour écouter ici.", "mh_single": "Chansons et singles.", "mh_all": "Chaque titre de Blagoday Music. Cherchez, triez, ＋ pour ajouter à la file.", "mh_stream": "Sorties sur Spotify, Apple Music, YouTube Music et plus.", "mh_other": "Premiers titres, archives et playlists.", "mh_kg": "Musique créée pour des vidéos.", "repost": "🔁 Republier", "reposted": "🔁 Republié", "rp_ok": "Republié — le titre est dans votre fil SoundCloud", "follow": "S’abonner", "following": "Abonné", "followers": "{n} abonnés", "fl_ok": "Vous suivez maintenant Blagoday Music", "cm_tab": "Commentaires", "cm_none": "Pas encore de commentaires. Soyez le premier !", "likers": "Aimé par", "alb_like": "♥ Album", "alb_liked": "♥ Album aimé"}}))Object.assign(T[k],v);
 for(const [k,v] of Object.entries({"uk": {"prem_sub": "🔔 Підписатися на @TheBlagoday", "prem_sh": "↗ Поділитися кліпом", "prem_more": "Більше кліпів ↓"}, "en": {"prem_sub": "🔔 Subscribe to @TheBlagoday", "prem_sh": "↗ Share the video", "prem_more": "More videos ↓"}, "es": {"prem_sub": "🔔 Suscríbete a @TheBlagoday", "prem_sh": "↗ Compartir el videoclip", "prem_more": "Más videoclips ↓"}, "pt": {"prem_sub": "🔔 Inscreva-se em @TheBlagoday", "prem_sh": "↗ Compartilhar o clipe", "prem_more": "Mais clipes ↓"}, "de": {"prem_sub": "🔔 @TheBlagoday abonnieren", "prem_sh": "↗ Video teilen", "prem_more": "Mehr Videos ↓"}, "fr": {"prem_sub": "🔔 S’abonner à @TheBlagoday", "prem_sh": "↗ Partager le clip", "prem_more": "Plus de clips ↓"}}))Object.assign(T[k],v);
+for(const [k,v] of Object.entries({"uk": {"t_gen": "Жанри", "mh_genres": "Музика за жанрами. Натисни на жанр — і слухай усі його треки підряд.", "play_genre": "▶ Слухати жанр", "g_list": "Список треків", "g_all": "Усі жанри", "tr_all": "🌐 Перекласти всі", "tr_hint": "Переклад на {l}", "tr_one": "🌐 Переклад", "reply": "↩ Відповісти", "tr_to": "🌐 Перекласти", "lang_pick": "Мова відповіді…", "lang_need": "Обери мову, на яку перекласти", "orig": "Оригінал", "undo": "Повернути", "from": "з мови"}, "en": {"t_gen": "Genres", "mh_genres": "Music by genre. Tap a genre to play all of its tracks.", "play_genre": "▶ Play genre", "g_list": "Track list", "g_all": "All genres", "tr_all": "🌐 Translate all", "tr_hint": "Translation into {l}", "tr_one": "🌐 Translate", "reply": "↩ Reply", "tr_to": "🌐 Translate", "lang_pick": "Reply language…", "lang_need": "Choose a language to translate into", "orig": "Original", "undo": "Undo", "from": "from"}, "es": {"t_gen": "Géneros", "mh_genres": "Música por géneros. Toca un género para escuchar todos sus temas.", "play_genre": "▶ Escuchar género", "g_list": "Lista de temas", "g_all": "Todos los géneros", "tr_all": "🌐 Traducir todo", "tr_hint": "Traducción al {l}", "tr_one": "🌐 Traducir", "reply": "↩ Responder", "tr_to": "🌐 Traducir", "lang_pick": "Idioma de respuesta…", "lang_need": "Elige el idioma de destino", "orig": "Original", "undo": "Deshacer", "from": "del"}, "pt": {"t_gen": "Gêneros", "mh_genres": "Música por gênero. Toque num gênero para ouvir todas as faixas.", "play_genre": "▶ Ouvir gênero", "g_list": "Lista de faixas", "g_all": "Todos os gêneros", "tr_all": "🌐 Traduzir tudo", "tr_hint": "Tradução para {l}", "tr_one": "🌐 Traduzir", "reply": "↩ Responder", "tr_to": "🌐 Traduzir", "lang_pick": "Idioma da resposta…", "lang_need": "Escolha o idioma de destino", "orig": "Original", "undo": "Desfazer", "from": "do"}, "de": {"t_gen": "Genres", "mh_genres": "Musik nach Genres. Tippe auf ein Genre, um alle Tracks zu hören.", "play_genre": "▶ Genre abspielen", "g_list": "Trackliste", "g_all": "Alle Genres", "tr_all": "🌐 Alle übersetzen", "tr_hint": "Übersetzung ins {l}", "tr_one": "🌐 Übersetzen", "reply": "↩ Antworten", "tr_to": "🌐 Übersetzen", "lang_pick": "Antwortsprache…", "lang_need": "Wähle die Zielsprache", "orig": "Original", "undo": "Rückgängig", "from": "aus"}, "fr": {"t_gen": "Genres", "mh_genres": "La musique par genre. Touchez un genre pour écouter tous ses titres.", "play_genre": "▶ Écouter le genre", "g_list": "Liste des titres", "g_all": "Tous les genres", "tr_all": "🌐 Tout traduire", "tr_hint": "Traduction en {l}", "tr_one": "🌐 Traduire", "reply": "↩ Répondre", "tr_to": "🌐 Traduire", "lang_pick": "Langue de réponse…", "lang_need": "Choisissez la langue cible", "orig": "Original", "undo": "Annuler", "from": "depuis"}}))Object.assign(T[k],v);
 const plural=n=>n===1?t("track"):t("tracks");
 
 /* ---------- RENDER ---------- */
@@ -809,7 +835,7 @@ const dur=s=>{const h=Math.floor(s/3600),m=Math.floor(s%3600/60),x=String(s%60).
 const fmtN=n=>n>=1000?(n/1000).toFixed(1).replace(/\.0$/,"")+"K":String(n);
 function catRows(){
   const q=cQ.trim().toLowerCase();
-  let r=CAT.c.filter(x=>(cF<0||x[7]===cF)&&(!q||x[0].toLowerCase().includes(q)));
+  let r=CAT.c.filter(x=>(cF<0||x[7]===cF)&&(!q||x[0].toLowerCase().includes(q))&&(!cGen||gList(x).includes(cGen)));
   if(cO==="pop")r=r.slice().sort((a,b)=>b[5]-a[5]);else if(cO==="az")r=r.slice().sort((a,b)=>a[0].localeCompare(b[0]));else r=r.slice().sort((a,b)=>b[3].localeCompare(a[3]));
   return r;
 }
@@ -826,8 +852,26 @@ function renderCat(){
 }
 document.getElementById("catQ").addEventListener("input",e=>{cQ=e.target.value;cN=24;renderCat();});
 document.getElementById("catO").addEventListener("change",e=>{cO=e.target.value;renderCat();});
+document.getElementById("catG").addEventListener("change",e=>{cGen=e.target.value;cN=24;renderCat();});
 
 document.getElementById("cmore").onclick=()=>{const n=catRows().length;if(cN>=n){cN=24;document.getElementById("catalog").scrollIntoView();}else cN=n;renderCat();};
+/* ---------- genres ---------- */
+let cGen="";
+const gList=x=>String(CAT.gens[x[6]]||"").split(/\s*,\s*/).filter(Boolean);
+function genreMap(){const m={};CAT.c.forEach(x=>{const g=gList(x);(g.length?g:["—"]).forEach(n=>{(m[n]=m[n]||[]).push(x);});});return m;}
+function fillGenreSel(){const sel=document.getElementById("catG");if(!sel)return;const m=genreMap();const names=Object.keys(m).filter(n=>n!=="—").sort((a,b)=>m[b].length-m[a].length);
+  sel.innerHTML=`<option value="">${esc(t("g_all"))}</option>`+names.map(n=>`<option value="${esc(n)}">${esc(n)} · ${m[n].length}</option>`).join("");sel.value=cGen;}
+function renderGenres(){const el=document.getElementById("ggrid");if(!el)return;const m=genreMap();const names=Object.keys(m).filter(n=>n!=="—").sort((a,b)=>m[b].length-m[a].length);
+  el.innerHTML=names.map(n=>{const xs=m[n].slice().sort((a,b)=>b[5]-a[5]);const covers=xs.filter(x=>artOf(x)).slice(0,4);
+    return `<article class="gcard"><button class="gcov" data-gplay="${esc(n)}" aria-label="${esc(n)}">${covers.map(x=>`<img loading="lazy" src="${artOf(x,"t300x300")}" alt="">`).join("")}<span class="play"></span></button>
+    <div class="gi"><h3>${esc(n)}</h3><div class="m mono">${xs.length} ${plural(xs.length)}</div>
+    <div class="acts"><button class="chip hl" data-gplay="${esc(n)}">${esc(t("play_genre"))}</button><button class="chip" data-gopen="${esc(n)}">${esc(t("g_list"))}</button></div></div></article>`;}).join("");
+  const c=document.getElementById("mtc-genres");if(c)c.textContent=names.length;}
+function playList(list,title){if(!list.length)return;pBuild();P.list=list;P.title=title;P.tab="tr";pFull();pPlay(list[0],0);}
+document.addEventListener("click",e=>{
+  const gp=e.target.closest("[data-gplay]");if(gp){const m=genreMap();const xs=(m[gp.dataset.gplay]||[]).slice().sort((a,b)=>b[5]-a[5]);playList(xs,gp.dataset.gplay);return;}
+  const go=e.target.closest("[data-gopen]");if(go){cGen=go.dataset.gopen;cN=24;setMTab("all");fillGenreSel();renderCat();document.getElementById("music").scrollIntoView({behavior:"smooth"});}
+});
 /* ---------- MODAL ---------- */
 const modal=document.getElementById("modal"),mbox=document.getElementById("mbox"),mframe=document.getElementById("mframe"),mlink=document.getElementById("mlink");
 function openYT(id){if(typeof P!=="undefined"&&P.w)try{P.w.pause()}catch(e){}mbox.className="mbox";mframe.innerHTML=`<iframe src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen title="YouTube"></iframe>`;mlink.href="https://youtu.be/"+id;mlink.textContent=t("open_yt");show();}
@@ -859,7 +903,7 @@ function pBuild(){
 <div class="scp-l"><div class="scp-cv"><img id="scpImg" alt=""></div><div class="scp-info"><div class="scp-k" id="scpK">SoundCloud</div><div class="scp-t" id="scpT"></div><div class="scp-a" id="scpA"></div><div class="scp-st" id="scpSt"></div><div class="scp-lk" id="scpLkr"></div></div></div>
 <div class="scp-r">
 <div class="scp-act"><button class="chip hl" id="scpCm"></button><button class="chip rp" id="scpRp"></button><button class="chip" id="scpSh"></button><a class="chip" id="scpOp" target="_blank" rel="noopener">SoundCloud ↗</a></div>
-<div class="scp-cmt"><textarea id="scpTx" maxlength="1000" rows="2"></textarea><div class="scp-cr"><span class="scp-who" id="scpWho"></span><button class="scp-send" id="scpSend"></button></div></div>
+<div class="scp-cmt"><textarea id="scpTx" maxlength="1000" rows="2"></textarea><div class="scp-trb"><select id="scpLang" aria-label="Reply language"></select><button class="chip" id="scpTr"></button><span class="scp-orig" id="scpOrig"></span></div><div class="scp-cr"><span class="scp-who" id="scpWho"></span><button class="scp-send" id="scpSend"></button></div></div>
 <div class="scp-tabs" id="scpTabs"><button data-t="tr"></button><button data-t="q"></button><button data-t="cm"></button><button data-t="more"></button></div>
 <div class="scp-list" id="scpList"></div>
 <div class="scp-sub"><div class="scp-k" id="scpSubH"></div><div class="scp-subb">
@@ -894,7 +938,7 @@ function pBuild(){
 }
 function pText(){
   if(!P.el)return;const $=id=>document.getElementById(id);
-  $("scpSh").textContent=t("share");$("scpTx").placeholder=t("cm_ph");scWho();scFolUI();scRpUI();$("scpSubH").textContent=t("sub_h");
+  $("scpSh").textContent=t("share");$("scpTx").placeholder=t("cm_ph");fillLangs();scWho();scFolUI();scRpUI();$("scpSubH").textContent=t("sub_h");
   pCm();pTabs();pList();
 }
 function pCm(){const b=document.getElementById("scpCm");if(b)b.textContent=t("c_at").replace("{t}",mmss(P.pos));const s=document.getElementById("scpSend");if(s&&!s.disabled)s.textContent=t("send_at").replace("{t}",mmss(P.pos));}
@@ -966,7 +1010,7 @@ function pLikers(){const el=document.getElementById("scpLkr");if(!el)return;cons
   el.innerHTML=`<span class="mono">${esc(t("likers"))}</span>`+l.slice(0,10).map(u=>`<a href="${esc(u.url||"#")}" target="_blank" rel="noopener" title="${esc(u.name)}"><img loading="lazy" src="${esc(u.avatar||"")}" alt=""></a>`).join("");}
 function pComments(){const s=P.snd;if(!s)return`<div class="scp-empty">…</div>`;const c=SOC.cm[s.id];
   if(!c)return`<div class="scp-empty">…</div>`;if(!c.length)return`<div class="scp-empty">${esc(t("cm_none"))}</div>`;
-  return c.slice().sort((a,b)=>(a.ts||0)-(b.ts||0)).map(x=>`<div class="cm-row"><img loading="lazy" src="${esc(x.user&&x.user.avatar||"")}" alt=""><div><b>${esc(x.user?x.user.name:"")}</b>${x.ts!=null?`<button class="ts" data-seek="${x.ts}">${mmss(x.ts)}</button>`:""}<p>${esc(x.body||"")}</p></div></div>`).join("");}
+  return `<div class="cm-top"><button class="chip hl" id="cmTrAll">${esc(t("tr_all"))}</button><span class="mono">${esc(t("tr_hint").replace("{l}",LNAME[L]||L))}</span></div>`+c.slice().sort((a,b)=>(a.ts||0)-(b.ts||0)).map(x=>`<div class="cm-row"><img loading="lazy" src="${esc(x.user&&x.user.avatar||"")}" alt=""><div><b>${esc(x.user?x.user.name:"")}</b>${x.ts!=null?`<button class="ts" data-seek="${x.ts}">${mmss(x.ts)}</button>`:""}<p>${esc(x.body||"")}</p>${trRow(x)}<div class="cm-act"><button class="cm-b" data-trc="${esc(cmKey(x))}">${esc(t("tr_one"))}</button><button class="cm-b" data-rep="${esc(cmKey(x))}">${esc(t("reply"))}</button></div></div></div>`).join("");}
 function scRpUI(){const b=document.getElementById("scpRp");if(!b)return;const on=!!(P.snd&&SOC.rp[P.snd.id]);b.classList.toggle("on",on);b.textContent=on?t("reposted"):t("repost");}
 async function scRepost(){const s=P.snd;if(!s||!s.id)return;if(!SCT){scAsk();return;}const was=!!SOC.rp[s.id];
   const r=await scCall("/repost/"+s.id,{method:was?"DELETE":"POST"});if(!r)return;
@@ -996,6 +1040,37 @@ async function liveCatalog(){const L3=await socGet("/catalog");if(!Array.isArray
     CAT.c.push(row);byP[row[1]]=row;added++;});
   mCounts();renderCat();if(added&&P.el)pList();}
 (async()=>{SOC.artist=await socGet("/artist");await scFolState();scFolUI();liveCatalog();})();
+/* ---------- translation (AI on our Cloudflare server) ---------- */
+const LANGS=[["en","English","English"],["es","Español","Spanish"],["pt","Português","Portuguese"],["fr","Français","French"],["de","Deutsch","German"],["it","Italiano","Italian"],["pl","Polski","Polish"],["uk","Українська","Ukrainian"],["hi","हिन्दी","Hindi"],["bn","বাংলা","Bengali"],["ar","العربية","Arabic"],["tr","Türkçe","Turkish"],["id","Bahasa Indonesia","Indonesian"],["ja","日本語","Japanese"],["zh","中文","Chinese"],["ko","한국어","Korean"]];
+const LNAME={};const LENG={};LANGS.forEach(([c,n,e])=>{LNAME[c]=n;LENG[c]=e;});
+const TRC={};let trBusy=false,replyLang="";
+const cmKey=x=>String(x.at||"")+"|"+(x.user?x.user.name:"");
+function trRow(x){const k=cmKey(x)+"|"+L;const r=TRC[k];if(!r||!r.text||r.text===x.body)return"";return`<p class="cm-tr"><span class="mono">🌐 ${esc(LNAME[L]||L)}${r.lang&&LNAME[r.lang]?" · "+esc(t("from"))+" "+esc(LNAME[r.lang]):""}</span>${esc(r.text)}</p>`;}
+async function trApi(items,to){const r=await fetch(SCB+"/translate",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({items,to})});if(!r.ok)throw new Error("tr");return r.json();}
+async function trComments(only){const s=P.snd;if(!s||trBusy)return;const c=SOC.cm[s.id]||[];
+  const todo=c.filter(x=>(!only||cmKey(x)===only)&&!TRC[cmKey(x)+"|"+L]&&x.body).slice(0,20);if(!todo.length){pList();return;}
+  trBusy=true;const b=document.getElementById("cmTrAll");if(b)b.textContent="…";
+  try{const res=await trApi(todo.map(x=>({id:cmKey(x),text:x.body})),LENG[L]||"English");res.forEach(r=>{TRC[r.id+"|"+L]={text:r.text,lang:r.lang};const x=c.find(y=>cmKey(y)===r.id);if(x)x.lang=r.lang;});}
+  catch(e){toast(t("err"));}
+  trBusy=false;if(P.tab==="cm")pList();}
+function fillLangs(){const sel=document.getElementById("scpLang");if(!sel)return;const cur=replyLang||sel.value||"";
+  sel.innerHTML=`<option value="">${esc(t("lang_pick"))}</option>`+LANGS.map(([c,n])=>`<option value="${c}">${esc(n)}</option>`).join("");sel.value=cur;
+  const b=document.getElementById("scpTr");if(b)b.textContent=t("tr_to");}
+async function trReply(){const x=document.getElementById("scpTx"),sel=document.getElementById("scpLang"),o=document.getElementById("scpOrig");
+  const text=x.value.trim(),to=sel.value;if(!text){x.focus();return;}if(!to){sel.focus();toast(t("lang_need"));return;}
+  const b=document.getElementById("scpTr");b.disabled=true;b.textContent="…";
+  try{const [r]=await trApi([{id:"r",text}],LENG[to]);if(r&&r.text){o.dataset.orig=text;o.innerHTML=`${esc(t("orig"))}: ${esc(text.slice(0,80))}${text.length>80?"…":""} <button class="cm-b" id="scpUndo">${esc(t("undo"))}</button>`;x.value=r.text;document.getElementById("scpUndo").onclick=()=>{x.value=o.dataset.orig||x.value;o.innerHTML="";};}}
+  catch(e){toast(t("err"));}
+  b.disabled=false;b.textContent=t("tr_to");}
+document.addEventListener("click",e=>{
+  if(e.target.closest("#cmTrAll")){trComments();return;}
+  const one=e.target.closest("[data-trc]");if(one){trComments(one.dataset.trc);return;}
+  const rp=e.target.closest("[data-rep]");if(rp){const s=P.snd;const x=(SOC.cm[s&&s.id]||[]).find(y=>cmKey(y)===rp.dataset.rep);if(!x)return;
+    const tx=document.getElementById("scpTx");tx.value="@"+(x.user?x.user.name:"")+" ";tx.focus();
+    const go=lng=>{if(lng&&LNAME[lng]){replyLang=lng;const sel=document.getElementById("scpLang");sel.value=lng;}};
+    if(x.lang)go(x.lang);else trApi([{id:"d",text:x.body}],"English").then(r=>{if(r&&r[0])go(r[0].lang);}).catch(()=>{});}
+  if(e.target.closest("#scpTr"))trReply();
+});
 function pStats(){
   const s=P.snd,el=document.getElementById("scpSt");if(!el)return;
   const v=k=>s?fmtN(s[k]||0):"–";
@@ -1077,13 +1152,13 @@ document.addEventListener("click",e=>{if(e.target.closest(".lsw>button")){lsw.cl
 document.getElementById("vmore").onclick=()=>{vShown=vShown>=VIDEOS.length-1?8:VIDEOS.length;renderVideos(); if(vShown===8) document.getElementById("videos").scrollIntoView();};
 let mTab="album";
 function setMTab(k,scroll){mTab=k;document.querySelectorAll("#mtabs button").forEach(b=>{const on=b.dataset.t===k;b.classList.toggle("on",on);b.setAttribute("aria-selected",on);});
-  const grid=["album","single","other","kg"].includes(k);document.getElementById("mp-grid").hidden=!grid;document.getElementById("mp-all").hidden=k!=="all";document.getElementById("mp-stream").hidden=k!=="stream";
+  const grid=["album","single","other","kg"].includes(k);document.getElementById("mp-grid").hidden=!grid;document.getElementById("mp-all").hidden=k!=="all";document.getElementById("mp-stream").hidden=k!=="stream";document.getElementById("mp-genres").hidden=k!=="genres";if(k==="genres")renderGenres();
   if(grid){aFilter=k;renderAlbums();}
   document.getElementById("mHint").textContent=t("mh_"+k)||"";
   try{sessionStorage.setItem("bl_mtab",k)}catch(e){}
   if(scroll)document.getElementById("music").scrollIntoView({behavior:"smooth"});}
 document.querySelectorAll("#mtabs button").forEach(b=>b.onclick=()=>setMTab(b.dataset.t));
-function mCounts(){const c={album:0,single:0,other:0,kg:0};ALBUMS.forEach(a=>{if(c[a[6]]!==undefined)c[a[6]]++;});c.all=CAT.c.length;c.stream=RELEASES.length;
+function mCounts(){const c={album:0,single:0,other:0,kg:0};ALBUMS.forEach(a=>{if(c[a[6]]!==undefined)c[a[6]]++;});c.all=CAT.c.length;c.stream=RELEASES.length;c.genres=Object.keys(genreMap()).filter(n=>n!=="—").length;fillGenreSel();
   for(const k in c){const e=document.getElementById("mtc-"+k);if(e)e.textContent=c[k];}
   const kg=document.querySelector('#mtabs [data-t="kg"]');if(kg)kg.hidden=!c.kg;}
 const HTAB={albums:"album",catalog:"all",releases:"stream",listen:"album",music:null};
