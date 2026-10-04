@@ -199,18 +199,20 @@ export default {
         for (const it of items.slice(0, 20)) {
           const text = String(it && it.text || "").slice(0, 1200);
           if (!text.trim()) { out.push({ id: it && it.id, text: "", lang: "" }); continue; }
-          const ck = new Request("https://cache.blagoday/tr3/" + encodeURIComponent(target) + "/" + (await sha256(text)));
+          const ck = new Request("https://cache.blagoday/tr4/" + encodeURIComponent(target) + "/" + (await sha256(text)));
           const hit = await caches.default.match(ck);
           if (hit) { const j = await hit.json(); out.push({ id: it.id, ...j }); continue; }
           let res = { text, lang: "" };
           try {
-            const r = await env.AI.run("@cf/google/gemma-3-12b-it", {
-              messages: [
-                { role: "system", content: "You are a professional translator for a music website. Detect the language of the user's text and translate it into " + target + ". Keep names, emojis and the tone. Reply ONLY with compact JSON: {\"lang\":\"<ISO 639-1 code of the source language>\",\"text\":\"<translation>\"}. If the text is already in " + target + ", return it unchanged." },
-                { role: "user", content: text },
-              ],
-              max_tokens: 700, temperature: 0.2,
-            });
+            const sys = "You are a professional translator for a music website. Detect the language of the text and translate it into " + target + ". Keep names, emojis and the tone. Reply ONLY with compact JSON: {\"lang\":\"<ISO 639-1 code of the source language>\",\"text\":\"<translation>\"}. If the text is already in " + target + ", return it unchanged.";
+            let r = null, lastErr = "";
+            for (const model of (env.TR_MODELS || "@cf/mistralai/mistral-small-3.1-24b-instruct,@cf/google/gemma-3-12b-it,@cf/meta/llama-3.1-8b-instruct-fp8-fast").split(",")) {
+              try {
+                r = await env.AI.run(model, { messages: [{ role: "user", content: sys + "\n\nTEXT:\n" + text }], max_tokens: 700, temperature: 0.2 });
+                if (r) break;
+              } catch (e) { lastErr = model + ": " + String(e && e.message || e).slice(0, 200); }
+            }
+            if (!r) throw new Error(lastErr);
             const resp = r && (r.response ?? (r.result && r.result.response));
             let j = null;
             if (resp && typeof resp === "object") j = resp;
@@ -222,7 +224,7 @@ export default {
             }
             if (j && typeof j.text === "string" && j.text.trim()) res = { text: j.text, lang: String(j.lang || "").slice(0, 8) };
             ctx.waitUntil(caches.default.put(ck, new Response(JSON.stringify(res), { headers: { "Cache-Control": "max-age=2592000" } })));
-          } catch (e) { res = { text, lang: "", error: "ai" }; }
+          } catch (e) { res = { text, lang: "", error: "ai", detail: String(e && e.message || e).slice(0, 300) }; }
           out.push({ id: it.id, ...res });
         }
         return json(out);
