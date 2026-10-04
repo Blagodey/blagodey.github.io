@@ -24,6 +24,7 @@ header .wrap{display:flex;align-items:center;justify-content:space-between;heigh
 .logo{font-weight:700;letter-spacing:.08em;text-decoration:none;text-transform:uppercase}
 .logo b{color:var(--mag)}
 .lng{display:flex;gap:6px}
+@media(max-width:640px){.lng{gap:3px!important}.lng button{padding:3px 6px!important;font-size:12px!important}}
 .lng button{background:none;border:1px solid var(--line);color:var(--mut);border-radius:8px;padding:4px 9px;font:inherit;font-size:14px;cursor:pointer}
 .lng button.on{border-color:var(--mag);color:#fff}
 .hero{padding-top:56px;padding-bottom:30px}
@@ -69,7 +70,7 @@ footer{border-top:1px solid var(--line);margin-top:30px;padding:24px 0 40px;colo
 <body>
 <header><div class="wrap">
   <a class="logo" href="./">Blagoday <b>Production</b></a>
-  <div class="lng"><button data-l="uk">UA</button><button data-l="en">EN</button></div>
+  <div class="lng"><button data-l="uk">UA</button><button data-l="en">EN</button><button data-l="es">ES</button><button data-l="pt">PT</button><button data-l="de">DE</button><button data-l="fr">FR</button></div>
 </div></header>
 <main>
   <div class="wrap hero">
@@ -146,9 +147,13 @@ const VIDS=[
 
 const T={
 uk:{k:"Blagoday Music × Капитан ГЕРМАН",h:"Музика з відео Капітана Германа",lead:"Пісні Blagoday Music звучать у відео каналу «Капитан ГЕРМАН» про кругосвітню подорож на яхті. Тут зібрано, яка пісня де звучить: дивись фрагмент або відкривай повне відео.",b_ch:"Канал Капітана Германа ↗",b_music:"♪ Уся музика Blagoday",s_h:"Пісні у відео",s_s:"Кожна пісня з фрагментом відео, де вона звучить.",v_h:"Відео з каналу",v_s:"Останні відео Капітана Германа на YouTube.",v_all:"Усі відео на YouTube ↗",full:"Повне відео ↗",seg:"▶ Фрагмент",listen:"♪ Слухати",empty:"Список пісень готується: ми звіряємо, яка пісня звучить у кожному відео. Скоро тут з’являться фрагменти.",more:"Показати більше",in:"у відео"},
-en:{k:"Blagoday Music × Captain German",h:"Music from Captain German’s videos",lead:"Songs by Blagoday Music play in the videos of the “Captain German” channel about sailing around the world. Here you can see which song plays where: watch the clip or open the full video.",b_ch:"Captain German’s channel ↗",b_music:"♪ All Blagoday music",s_h:"Songs in the videos",s_s:"Every song with the part of the video where it plays.",v_h:"Videos from the channel",v_s:"Latest Captain German videos on YouTube.",v_all:"All videos on YouTube ↗",full:"Full video ↗",seg:"▶ Clip",listen:"♪ Listen",empty:"The song list is being prepared: we are matching which song plays in each video. Clips will appear here soon.",more:"Show more",in:"in"}
+en:{k:"Blagoday Music × Captain German",h:"Music from Captain German’s videos",lead:"Songs by Blagoday Music play in the videos of the “Captain German” channel about sailing around the world. Here you can see which song plays where: watch the clip or open the full video.",b_ch:"Captain German’s channel ↗",b_music:"♪ All Blagoday music",s_h:"Songs in the videos",s_s:"Every song with the part of the video where it plays.",v_h:"Videos from the channel",v_s:"Latest Captain German videos on YouTube.",v_all:"All videos on YouTube ↗",full:"Full video ↗",seg:"▶ Clip",listen:"♪ Listen",empty:"The song list is being prepared: we are matching which song plays in each video. Clips will appear here soon.",more:"Show more",in:"in"},
+es:{"k": "Blagoday Music × Captain German", "h": "Música de los vídeos de Captain German", "lead": "Las canciones de Blagoday Music suenan en los vídeos del canal «Captain German» sobre la vuelta al mundo en velero. Aquí ves qué canción suena y dónde: mira el fragmento o abre el vídeo completo.", "b_ch": "Canal de Captain German ↗", "b_music": "♪ Toda la música de Blagoday", "s_h": "Canciones en los vídeos", "s_s": "Cada canción con el fragmento del vídeo donde suena.", "v_h": "Vídeos del canal", "v_s": "Últimos vídeos de Captain German en YouTube.", "v_all": "Todos los vídeos en YouTube ↗", "full": "Vídeo completo ↗", "seg": "▶ Fragmento", "listen": "♪ Escuchar", "empty": "Estamos preparando la lista: comprobamos qué canción suena en cada vídeo. Pronto aparecerán aquí los fragmentos.", "more": "Mostrar más", "in": "en"},
+pt:{"k": "Blagoday Music × Captain German", "h": "Música dos vídeos do Captain German", "lead": "As músicas da Blagoday Music tocam nos vídeos do canal «Captain German» sobre a volta ao mundo de veleiro. Aqui você vê qual música toca e onde: assista ao trecho ou abra o vídeo completo.", "b_ch": "Canal do Captain German ↗", "b_music": "♪ Todas as músicas da Blagoday", "s_h": "Músicas nos vídeos", "s_s": "Cada música com o trecho do vídeo onde ela toca.", "v_h": "Vídeos do canal", "v_s": "Últimos vídeos do Captain German no YouTube.", "v_all": "Todos os vídeos no YouTube ↗", "full": "Vídeo completo ↗", "seg": "▶ Trecho", "listen": "♪ Ouvir", "empty": "A lista está sendo preparada: estamos verificando qual música toca em cada vídeo. Em breve os trechos aparecerão aqui.", "more": "Mostrar mais", "in": "em"},
+de:{"k": "Blagoday Music × Captain German", "h": "Musik aus den Videos von Captain German", "lead": "Songs von Blagoday Music laufen in den Videos des Kanals „Captain German“ über die Weltumsegelung. Hier siehst du, welcher Song wo läuft: Schau dir den Ausschnitt an oder öffne das ganze Video.", "b_ch": "Kanal von Captain German ↗", "b_music": "♪ Alle Musik von Blagoday", "s_h": "Songs in den Videos", "s_s": "Jeder Song mit der Stelle im Video, an der er läuft.", "v_h": "Videos vom Kanal", "v_s": "Die neuesten Videos von Captain German auf YouTube.", "v_all": "Alle Videos auf YouTube ↗", "full": "Ganzes Video ↗", "seg": "▶ Ausschnitt", "listen": "♪ Anhören", "empty": "Die Liste wird vorbereitet: Wir prüfen, welcher Song in welchem Video läuft. Bald erscheinen hier die Ausschnitte.", "more": "Mehr anzeigen", "in": "in"},
+fr:{"k": "Blagoday Music × Captain German", "h": "La musique des vidéos de Captain German", "lead": "Les chansons de Blagoday Music passent dans les vidéos de la chaîne « Captain German » sur le tour du monde en voilier. Ici, tu vois quelle chanson passe et où : regarde l’extrait ou ouvre la vidéo complète.", "b_ch": "Chaîne de Captain German ↗", "b_music": "♪ Toute la musique de Blagoday", "s_h": "Chansons dans les vidéos", "s_s": "Chaque chanson avec l’extrait de la vidéo où elle passe.", "v_h": "Vidéos de la chaîne", "v_s": "Dernières vidéos de Captain German sur YouTube.", "v_all": "Toutes les vidéos sur YouTube ↗", "full": "Vidéo complète ↗", "seg": "▶ Extrait", "listen": "♪ Écouter", "empty": "La liste est en préparation : nous vérifions quelle chanson passe dans chaque vidéo. Les extraits apparaîtront bientôt ici.", "more": "Afficher plus", "in": "dans"}
 };
-let L="uk";try{const s=localStorage.getItem("bl_lang");L=s==="uk"?"uk":s?"en":(navigator.language||"").startsWith("uk")?"uk":"en"}catch(e){}
+let L="uk";try{const s=localStorage.getItem("bl_lang");const nl=(navigator.language||"").slice(0,2);L=(s&&T[s])?s:(T[nl]?nl:"en")}catch(e){}
 const $=id=>document.getElementById(id);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const sec=t=>{const p=String(t).split(":").map(Number);return p.reduce((a,b)=>a*60+b,0)};
@@ -160,7 +165,7 @@ function render(){
   document.querySelectorAll("[data-i]").forEach(e=>{const v=T[L][e.dataset.i];if(v)e.textContent=v});
   document.querySelectorAll(".lng button").forEach(b=>b.classList.toggle("on",b.dataset.l===L));
   $("songs-list").innerHTML=SONGS.length?SONGS.map((x,i)=>{const v=vById[x.v];return `<div class="song"><img loading="lazy" src="${thumb(x.v)}" alt=""><div><h3>${esc(x.n)}</h3><div class="m">${x.s}–${x.e} · ${T[L].in} «${esc(v?v[1]:x.v)}»</div></div><div class="a"><button class="btn p" data-seg="${i}">${T[L].seg}</button>${x.sc?`<a class="btn" href="./?play=${encodeURIComponent(x.sc)}">${T[L].listen}</a>`:""}<a class="btn" target="_blank" rel="noopener" href="https://youtu.be/${x.v}?t=${sec(x.s)}">${T[L].full}</a></div></div>`}).join(""):`<div class="empty">${T[L].empty}</div>`;
-  $("vgrid").innerHTML=VIDS.slice(0,shown).map(v=>`<button class="v" data-v="${v[0]}"><div class="th"><img loading="lazy" src="${thumb(v[0])}" alt=""><span class="d">${v[3]}</span></div><div class="tx"><h3>${esc(v[1])}</h3><div class="m mono">${new Date(v[2]).toLocaleDateString(L==="uk"?"uk-UA":"en-GB",{day:"numeric",month:"short",year:"numeric"})}</div></div></button>`).join("");
+  $("vgrid").innerHTML=VIDS.slice(0,shown).map(v=>`<button class="v" data-v="${v[0]}"><div class="th"><img loading="lazy" src="${thumb(v[0])}" alt=""><span class="d">${v[3]}</span></div><div class="tx"><h3>${esc(v[1])}</h3><div class="m mono">${new Date(v[2]).toLocaleDateString(L==="uk"?"uk-UA":L,{day:"numeric",month:"short",year:"numeric"})}</div></div></button>`).join("");
   $("vgrid").nextElementSibling.querySelector(".btn").textContent=T[L].v_all;
 }
 function openV(id,start,end,title){
@@ -172,12 +177,13 @@ function closeV(){$("modal").classList.remove("on");$("mFr").innerHTML=""}
 document.addEventListener("click",e=>{
   const s=e.target.closest("[data-seg]");if(s){const x=SONGS[+s.dataset.seg];openV(x.v,sec(x.s),sec(x.e),x.n);return}
   const v=e.target.closest("[data-v]");if(v){openV(v.dataset.v,0,0,(vById[v.dataset.v]||[])[1]);return}
-  const l=e.target.closest(".lng button");if(l){L=l.dataset.l;try{localStorage.setItem("bl_lang",L)}catch(_){}render();return}
+  const l=e.target.closest(".lng button");if(l){L=l.dataset.l;try{localStorage.setItem("bl_lang",L)}catch(_){}render();if(window.BLChat)BLChat.setLang(L);return}
   if(e.target.id==="mX"||e.target.id==="modal")closeV();
 });
 document.addEventListener("keydown",e=>{if(e.key==="Escape")closeV()});
 $("yr").textContent=new Date().getFullYear();
 render();
 </script>
+<script src="chat.js?v=1" defer></script>
 </body>
 </html>
