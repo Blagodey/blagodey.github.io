@@ -100,7 +100,8 @@ export class ChatRoom {
   limited(key, ms) { const now = Date.now(), last = this.rate.get(key) || 0; if (now - last < ms) return true; this.rate.set(key, now); if (this.rate.size > 5000) this.rate.clear(); return false; }
   online() { return this.state.getWebSockets().length; }
   broadcast(obj) { const s = JSON.stringify(obj); for (const ws of this.state.getWebSockets()) { try { ws.send(s); } catch {} } }
-  history() { return this.rows(`SELECT id,ts,name,avatar,author,text,cc FROM msgs WHERE deleted=0 ORDER BY id DESC LIMIT 80`).reverse(); }
+  historyFull() { return this.rows(`SELECT id,ts,name,avatar,author,text,cc FROM msgs WHERE deleted=0 ORDER BY id DESC LIMIT 80`).reverse(); }
+  history() { return this.historyFull().map(r => ({ ...r, cc: "" })); }
   async fetch(req) {
     const url = new URL(req.url), p = url.pathname, ip = req.headers.get("X-IP") || "?", cc = (req.headers.get("X-CC") || "").replace(/[^A-Z]/g, "").slice(0, 2);
     const ok = (d, s = 200) => new Response(JSON.stringify(d), { status: s, headers: { "Content-Type": "application/json" } });
@@ -114,7 +115,7 @@ export class ChatRoom {
       return new Response(null, { status: 101, webSocket: pair[0] });
     }
     if (p === "/history") return ok({ msgs: this.history(), online: this.online() });
-    if (p === "/msg") { const r = this.rows(`SELECT id,ts,name,avatar,author,text,cc FROM msgs WHERE deleted=0 AND id=?`, Number(url.searchParams.get("id")) || 0)[0]; return r ? ok({ m: r }) : ok({ error: "not_found" }, 404); }
+    if (p === "/msg") { const r = this.rows(`SELECT id,ts,name,avatar,author,text,cc FROM msgs WHERE deleted=0 AND id=?`, Number(url.searchParams.get("id")) || 0)[0]; return r ? ok({ m: { ...r, cc: "" } }) : ok({ error: "not_found" }, 404); }
     const body = req.method === "POST" ? await req.json().catch(() => ({})) : {};
     if (p === "/play") {
       const slug = String(body.slug || "").replace(/[^a-z0-9_-]/gi, "").slice(0, 120);
@@ -153,6 +154,7 @@ export class ChatRoom {
       if (!me.sc && /bl[a@4]g[o0]d[a@4][yi]/i.test(me.name.replace(/[^a-z0-9@]/gi, ""))) { me.name = ""; ws.serializeAttachment(me); ws.send(JSON.stringify({ type: "err", e: "name" })); ws.send(JSON.stringify({ type: "me", name: "", author: 0, sc: false })); return; }
       ws.serializeAttachment(me);
       ws.send(JSON.stringify({ type: "me", name: me.name, author: me.author, sc: !!me.sc, dbg: me.dbg || "" }));
+      if (me.author) ws.send(JSON.stringify({ type: "hist", msgs: this.historyFull(), online: this.online() }));
       return;
     }
     if (m.type === "msg") {
@@ -164,7 +166,7 @@ export class ChatRoom {
       const ts = Date.now();
       this.sql.exec(`INSERT INTO msgs(ts,name,avatar,uid,author,text,cc) VALUES(?,?,?,?,?,?,?)`, ts, me.name, me.avatar || "", me.uid || "", me.author ? 1 : 0, text, me.cc || "");
       const id = this.rows(`SELECT last_insert_rowid() AS id`)[0].id;
-      this.broadcast({ type: "msg", m: { id, ts, name: me.name, avatar: me.avatar || "", author: me.author ? 1 : 0, text, cc: me.cc || "" } });
+      { const base = { id, ts, name: me.name, avatar: me.avatar || "", author: me.author ? 1 : 0, text }; const pub = JSON.stringify({ type: "msg", m: { ...base, cc: "" } }), priv = JSON.stringify({ type: "msg", m: { ...base, cc: me.cc || "" } }); for (const w of this.state.getWebSockets()) { try { const a = w.deserializeAttachment() || {}; w.send(a.author ? priv : pub); } catch {} } }
       return;
     }
     if (m.type === "del" && me.author) {
