@@ -369,6 +369,19 @@ p{font-weight:500}
 .pl-mh img{width:38px;height:38px;border-radius:6px;object-fit:cover}
 .pl-mh span{flex:1;min-width:0}.pl-mh b{display:block;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#fff}.pl-mh i{font-style:normal;font-size:12px;color:#00e5ff}
 .pl-mh button{width:34px;height:34px;font-size:14px}
+/* compact mini player */
+.pl.mini .scp{position:absolute;left:0;top:0;width:1px;height:1px;min-height:0;overflow:hidden;opacity:0;pointer-events:none;padding:0;border:0;display:block}
+.pl.mini .pl-mh{border-bottom:1px solid rgba(255,255,255,.12);border-radius:14px;gap:6px;box-shadow:0 10px 30px rgba(0,0,0,.55)}
+.pl.mini .pl-mh button{width:34px;height:34px;flex:none}
+.pl-dot{display:none;position:relative;width:54px;height:54px;border-radius:50%;border:2px solid #00e5ff;padding:0;background:#0b0b10;cursor:pointer;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,.55)}
+.pl-dot img{width:100%;height:100%;object-fit:cover;opacity:.55;display:block}
+.pl-dot b{position:absolute;inset:0;display:grid;place-items:center;color:#fff;font-size:20px}
+.pl.tiny .pl-mh{display:none!important}
+.pl.tiny{width:auto}
+.pl.tiny .pl-dot{display:block}
+.pl.tiny .pl-box{width:auto}
+@media(max-width:480px){.pl.mini .pl-mh button{width:30px;height:30px;font-size:12px}.pl.mini .pl-mh{padding:6px 8px;gap:4px}.pl-mh img{width:32px;height:32px}.pl.mini{right:8px;bottom:8px;width:calc(100% - 16px)}.pl.tiny{width:auto}}
+
 #qpill{position:fixed;left:16px;bottom:16px;z-index:90;display:none;align-items:center;gap:8px;padding:12px 18px;border-radius:999px;border:0;background:#ff00aa;color:#fff;font-weight:600;font-size:15px;font-family:inherit;cursor:pointer;box-shadow:0 10px 30px rgba(255,0,170,.45)}
 #qpill.on{display:inline-flex}
 #toast{position:fixed;left:50%;bottom:96px;transform:translate(-50%,20px);opacity:0;z-index:130;transition:.25s;pointer-events:none;background:#16161c;border:1px solid rgba(0,229,255,.5);color:#fff;padding:10px 16px;border-radius:10px;font-size:15px}
@@ -1004,7 +1017,8 @@ function pBuild(){
   if(P.el)return;
   const d=document.createElement("div");d.className="pl";d.id="pl";
   d.innerHTML=`<div class="pl-bg" data-pl="min"></div><div class="pl-box">
-<div class="pl-mh"><img id="plMi" alt=""><span><b id="plMt"></b><i>Blagoday Music</i></span><button data-pl="max" aria-label="Expand">⤢</button><button data-pl="x" aria-label="Close">✕</button></div>
+<div class="pl-mh"><img id="plMi" alt=""><span><b id="plMt"></b><i>Blagoday Music</i></span><button data-pl="prev" aria-label="Previous">⏮</button><button data-pl="tog" id="plTog" aria-label="Play/Pause">⏵</button><button data-pl="next" aria-label="Next">⏭</button><button data-pl="max" aria-label="Expand">⤢</button><button data-pl="dot" aria-label="Minimize">▾</button><button data-pl="x" aria-label="Close">✕</button></div>
+<button class="pl-dot" data-pl="undot" id="plDot" aria-label="Open player"><img id="plDi" alt=""><b id="plDp">⏵</b></button>
 <button class="pl-x" data-pl="min">✕<span class="esc"> ESC</span></button>
 <div class="scp" id="scp">
 <div class="scp-l"><div class="scp-hd"><div class="scp-cv"><img id="scpImg" alt=""></div><div class="scp-info"><div class="scp-k" id="scpK">SoundCloud</div><div class="scp-t" id="scpT"></div><div class="scp-a" id="scpA"></div></div></div><div class="scp-st" id="scpSt"></div><div class="scp-lk" id="scpLkr"></div><div class="scp-act"><button class="chip hl" id="scpCm"></button><button class="chip rp" id="scpRp"></button><button class="chip" id="scpSh"></button><a class="chip" id="scpOp" target="_blank" rel="noopener">SoundCloud ↗</a></div><div class="scp-sub"><div class="scp-k" id="scpSubH"></div><div class="scp-subb">
@@ -1023,7 +1037,7 @@ function pBuild(){
   document.body.appendChild(d);P.el=d;
   const $=id=>document.getElementById(id);
   d.addEventListener("click",e=>{
-    const a=e.target.closest("[data-pl]");if(a){const k=a.dataset.pl;if(k==="min")pMin();else if(k==="max")pFull();else pClose();return;}
+    const a=e.target.closest("[data-pl]");if(a){const k=a.dataset.pl;if(k==="min")pMin();else if(k==="max")pFull();else if(k==="prev"){$("scpPrev").click();}else if(k==="next"){$("scpNext").click();}else if(k==="tog"||k==="dp"){try{P.w&&P.w.toggle();}catch(e){}}else if(k==="dot"){P.tiny=true;try{sessionStorage.setItem("bl_tiny","1")}catch(e){}pMin();}else if(k==="undot"){P.tiny=false;try{sessionStorage.setItem("bl_tiny","")}catch(e){}pMin();}else pClose();return;}
     const sk=e.target.closest("[data-seek]");if(sk){if(P.w)P.w.seekTo(+sk.dataset.seek);return;}
     const tb=e.target.closest("#scpTabs button");if(tb){P.tab=tb.dataset.t;pTabs();pList();return;}
     if(e.target.closest("[data-qc]")){Q=[];saveQ();return;}
@@ -1068,7 +1082,7 @@ function pList(){
   const cb=document.getElementById("scpCmt");if(cb)cb.hidden=P.tab!=="cm";
   L2.innerHTML=h;const on=L2.querySelector(".on");if(on)on.scrollIntoView({block:"nearest"});
 }
-function pSetPlay(p){P.playing=p;const s=document.getElementById("scp");if(s)s.classList.toggle("playing",p);}
+function pSetPlay(p){P.playing=p;const s=document.getElementById("scp");if(s)s.classList.toggle("playing",p);const a=document.getElementById("plTog"),b=document.getElementById("plDp");if(a)a.textContent=p?"⏸":"⏵";if(b)b.textContent=p?"⏸":"⏵";}
 /* ---------- SoundCloud likes & comments via bridge ---------- */
 const SCB="https://blagoday-sc.blagodaymusic.workers.dev";
 let SCT=null;try{SCT=JSON.parse(localStorage.getItem("bl_sc")||"null");}catch(e){}
@@ -1320,7 +1334,7 @@ function pPlay(x,idx){
   if(!x)return;P.now=x;P.cur=idx;P.pos=0;P.snd=null;
   const $=id=>document.getElementById(id),al=ALB[CAT.pls[x[8]]];
   $("scpT").textContent=x[0];$("plMt").textContent=x[0];
-  const art=artOf(x);$("scpImg").src=art;$("plMi").src=artOf(x,"t200x200");
+  const art=artOf(x);$("scpImg").src=art;$("plMi").src=artOf(x,"t200x200");$("plDi").src=artOf(x,"t200x200");
   $("scpA").textContent="Blagoday Music"+(al?" · "+al[0]:"");
   $("scpK").textContent="SoundCloud"+(al?" · "+al[0]:"");
   $("scpOp").href=scUrl(x);pStats();pCm();pTabs();pList();
@@ -1345,7 +1359,7 @@ function pNext(manual){
 }
 function pPrev(){if(P.list.length){const i=P.cur>0?P.cur-1:0;pPlay(P.list[i],i);}else if(P.now)pPlay(P.now,-1);}
 function pFull(){pBuild();P.full=true;P.el.className="pl full";document.body.style.overflow="hidden";updQ();}
-function pMin(){if(!P.el)return;if(!P.now){pClose();return;}P.full=false;P.el.className="pl mini";document.body.style.overflow="";updQ();}
+function pMin(){if(!P.el)return;if(!P.now){pClose();return;}P.full=false;P.el.className="pl mini"+(P.tiny?" tiny":"");document.body.style.overflow="";updQ();}
 function pClose(){if(!P.el)return;try{P.w&&P.w.pause();}catch(e){}P.el.remove();Object.assign(P,{el:null,w:null,list:[],cur:-1,now:null,snd:null,playing:false,full:false,pos:0,title:""});document.body.style.overflow="";updQ();}
 function openSC(slug){
   const isT=slug.indexOf("track:")===0,key=isT?slug.slice(6):slug,al=ALB[slug]||null;
