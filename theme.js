@@ -4,8 +4,9 @@ try{t=localStorage.getItem(K)}catch(e){}
 if(t!=='light')t='dark';
 d.setAttribute('data-theme',t);
 var st=document.createElement('style');
-st.textContent='html[data-theme=light]{filter:invert(.92) hue-rotate(180deg);background:#080808}'+
-'html[data-theme=light] img,html[data-theme=light] video,html[data-theme=light] iframe,html[data-theme=light] canvas,html[data-theme=light] .slides,html[data-theme=light] .hero-bg{filter:invert(1) hue-rotate(180deg)}'+
+st.textContent='html[data-theme=light]{filter:invert(1) hue-rotate(180deg);background:#080808}'+
+'html[data-theme=light] img,html[data-theme=light] video,html[data-theme=light] iframe,html[data-theme=light] canvas,html[data-theme=light] .slides,html[data-theme=light] .hero,html[data-theme=light] .modal,html[data-theme=light] .scp,html[data-theme=light] .pl,html[data-theme=light] .ch-panel{filter:invert(1) hue-rotate(180deg)}'+
+'html[data-theme=light] .hero img,html[data-theme=light] .hero video,html[data-theme=light] .hero canvas,html[data-theme=light] .hero .slides,html[data-theme=light] .modal img,html[data-theme=light] .modal iframe,html[data-theme=light] .modal video,html[data-theme=light] .scp img,html[data-theme=light] .scp iframe,html[data-theme=light] .pl img,html[data-theme=light] .pl iframe,html[data-theme=light] .ch-panel img{filter:none}'+
 '.thm{width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.04);color:inherit;cursor:pointer;display:inline-grid;place-items:center;padding:0;flex:none;transition:transform .25s,border-color .2s}'+
 '.thm:hover{border-color:#ff5500}.thm:active{transform:scale(.9)}.thm svg{width:18px;height:18px;transition:transform .5s}'+
 'html[data-theme=light] .thm svg{transform:rotate(180deg)}'+
