@@ -23,7 +23,7 @@ const getCookie = (req, k) => {
   const m = (req.headers.get("Cookie") || "").match(new RegExp("(?:^|; )" + k + "=([^;]*)"));
   return m ? decodeURIComponent(m[1]) : "";
 };
-const safeReturn = (u) => (u && u.startsWith(SITE + "/") ? u : SITE + "/blagoday-production/");
+const safeReturn = (u) => (u && u.startsWith(SITE + "/") ? u : SITE + "/");
 
 async function tokenReq(env, params) {
   const body = new URLSearchParams({ client_id: env.SC_CLIENT_ID, client_secret: env.SC_CLIENT_SECRET, ...params });
@@ -328,8 +328,8 @@ export default {
         const r0 = await stub0.fetch(new Request("https://do/msg?id=" + sp[1]));
         const d0 = r0.ok ? await r0.json() : null;
         const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-        const dest = SITE + "/blagoday-production/?post=" + sp[1] + "&go=chat";
-        let title = "Blagoday Production — chat", desc = "Join the chat and listen to Blagoday Music.", img = SITE + "/blagoday-production/og-image.jpg";
+        const dest = SITE + "/?post=" + sp[1] + "&go=chat";
+        let title = "Blagoday Production — chat", desc = "Join the chat and listen to Blagoday Music.", img = SITE + "/og-image.jpg";
         if (d0 && d0.m) {
           const raw = String(d0.m.text || "");
           const tok = raw.match(/\[\[([tva]):([^|\]]+)\|([^\]]*)\]\]/);
