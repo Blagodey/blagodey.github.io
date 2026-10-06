@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Як користуватися сайтом | Blagoday Production</title>
+<meta name="description" content="Путівник по всіх можливостях сайту Blagoday Production: музика, відео, SoundCloud, чат з перекладом, пісні у повідомленнях і поширення дописів.">
+<meta property="og:title" content="Як користуватися сайтом Blagoday Production">
+<meta property="og:description" content="Музика, відео, чат з перекладом, пісні у повідомленнях і поширення дописів. Читай і пробуй.">
+<meta property="og:image" content="https://blagodey.github.io/og-image.jpg">
+<meta property="og:url" content="https://blagodey.github.io/guide.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://blagodey.github.io/guide.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&family=Exo+2:wght@400;500;600;700&family=Caveat:wght@600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#080808;--card:#131317;--line:#22222a;--txt:#f2f2f6;--mut:#a7a7b4;--mag:#ff5500;--cy:#00e5ff}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--txt);font-family:Rajdhani,"Exo 2",system-ui,sans-serif;font-size:19px;line-height:1.55}
+a{color:inherit}
+.mono{font-family:"Share Tech Mono",monospace;letter-spacing:.12em;text-transform:uppercase}
+.wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+header{position:sticky;top:0;z-index:20;background:rgba(8,8,8,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:60px;gap:12px}
+.logo{font-weight:700;letter-spacing:.08em;text-decoration:none;text-transform:uppercase}
+.logo b{color:var(--mag)}
+.lng{display:flex;gap:6px}
+.lng button{background:none;border:1px solid var(--line);color:var(--mut);border-radius:8px;padding:4px 9px;font:inherit;font-size:14px;cursor:pointer}
+.lng button.on{border-color:var(--mag);color:#fff}
+@media(max-width:640px){.lng{gap:3px}.lng button{padding:3px 6px;font-size:12px}.logo{font-size:15px}}
+.hero{padding:56px 20px 18px;position:relative}
+.k{color:var(--mag);font-size:12px}
+h1{font-size:clamp(34px,6vw,62px);line-height:1.03;margin:10px 0 14px}
+.lead{color:var(--mut);max-width:740px;font-size:21px;margin:0 0 18px}
+.toc{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.toc a{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:6px 14px;text-decoration:none;font-size:16px;color:#d6d6e0}
+.toc a:hover{border-color:var(--cy);color:#fff}
+.step{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:34px;align-items:center;padding:46px 0;border-bottom:1px solid var(--line);scroll-margin-top:70px}
+.step:nth-child(even) .art{order:2}
+.art{position:relative;background:radial-gradient(circle at 30% 20%,rgba(255,85,0,.10),transparent 60%),radial-gradient(circle at 80% 90%,rgba(0,229,255,.08),transparent 55%),var(--card);border:1px solid var(--line);border-radius:22px;aspect-ratio:3/2;overflow:hidden}
+.art::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:24px 24px}
+.art svg{position:absolute;inset:0;width:100%;height:100%}
+.num{font-family:"Share Tech Mono",monospace;color:var(--mag);font-size:15px;letter-spacing:.2em}
+.step h2{font-size:clamp(28px,4vw,40px);line-height:1.1;margin:6px 0 12px}
+.step p{margin:0 0 12px;color:#d0d0da}
+.step ul{margin:0 0 16px;padding-left:20px;color:#d0d0da}
+.step li{margin:4px 0}
+.btn{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:12px 22px;font:inherit;font-weight:700;font-size:18px;text-decoration:none;cursor:pointer;border:1px solid var(--mag);background:var(--mag);color:#fff;box-shadow:0 8px 24px rgba(255,85,0,.3)}
+.btn:hover{filter:brightness(1.1)}
+.btn.g{background:none;color:#fff;border-color:var(--line);box-shadow:none}
+.end{padding:50px 0 20px;text-align:center}
+.end h2{font-size:clamp(28px,4vw,40px);margin:0 0 10px}
+.end p{color:var(--mut);margin:0 0 18px}
+footer{border-top:1px solid var(--line);margin-top:30px;padding:24px 0 90px;color:var(--mut);font-size:15px}
+@media(max-width:760px){.step{grid-template-columns:1fr;gap:18px;padding:34px 0}.step:nth-child(even) .art{order:0}}
+/* ===== pencil drawing ===== */
+.d{fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1}
+.in .d{animation:draw 1.6s cubic-bezier(.6,.1,.3,1) forwards}
+.in .d2{animation-delay:.5s}.in .d3{animation-delay:1s}.in .d4{animation-delay:1.5s}.in .d5{animation-delay:2s}
+@keyframes draw{to{stroke-dashoffset:0}}
+.o{stroke:#ff5500}.c{stroke:#00e5ff}.w{stroke:#f2f2f6}.m{stroke:#8a8a99}
+.f{opacity:0}.in .f{animation:fade .6s ease forwards}
+.in .f1{animation-delay:1.2s}.in .f2{animation-delay:1.8s}.in .f3{animation-delay:2.4s}.in .f4{animation-delay:3s}
+@keyframes fade{to{opacity:1}}
+.hand{font-family:Caveat,cursive;font-size:22px;fill:#f2f2f6}
+.hand.o2{fill:#ff5500}.hand.c2{fill:#00e5ff}
+.pen{opacity:0}
+.in .pulse{animation:fade .6s 1.4s forwards,pulse 2.4s 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:.25}50%{opacity:1}}
+.in .bob{animation:fade .5s 1.6s forwards,bob 3s 2.1s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.in .drop{animation:drop 3.2s 1.6s ease-in-out infinite}
+@keyframes drop{0%{transform:translate(0,-40px);opacity:0}25%{opacity:1}55%,80%{transform:translate(0,0);opacity:1}100%{transform:translate(0,0);opacity:0}}
+.in .fly{animation:fly 3s 2s ease-in-out infinite}
+@keyframes fly{0%{transform:translate(0,0);opacity:0}15%{opacity:1}70%{transform:translate(70px,-34px);opacity:1}100%{transform:translate(90px,-44px);opacity:0}}
+.in .beat{transform-box:fill-box;transform-origin:center;animation:beat 1.6s 2s ease-in-out infinite}
+@keyframes beat{0%,100%{transform:scale(1)}15%{transform:scale(1.18)}30%{transform:scale(1)}}
+.in .rock{transform-box:fill-box;transform-origin:50% 100%;animation:rock 4s 1.5s ease-in-out infinite}
+@keyframes rock{0%,100%{transform:rotate(-2deg)}50%{transform:rotate(2deg)}}
+.in .wave{animation:wave 3s linear infinite}
+@keyframes wave{to{transform:translateX(-40px)}}
+@media(prefers-reduced-motion:reduce){.d{stroke-dashoffset:0!important;animation:none!important}.f,.pen{opacity:1!important;animation:none!important}.in *{animation:none!important}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <a class="logo" href="./">Blagoday <b>Production</b></a>
+  <div class="lng"><button data-l="uk">UA</button><button data-l="en">EN</button><button data-l="es">ES</button><button data-l="pt">PT</button><button data-l="de">DE</button><button data-l="fr">FR</button></div>
+</div></header>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <filter id="pencil" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="3"/><feDisplacementMap in="SourceGraphic" scale="2.6"/></filter>
+</defs></svg>
+
+<main>
+  <div class="wrap hero">
+    <div class="k mono" data-i="k">Blagoday Production · путівник</div>
+    <h1 data-i="h">Як користуватися сайтом</h1>
+    <p class="lead" data-i="lead">Усі можливості сайту в одному місці. Читай, дивись, як це працює, і одразу пробуй кнопкою під кожним розділом.</p>
+    <nav class="toc" id="toc"></nav>
+  </div>
+  <div class="wrap" id="steps"></div>
+  <div class="wrap end">
+    <h2 data-i="end_h">Готово! Тепер ти знаєш усе</h2>
+    <p data-i="end_p">Заходь у чат, познайомся з іншими слухачами і розкажи, яка пісня тобі сподобалась.</p>
+    <button class="btn" data-act="chat" data-i="end_b">💬 Відкрити чат</button>
+  </div>
+</main>
+<footer><div class="wrap">© <span id="yr"></span> Blagoday Production · <a href="./">blagodey.github.io</a></div></footer>
+
+<script>
+/* ---------- drawings (viewBox 0 0 300 200) ---------- */
+const P='filter="url(#pencil)" stroke-width="3"';
+const ART={
+lang:`<svg viewBox="0 0 300 200"><g ${P}>
+ <circle class="d c" pathLength="1" cx="110" cy="100" r="62"/>
+ <ellipse class="d c d2" pathLength="1" cx="110" cy="100" rx="28" ry="62"/>
+ <path class="d c d2" pathLength="1" d="M48 100h124M58 68c30 8 74 8 104 0M58 132c30-8 74-8 104 0"/>
+ <path class="d o d3" pathLength="1" d="M190 52h80a12 12 0 0 1 12 12v34a12 12 0 0 1-12 12h-50l-18 16 4-16h-16a12 12 0 0 1-12-12V64a12 12 0 0 1 12-12z"/>
+</g><text class="hand o2 f f2" id="langWord" x="236" y="90" text-anchor="middle" font-size="30">Привіт</text></svg>`,
+music:`<svg viewBox="0 0 300 200"><g ${P}>
+ <rect class="d w" pathLength="1" x="30" y="40" width="120" height="120" rx="10"/>
+ <circle class="d m d2" pathLength="1" cx="90" cy="100" r="40"/>
+ <circle class="d m d2" pathLength="1" cx="90" cy="100" r="26"/>
+ <circle class="d o d3" pathLength="1" cx="90" cy="100" r="9"/>
+ <path class="d o d3" pathLength="1" d="M178 74l40 26-40 26z"/>
+ <path class="d c pulse" pathLength="1" style="stroke-dashoffset:0" d="M236 78c10 12 10 32 0 44M252 66c18 20 18 48 0 68M268 54c26 28 26 64 0 92"/>
+</g><text class="hand f f3" x="150" y="186" text-anchor="middle">▶ tap → play</text></svg>`,
+video:`<svg viewBox="0 0 300 200"><g ${P}>
+ <rect class="d w" pathLength="1" x="50" y="30" width="200" height="120" rx="12"/>
+ <path class="d m d2" pathLength="1" d="M120 172h60M150 150v22"/>
+ <circle class="d o d3" pathLength="1" cx="150" cy="90" r="30"/>
+ <path class="d o d3" pathLength="1" d="M140 74l26 16-26 16z"/>
+ <path class="d c d4" pathLength="1" d="M66 136h120"/>
+</g><g class="f f3"><path d="M66 136h70" stroke="#ff5500" stroke-width="4" stroke-linecap="round"/></g><text class="hand c2 f f4" x="244" y="190" text-anchor="end">Life in 2250</text></svg>`,
+sc:`<svg viewBox="0 0 300 200"><g ${P}>
+ <g class="beat"><path class="d o" pathLength="1" d="M80 150C40 120 26 98 26 78c0-18 14-30 30-30 11 0 19 6 24 14 5-8 13-14 24-14 16 0 30 12 30 30 0 20-14 42-54 72z"/>
+ <circle class="d c d2" pathLength="1" cx="196" cy="64" r="18"/>
+ <path class="d c d2" pathLength="1" d="M166 122c0-20 14-32 30-32s30 12 30 32"/>
+ <path class="d o d3" pathLength="1" d="M246 64v28M232 78h28"/>
+ <path class="d w d4" pathLength="1" d="M160 140h112a10 10 0 0 1 10 10v20a10 10 0 0 1-10 10h-82l-14 12 3-12h-19a10 10 0 0 1-10-10v-20a10 10 0 0 1 10-10z"/>
+</g><text class="hand f f4" x="220" y="168" text-anchor="middle" font-size="18">🔥 wow!</text></svg>`,
+kg:`<svg viewBox="0 0 300 200"><g ${P}>
+ <g class="rock">
+ <path class="d w" pathLength="1" d="M60 140h180l-24 26H86z"/>
+ <path class="d w d2" pathLength="1" d="M150 140V30"/>
+ <path class="d o d3" pathLength="1" d="M156 36c34 30 44 64 44 96h-44z"/>
+ <path class="d c d3" pathLength="1" d="M144 50c-24 24-34 52-36 82h36z"/>
+ </g>
+ <path class="d c d4" pathLength="1" d="M20 178c20-10 40 10 60 0s40 10 60 0 40 10 60 0 40 10 60 0 40 10 60 0"/>
+</g><g class="bob" style="opacity:0"><text x="236" y="70" font-size="34" fill="#ff5500">♪</text><text x="258" y="44" font-size="24" fill="#00e5ff">♫</text></g></svg>`,
+chat:`<svg viewBox="0 0 300 200"><g ${P}>
+ <path class="d w" pathLength="1" d="M30 30h140a14 14 0 0 1 14 14v40a14 14 0 0 1-14 14H70l-22 18 5-18H30a14 14 0 0 1-14-14V44a14 14 0 0 1 14-14z"/>
+ <path class="d m d2" pathLength="1" d="M34 56h120M34 74h86"/>
+ <path class="d o d3" pathLength="1" d="M270 104H130a14 14 0 0 0-14 14v34a14 14 0 0 0 14 14h96l22 18-5-18h27a14 14 0 0 0 14-14v-34a14 14 0 0 0-14-14z"/>
+ <path class="d m d4" pathLength="1" d="M136 128h120M136 146h70"/>
+</g><g class="f f4"><circle cx="248" cy="40" r="7" fill="#2bff88"/><text class="hand" x="262" y="47">online</text></g></svg>`,
+tr:`<svg viewBox="0 0 300 200"><g ${P}>
+ <path class="d w" pathLength="1" d="M20 40h100a12 12 0 0 1 12 12v40a12 12 0 0 1-12 12H56l-16 14 4-14H20a12 12 0 0 1-12-12V52a12 12 0 0 1 12-12z"/>
+ <path class="d c d2" pathLength="1" d="M142 84c20-24 44-24 64 0M196 72l10 12-14 4"/>
+ <path class="d o d3" pathLength="1" d="M280 96H180a12 12 0 0 0-12 12v40a12 12 0 0 0 12 12h64l16 14-4-14h24a12 12 0 0 0 12-12v-40a12 12 0 0 0-12-12z"/>
+</g><text class="hand f f1" x="70" y="80" text-anchor="middle" font-size="26">¡Hola!</text><text class="hand o2 f f3" id="trWord" x="230" y="136" text-anchor="middle" font-size="26">Привіт!</text><text class="f f2" x="174" y="58" font-size="22">🌐</text></svg>`,
+att:`<svg viewBox="0 0 300 200"><g ${P}>
+ <path class="d w" pathLength="1" d="M30 50h220a14 14 0 0 1 14 14v84a14 14 0 0 1-14 14H90l-24 20 6-20H30a14 14 0 0 1-14-14V64a14 14 0 0 1 14-14z"/>
+ <rect class="d c d2" pathLength="1" x="40" y="96" width="196" height="50" rx="10"/>
+ <rect class="d o d3" pathLength="1" x="50" y="104" width="54" height="34" rx="6"/>
+ <path class="d m d4" pathLength="1" d="M116 112h96M116 128h56"/>
+ <path class="d m d2" pathLength="1" d="M40 72h120"/>
+</g><g class="drop"><text x="64" y="132" font-size="26" fill="#ff5500">♪</text></g></svg>`,
+share:`<svg viewBox="0 0 300 200"><g ${P}>
+ <path class="d w" pathLength="1" d="M20 70h130a12 12 0 0 1 12 12v44a12 12 0 0 1-12 12H62l-20 16 5-16H20a12 12 0 0 1-12-12V82a12 12 0 0 1 12-12z"/>
+ <circle class="d o d2" pathLength="1" cx="140" cy="152" r="18"/>
+ <path class="d o d2" pathLength="1" d="M132 160l16-16M138 144h10v10"/>
+ <circle class="d c d3" pathLength="1" cx="250" cy="44" r="22"/>
+ <circle class="d c d3" pathLength="1" cx="262" cy="104" r="22"/>
+ <circle class="d c d4" pathLength="1" cx="236" cy="160" r="22"/>
+</g><g class="f f3"><path d="M240 44l18-8-5 18-4-6z" fill="#00e5ff"/><text x="256" y="111" font-size="20" fill="#00e5ff" text-anchor="middle" font-weight="700">f</text><text x="236" y="167" font-size="18" fill="#00e5ff" text-anchor="middle">🔗</text></g><g class="fly"><text x="150" y="150" font-size="22" fill="#ff5500">↗</text></g></svg>`,
+blog:`<svg viewBox="0 0 300 200"><g ${P}>
+ <path class="d w" pathLength="1" d="M150 50c-30-16-70-18-110-8v120c40-10 80-8 110 8 30-16 70-18 110-8V42c-40-10-80-8-110 8z"/>
+ <path class="d w d2" pathLength="1" d="M150 50v120"/>
+ <path class="d m d3" pathLength="1" d="M60 70c26-6 52-4 74 4M60 92c26-6 52-4 74 4M60 114c26-6 52-4 74 4"/>
+ <path class="d o d4" pathLength="1" d="M168 74c26-8 52-8 74-4M168 96c26-8 52-8 74-4"/>
+</g></svg>`,
+sup:`<svg viewBox="0 0 300 200"><g ${P}>
+ <g class="beat"><path class="d o" pathLength="1" d="M150 170c-50-34-70-60-70-86 0-22 16-38 36-38 14 0 26 8 34 20 8-12 20-20 34-20 20 0 36 16 36 38 0 26-20 52-70 86z"/></g>
+ <path class="d c d3" pathLength="1" d="M56 50l8 8M48 84h12M246 50l-8 8M254 84h-12M150 18v14"/>
+</g></svg>`
+};
+const STEPS=[
+ {id:"lang",art:"lang",act:"lang"},
+ {id:"music",art:"music",href:"./#music"},
+ {id:"video",art:"video",href:"./#videos"},
+ {id:"sc",art:"sc",href:"./#music"},
+ {id:"kg",art:"kg",href:"kapitan-german.html"},
+ {id:"chat",art:"chat",act:"chat"},
+ {id:"tr",art:"tr",act:"chat"},
+ {id:"att",art:"att",act:"chat"},
+ {id:"share",art:"share",act:"chat"},
+ {id:"blog",art:"blog",href:"blog.html"},
+ {id:"sup",art:"sup",href:"./#support"}
+];
+const T={
+uk:{k:"Blagoday Production · путівник",h:"Як користуватися сайтом",lead:"Усі можливості сайту в одному місці. Читай, дивись, як це працює, і одразу пробуй кнопкою під кожним розділом.",
+end_h:"Готово! Тепер ти знаєш усе",end_p:"Заходь у чат, познайомся з іншими слухачами і розкажи, яка пісня тобі сподобалась.",end_b:"💬 Відкрити чат",
+lang_t:"Мова",lang_h:"Сайт говорить твоєю мовою",lang_p:"Шість мов: українська, англійська, іспанська, португальська, німецька і французька.",lang_l:["Перемикач мов угорі праворуч.","Вибрана мова запам’ятовується, і сайт відкриється нею наступного разу.","Мова чату теж змінюється разом із сайтом."],lang_b:"Спробувати: змінити мову ↑",
+music_t:"Музика",music_h:"Слухай прямо на сайті",music_p:"Не потрібно переходити на SoundCloud: музика грає тут.",music_l:["Натисни обкладинку альбому, і він заграє.","Шукай будь-який трек у каталозі.","Сортуй: найновіші або ті, що слухають найбільше.","Натисни жанр, і заграють усі його треки."],music_b:"▶ Слухати музику",
+video_t:"Відео",video_h:"Дивись відео без YouTube",video_p:"Серія «Life in 2250» та інші відео з каналу Blagoday Vision відкриваються прямо на сайті.",video_l:["Натисни на відео, і воно запуститься тут.","Уся музика у відео — авторська."],video_b:"▶ Дивитися відео",
+sc_t:"SoundCloud",sc_h:"Лайки, підписка і коментарі",sc_p:"Увійди через SoundCloud, і сайт стане твоїм пультом керування.",sc_l:["Став «подобається» трекам.","Підписуйся на Blagoday Music.","Пиши коментарі до треків.","Усе це одразу зараховується на SoundCloud."],sc_b:"♪ Перейти до музики",
+kg_t:"Капітан Герман",kg_h:"Музика у відео про життя на яхті",kg_p:"Сергій Герман показує життя на яхті Mushu, а в його відео звучить музика Blagoday.",kg_l:["Видно, яка пісня в якому відео звучить.","Натисни «Фрагмент», і відео відкриється саме на тому місці.","Деякі пісні звучать лише там і тут, на сайті."],kg_b:"⛵ Відкрити розділ",
+chat_t:"Чат",chat_h:"Чат слухачів",chat_p:"Спілкуйся з іншими слухачами в реальному часі.",chat_l:["Напиши своє ім’я або увійди через SoundCloud.","Видно, скільки людей онлайн.","Біля кожного повідомлення видно країну автора."],chat_b:"💬 Відкрити чат",
+tr_t:"Переклад",tr_h:"Пиши своєю мовою",tr_p:"Слухачі з різних країн розуміють одне одного.",tr_l:["Будь-яке повідомлення можна перекласти кнопкою 🌐.","Увімкни автопереклад, і всі нові повідомлення будуть твоєю мовою.","Вибери мову перекладу в списку під полем повідомлення."],tr_b:"🌐 Спробувати переклад",
+att_t:"Пісня у повідомленні",att_h:"Додай пісню або відео",att_p:"Говори про конкретну пісню чи відео, і всі одразу бачитимуть, про що мова.",att_l:["Натисни 🎵 біля поля повідомлення.","Знайди пісню або відео і вибери.","У повідомленні з’явиться картка: інші відкривають її одним дотиком."],att_b:"🎵 Спробувати",
+share_t:"Поділитися",share_h:"Поділись дописом",share_p:"Сподобалось повідомлення? Покажи його друзям.",share_l:["Натисни оранжеву стрілку ↗ під повідомленням.","Вибери Telegram, Facebook, X, WhatsApp або скопіюй посилання.","Хто відкриє посилання, потрапить прямо в чат до цього допису."],share_b:"↗ Спробувати",
+blog_t:"Журнал",blog_h:"Статті та путівники",blog_p:"Статті про ембієнт, музику для фокусу і серію «Life in 2250».",blog_l:[],blog_b:"📖 Відкрити журнал",
+sup_t:"Підтримка",sup_h:"Підтримай автора",sup_p:"Підписка на канали допомагає створювати нову музику і нові відео.",sup_l:[],sup_b:"❤ Підтримати"},
+en:{k:"Blagoday Production · guide",h:"How to use the site",lead:"Everything the site can do, in one place. Read, watch how it works, and try it right away with the button under each section.",
+end_h:"Done! Now you know it all",end_p:"Come to the chat, meet other listeners and tell us which song you liked.",end_b:"💬 Open chat",
+lang_t:"Language",lang_h:"The site speaks your language",lang_p:"Six languages: Ukrainian, English, Spanish, Portuguese, German and French.",lang_l:["The language switch is in the top right corner.","Your choice is remembered, and the site opens in it next time.","The chat changes language together with the site."],lang_b:"Try it: change the language ↑",
+music_t:"Music",music_h:"Listen right on the site",music_p:"No need to go to SoundCloud: the music plays here.",music_l:["Tap an album cover and it starts playing.","Search for any track in the catalog.","Sort by newest or most played.","Tap a genre to play all of its tracks."],music_b:"▶ Listen to music",
+video_t:"Videos",video_h:"Watch videos without leaving",video_p:"The “Life in 2250” series and other videos from the Blagoday Vision channel open right on the site.",video_l:["Tap a video and it plays here.","All music in the videos is original."],video_b:"▶ Watch videos",
+sc_t:"SoundCloud",sc_h:"Likes, follows and comments",sc_p:"Sign in with SoundCloud and the site becomes your remote control.",sc_l:["Like tracks.","Follow Blagoday Music.","Comment on tracks.","Everything counts on SoundCloud right away."],sc_b:"♪ Go to music",
+kg_t:"Captain German",kg_h:"Music in videos about life on a yacht",kg_p:"Serhii German shows life aboard the yacht Mushu, and Blagoday’s music plays in his videos.",kg_l:["See which song plays in which video.","Tap “Clip” and the video opens at exactly that moment.","Some songs can be heard only there and here, on this site."],kg_b:"⛵ Open the section",
+chat_t:"Chat",chat_h:"Listeners’ chat",chat_p:"Talk to other listeners in real time.",chat_l:["Type your name or sign in with SoundCloud.","See how many people are online.","Each message shows the author’s country."],chat_b:"💬 Open chat",
+tr_t:"Translation",tr_h:"Write in your own language",tr_p:"Listeners from different countries understand each other.",tr_l:["Translate any message with the 🌐 button.","Turn on auto-translate and all new messages appear in your language.","Pick the translation language in the list under the message box."],tr_b:"🌐 Try translation",
+att_t:"Song in a message",att_h:"Add a song or a video",att_p:"Talk about a specific song or video, and everyone sees what you mean.",att_l:["Tap 🎵 next to the message box.","Find a song or a video and pick it.","A card appears in your message: others open it with one tap."],att_b:"🎵 Try it",
+share_t:"Share",share_h:"Share a post",share_p:"Liked a message? Show it to your friends.",share_l:["Tap the orange arrow ↗ under the message.","Choose Telegram, Facebook, X, WhatsApp or copy the link.","Whoever opens the link lands right in the chat, on that post."],share_b:"↗ Try it",
+blog_t:"Journal",blog_h:"Articles & guides",blog_p:"Articles about ambient music, focus music and the “Life in 2250” series.",blog_l:[],blog_b:"📖 Open the journal",
+sup_t:"Support",sup_h:"Support the artist",sup_p:"Subscribing to the channels helps create new music and new videos.",sup_l:[],sup_b:"❤ Support"},
+es:{k:"Blagoday Production · guía",h:"Cómo usar el sitio",lead:"Todo lo que puede hacer el sitio, en un solo lugar. Lee, mira cómo funciona y pruébalo con el botón de cada sección.",
+end_h:"¡Listo! Ya lo sabes todo",end_p:"Entra al chat, conoce a otros oyentes y cuéntanos qué canción te gustó.",end_b:"💬 Abrir el chat",
+lang_t:"Idioma",lang_h:"El sitio habla tu idioma",lang_p:"Seis idiomas: ucraniano, inglés, español, portugués, alemán y francés.",lang_l:["El selector de idioma está arriba a la derecha.","Tu elección se guarda y el sitio se abrirá en ese idioma la próxima vez.","El chat cambia de idioma junto con el sitio."],lang_b:"Pruébalo: cambia el idioma ↑",
+music_t:"Música",music_h:"Escucha en el propio sitio",music_p:"No hace falta ir a SoundCloud: la música suena aquí.",music_l:["Toca la portada de un álbum y empezará a sonar.","Busca cualquier tema en el catálogo.","Ordena por los más nuevos o los más escuchados.","Toca un género y sonarán todos sus temas."],music_b:"▶ Escuchar música",
+video_t:"Videos",video_h:"Mira los videos aquí",video_p:"La serie «Life in 2250» y otros videos del canal Blagoday Vision se abren en el propio sitio.",video_l:["Toca un video y se reproducirá aquí.","Toda la música de los videos es original."],video_b:"▶ Ver videos",
+sc_t:"SoundCloud",sc_h:"Me gusta, seguir y comentarios",sc_p:"Entra con SoundCloud y el sitio se convierte en tu control remoto.",sc_l:["Da me gusta a los temas.","Sigue a Blagoday Music.","Comenta los temas.","Todo cuenta en SoundCloud al instante."],sc_b:"♪ Ir a la música",
+kg_t:"Capitán Germán",kg_h:"Música en videos sobre la vida en un velero",kg_p:"Serhii German muestra la vida a bordo del velero Mushu, y en sus videos suena la música de Blagoday.",kg_l:["Mira qué canción suena en cada video.","Toca «Fragmento» y el video se abre justo en ese momento.","Algunas canciones solo se escuchan allí y aquí, en este sitio."],kg_b:"⛵ Abrir la sección",
+chat_t:"Chat",chat_h:"Chat de oyentes",chat_p:"Habla con otros oyentes en tiempo real.",chat_l:["Escribe tu nombre o entra con SoundCloud.","Mira cuántas personas están en línea.","Cada mensaje muestra el país del autor."],chat_b:"💬 Abrir el chat",
+tr_t:"Traducción",tr_h:"Escribe en tu idioma",tr_p:"Oyentes de distintos países se entienden.",tr_l:["Traduce cualquier mensaje con el botón 🌐.","Activa la traducción automática y todos los mensajes nuevos aparecerán en tu idioma.","Elige el idioma de traducción en la lista bajo el cuadro de mensaje."],tr_b:"🌐 Probar la traducción",
+att_t:"Canción en un mensaje",att_h:"Añade una canción o un video",att_p:"Habla de una canción o un video concretos y todos verán de qué se trata.",att_l:["Toca 🎵 junto al cuadro de mensaje.","Busca una canción o un video y elígelo.","En el mensaje aparece una tarjeta: los demás la abren con un toque."],att_b:"🎵 Probar",
+share_t:"Compartir",share_h:"Comparte una publicación",share_p:"¿Te gustó un mensaje? Muéstralo a tus amigos.",share_l:["Toca la flecha naranja ↗ bajo el mensaje.","Elige Telegram, Facebook, X, WhatsApp o copia el enlace.","Quien abra el enlace llegará directo al chat, a esa publicación."],share_b:"↗ Probar",
+blog_t:"Revista",blog_h:"Artículos y guías",blog_p:"Artículos sobre música ambient, música para concentrarse y la serie «Life in 2250».",blog_l:[],blog_b:"📖 Abrir la revista",
+sup_t:"Apoyo",sup_h:"Apoya al autor",sup_p:"Suscribirte a los canales ayuda a crear nueva música y nuevos videos.",sup_l:[],sup_b:"❤ Apoyar"},
+pt:{k:"Blagoday Production · guia",h:"Como usar o site",lead:"Tudo o que o site faz, num só lugar. Leia, veja como funciona e experimente com o botão de cada seção.",
+end_h:"Pronto! Agora você sabe tudo",end_p:"Entre no chat, conheça outros ouvintes e conte qual música você curtiu.",end_b:"💬 Abrir o chat",
+lang_t:"Idioma",lang_h:"O site fala o seu idioma",lang_p:"Seis idiomas: ucraniano, inglês, espanhol, português, alemão e francês.",lang_l:["O seletor de idioma fica no canto superior direito.","Sua escolha fica salva e o site abre nesse idioma da próxima vez.","O chat muda de idioma junto com o site."],lang_b:"Experimente: mude o idioma ↑",
+music_t:"Música",music_h:"Ouça no próprio site",music_p:"Não precisa ir ao SoundCloud: a música toca aqui.",music_l:["Toque na capa de um álbum e ele começa a tocar.","Procure qualquer faixa no catálogo.","Ordene pelas mais novas ou mais ouvidas.","Toque num gênero e todas as faixas dele vão tocar."],music_b:"▶ Ouvir música",
+video_t:"Vídeos",video_h:"Assista aos vídeos aqui",video_p:"A série «Life in 2250» e outros vídeos do canal Blagoday Vision abrem no próprio site.",video_l:["Toque num vídeo e ele toca aqui.","Toda a música dos vídeos é original."],video_b:"▶ Ver vídeos",
+sc_t:"SoundCloud",sc_h:"Curtidas, seguir e comentários",sc_p:"Entre com o SoundCloud e o site vira o seu controle remoto.",sc_l:["Curta as faixas.","Siga a Blagoday Music.","Comente as faixas.","Tudo conta no SoundCloud na hora."],sc_b:"♪ Ir para a música",
+kg_t:"Capitão German",kg_h:"Música em vídeos sobre a vida num veleiro",kg_p:"Serhii German mostra a vida a bordo do veleiro Mushu, e nos vídeos dele toca a música de Blagoday.",kg_l:["Veja qual música toca em cada vídeo.","Toque em «Trecho» e o vídeo abre exatamente naquele momento.","Algumas músicas só se ouvem lá e aqui, neste site."],kg_b:"⛵ Abrir a seção",
+chat_t:"Chat",chat_h:"Chat dos ouvintes",chat_p:"Converse com outros ouvintes em tempo real.",chat_l:["Digite seu nome ou entre com o SoundCloud.","Veja quantas pessoas estão online.","Cada mensagem mostra o país do autor."],chat_b:"💬 Abrir o chat",
+tr_t:"Tradução",tr_h:"Escreva no seu idioma",tr_p:"Ouvintes de países diferentes se entendem.",tr_l:["Traduza qualquer mensagem com o botão 🌐.","Ative a tradução automática e todas as novas mensagens aparecem no seu idioma.","Escolha o idioma da tradução na lista abaixo da caixa de mensagem."],tr_b:"🌐 Testar a tradução",
+att_t:"Música na mensagem",att_h:"Adicione uma música ou um vídeo",att_p:"Fale de uma música ou vídeo específico e todos verão do que se trata.",att_l:["Toque em 🎵 ao lado da caixa de mensagem.","Encontre uma música ou um vídeo e escolha.","Um cartão aparece na mensagem: os outros abrem com um toque."],att_b:"🎵 Experimentar",
+share_t:"Compartilhar",share_h:"Compartilhe uma publicação",share_p:"Gostou de uma mensagem? Mostre aos amigos.",share_l:["Toque na seta laranja ↗ abaixo da mensagem.","Escolha Telegram, Facebook, X, WhatsApp ou copie o link.","Quem abrir o link cai direto no chat, nessa publicação."],share_b:"↗ Experimentar",
+blog_t:"Revista",blog_h:"Artigos e guias",blog_p:"Artigos sobre música ambient, música para foco e a série «Life in 2250».",blog_l:[],blog_b:"📖 Abrir a revista",
+sup_t:"Apoio",sup_h:"Apoie o autor",sup_p:"Inscrever-se nos canais ajuda a criar novas músicas e novos vídeos.",sup_l:[],sup_b:"❤ Apoiar"},
+de:{k:"Blagoday Production · Anleitung",h:"So nutzt du die Website",lead:"Alles, was die Website kann, an einem Ort. Lies, sieh dir an, wie es funktioniert, und probiere es gleich mit dem Button unter jedem Abschnitt aus.",
+end_h:"Fertig! Jetzt weißt du alles",end_p:"Komm in den Chat, lerne andere Hörer kennen und erzähl, welcher Song dir gefallen hat.",end_b:"💬 Chat öffnen",
+lang_t:"Sprache",lang_h:"Die Website spricht deine Sprache",lang_p:"Sechs Sprachen: Ukrainisch, Englisch, Spanisch, Portugiesisch, Deutsch und Französisch.",lang_l:["Die Sprachauswahl ist oben rechts.","Deine Wahl wird gespeichert, und die Website öffnet sich beim nächsten Mal in dieser Sprache.","Der Chat wechselt die Sprache zusammen mit der Website."],lang_b:"Probier’s: Sprache wechseln ↑",
+music_t:"Musik",music_h:"Direkt auf der Website hören",music_p:"Du musst nicht zu SoundCloud: Die Musik spielt hier.",music_l:["Tippe auf ein Albumcover, und es startet.","Suche jeden Track im Katalog.","Sortiere nach neuesten oder meistgehörten.","Tippe auf ein Genre, und alle seine Tracks spielen."],music_b:"▶ Musik hören",
+video_t:"Videos",video_h:"Videos direkt hier ansehen",video_p:"Die Serie „Life in 2250“ und weitere Videos vom Kanal Blagoday Vision öffnen sich direkt auf der Website.",video_l:["Tippe auf ein Video, und es läuft hier.","Die gesamte Musik in den Videos ist eigene Musik."],video_b:"▶ Videos ansehen",
+sc_t:"SoundCloud",sc_h:"Likes, Folgen und Kommentare",sc_p:"Melde dich mit SoundCloud an, und die Website wird zu deiner Fernbedienung.",sc_l:["Like Tracks.","Folge Blagoday Music.","Kommentiere Tracks.","Alles zählt sofort auf SoundCloud."],sc_b:"♪ Zur Musik",
+kg_t:"Kapitän German",kg_h:"Musik in Videos über das Leben auf einer Yacht",kg_p:"Serhii German zeigt das Leben an Bord der Yacht Mushu, und in seinen Videos läuft Musik von Blagoday.",kg_l:["Sieh, welcher Song in welchem Video läuft.","Tippe auf „Ausschnitt“, und das Video öffnet sich genau an dieser Stelle.","Manche Songs gibt es nur dort und hier auf dieser Website."],kg_b:"⛵ Bereich öffnen",
+chat_t:"Chat",chat_h:"Hörer-Chat",chat_p:"Unterhalte dich in Echtzeit mit anderen Hörern.",chat_l:["Gib deinen Namen ein oder melde dich mit SoundCloud an.","Sieh, wie viele Leute online sind.","Bei jeder Nachricht steht das Land des Autors."],chat_b:"💬 Chat öffnen",
+tr_t:"Übersetzung",tr_h:"Schreib in deiner Sprache",tr_p:"Hörer aus verschiedenen Ländern verstehen einander.",tr_l:["Übersetze jede Nachricht mit dem Button 🌐.","Schalte die automatische Übersetzung ein, und alle neuen Nachrichten erscheinen in deiner Sprache.","Wähle die Zielsprache in der Liste unter dem Nachrichtenfeld."],tr_b:"🌐 Übersetzung ausprobieren",
+att_t:"Song in der Nachricht",att_h:"Füge einen Song oder ein Video hinzu",att_p:"Sprich über einen bestimmten Song oder ein Video, und alle sehen sofort, worum es geht.",att_l:["Tippe auf 🎵 neben dem Nachrichtenfeld.","Finde einen Song oder ein Video und wähle es aus.","In der Nachricht erscheint eine Karte: Andere öffnen sie mit einem Tipp."],att_b:"🎵 Ausprobieren",
+share_t:"Teilen",share_h:"Teile einen Beitrag",share_p:"Dir gefällt eine Nachricht? Zeig sie deinen Freunden.",share_l:["Tippe auf den orangefarbenen Pfeil ↗ unter der Nachricht.","Wähle Telegram, Facebook, X, WhatsApp oder kopiere den Link.","Wer den Link öffnet, landet direkt im Chat bei diesem Beitrag."],share_b:"↗ Ausprobieren",
+blog_t:"Magazin",blog_h:"Artikel und Anleitungen",blog_p:"Artikel über Ambient, Musik zum Konzentrieren und die Serie „Life in 2250“.",blog_l:[],blog_b:"📖 Magazin öffnen",
+sup_t:"Unterstützung",sup_h:"Unterstütze den Künstler",sup_p:"Ein Abo der Kanäle hilft, neue Musik und neue Videos zu machen.",sup_l:[],sup_b:"❤ Unterstützen"},
+fr:{k:"Blagoday Production · guide",h:"Comment utiliser le site",lead:"Tout ce que fait le site, au même endroit. Lisez, regardez comment ça marche et essayez tout de suite avec le bouton sous chaque section.",
+end_h:"C’est fait ! Vous savez tout",end_p:"Venez dans le chat, rencontrez d’autres auditeurs et dites-nous quelle chanson vous a plu.",end_b:"💬 Ouvrir le chat",
+lang_t:"Langue",lang_h:"Le site parle votre langue",lang_p:"Six langues : ukrainien, anglais, espagnol, portugais, allemand et français.",lang_l:["Le sélecteur de langue est en haut à droite.","Votre choix est mémorisé et le site s’ouvrira dans cette langue la prochaine fois.","Le chat change de langue avec le site."],lang_b:"Essayez : changez la langue ↑",
+music_t:"Musique",music_h:"Écoutez directement sur le site",music_p:"Inutile d’aller sur SoundCloud : la musique joue ici.",music_l:["Touchez la pochette d’un album et il démarre.","Cherchez n’importe quel titre dans le catalogue.","Triez par plus récents ou plus écoutés.","Touchez un genre et tous ses titres s’enchaînent."],music_b:"▶ Écouter la musique",
+video_t:"Vidéos",video_h:"Regardez les vidéos ici",video_p:"La série « Life in 2250 » et d’autres vidéos de la chaîne Blagoday Vision s’ouvrent directement sur le site.",video_l:["Touchez une vidéo et elle se lance ici.","Toute la musique des vidéos est originale."],video_b:"▶ Voir les vidéos",
+sc_t:"SoundCloud",sc_h:"J’aime, abonnement et commentaires",sc_p:"Connectez-vous avec SoundCloud et le site devient votre télécommande.",sc_l:["Aimez des titres.","Abonnez-vous à Blagoday Music.","Commentez des titres.","Tout compte aussitôt sur SoundCloud."],sc_b:"♪ Aller à la musique",
+kg_t:"Capitaine German",kg_h:"La musique dans des vidéos sur la vie en voilier",kg_p:"Serhii German montre la vie à bord du voilier Mushu, et la musique de Blagoday joue dans ses vidéos.",kg_l:["Voyez quelle chanson joue dans quelle vidéo.","Touchez « Extrait » et la vidéo s’ouvre pile à ce moment.","Certaines chansons ne s’écoutent que là-bas et ici, sur ce site."],kg_b:"⛵ Ouvrir la section",
+chat_t:"Chat",chat_h:"Chat des auditeurs",chat_p:"Discutez avec d’autres auditeurs en temps réel.",chat_l:["Entrez votre nom ou connectez-vous avec SoundCloud.","Voyez combien de personnes sont en ligne.","Chaque message indique le pays de l’auteur."],chat_b:"💬 Ouvrir le chat",
+tr_t:"Traduction",tr_h:"Écrivez dans votre langue",tr_p:"Des auditeurs de pays différents se comprennent.",tr_l:["Traduisez n’importe quel message avec le bouton 🌐.","Activez la traduction automatique et tous les nouveaux messages s’affichent dans votre langue.","Choisissez la langue de traduction dans la liste sous la zone de message."],tr_b:"🌐 Essayer la traduction",
+att_t:"Chanson dans un message",att_h:"Ajoutez une chanson ou une vidéo",att_p:"Parlez d’une chanson ou d’une vidéo précise, et tout le monde voit de quoi il s’agit.",att_l:["Touchez 🎵 à côté de la zone de message.","Trouvez une chanson ou une vidéo et choisissez-la.","Une carte apparaît dans le message : les autres l’ouvrent d’un toucher."],att_b:"🎵 Essayer",
+share_t:"Partager",share_h:"Partagez une publication",share_p:"Un message vous plaît ? Montrez-le à vos amis.",share_l:["Touchez la flèche orange ↗ sous le message.","Choisissez Telegram, Facebook, X, WhatsApp ou copiez le lien.","Qui ouvre le lien arrive directement dans le chat, sur cette publication."],share_b:"↗ Essayer",
+blog_t:"Magazine",blog_h:"Articles et guides",blog_p:"Articles sur la musique ambient, la musique pour se concentrer et la série « Life in 2250 ».",blog_l:[],blog_b:"📖 Ouvrir le magazine",
+sup_t:"Soutien",sup_h:"Soutenez l’artiste",sup_p:"S’abonner aux chaînes aide à créer de nouvelles musiques et de nouvelles vidéos.",sup_l:[],sup_b:"❤ Soutenir"}
+};
+const HELLO={uk:"Привіт!",en:"Hello!",es:"¡Hola!",pt:"Olá!",de:"Hallo!",fr:"Salut !"};
+const WORDS=["Привіт","Hello","Hola","Olá","Hallo","Salut"];
+let L="uk";try{const s=localStorage.getItem("bl_lang");const nl=(navigator.language||"").slice(0,2);L=(s&&T[s])?s:(T[nl]?nl:"en")}catch(e){}
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+let io;
+function render(){
+  const t=T[L];document.documentElement.lang=L;
+  document.querySelectorAll("[data-i]").forEach(e=>{const v=t[e.dataset.i];if(v)e.textContent=v});
+  document.querySelectorAll(".lng button").forEach(b=>b.classList.toggle("on",b.dataset.l===L));
+  $("toc").innerHTML=STEPS.map((s,i)=>`<a href="#${s.id}">${String(i+1).padStart(2,"0")} · ${esc(t[s.id+"_t"])}</a>`).join("");
+  $("steps").innerHTML=STEPS.map((s,i)=>{const l=t[s.id+"_l"]||[];const b=s.href?`<a class="btn" href="${s.href}">${esc(t[s.id+"_b"])}</a>`:`<button class="btn" data-act="${s.act}">${esc(t[s.id+"_b"])}</button>`;
+    return `<section class="step" id="${s.id}"><div class="art" aria-hidden="true">${ART[s.art]}</div><div><div class="num">${String(i+1).padStart(2,"0")} · ${esc(t[s.id+"_t"]).toUpperCase()}</div><h2>${esc(t[s.id+"_h"])}</h2><p>${esc(t[s.id+"_p"])}</p>${l.length?`<ul>${l.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`:""}${b}</div></section>`}).join("");
+  const tw=$("trWord");if(tw)tw.textContent=HELLO[L];
+  if(io)io.disconnect();
+  io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.35});
+  document.querySelectorAll(".step").forEach(s=>io.observe(s));
+}
+let wi=0;setInterval(()=>{const w=$("langWord");if(!w)return;wi=(wi+1)%WORDS.length;w.textContent=WORDS[wi]},1400);
+function openChat(){if(window.chOpen)window.chOpen();else setTimeout(openChat,300)}
+document.addEventListener("click",e=>{
+  const a=e.target.closest("[data-act]");
+  if(a){if(a.dataset.act==="chat")openChat();else if(a.dataset.act==="lang"){window.scrollTo({top:0,behavior:"smooth"});const g=document.querySelector(".lng");g.animate([{boxShadow:"0 0 0 0 rgba(255,85,0,.0)"},{boxShadow:"0 0 0 6px rgba(255,85,0,.6)"},{boxShadow:"0 0 0 0 rgba(255,85,0,0)"}],{duration:1200,iterations:2});}return}
+  const l=e.target.closest(".lng button");if(l){L=l.dataset.l;try{localStorage.setItem("bl_lang",L)}catch(_){}render();if(window.BLChat)BLChat.setLang(L)}
+});
+$("yr").textContent=new Date().getFullYear();
+render();
+</script>
+<script src="chat.js?v=8" defer></script>
+<script src="share.js?v=3" defer></script>
+</body>
+</html>
