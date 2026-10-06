@@ -114,6 +114,7 @@ export class ChatRoom {
       return new Response(null, { status: 101, webSocket: pair[0] });
     }
     if (p === "/history") return ok({ msgs: this.history(), online: this.online() });
+    if (p === "/msg") { const r = this.rows(`SELECT id,ts,name,avatar,author,text,cc FROM msgs WHERE deleted=0 AND id=?`, Number(url.searchParams.get("id")) || 0)[0]; return r ? ok({ m: r }) : ok({ error: "not_found" }, 404); }
     const body = req.method === "POST" ? await req.json().catch(() => ({})) : {};
     if (p === "/play") {
       const slug = String(body.slug || "").replace(/[^a-z0-9_-]/gi, "").slice(0, 120);
@@ -320,12 +321,32 @@ export default {
         return json(out);
       }
 
+      // ---- share page for one chat post (Open Graph card, then redirect to the site chat) ----
+      const sp = p.match(/^\/p\/(\d{1,12})$/);
+      if (sp) {
+        const stub0 = env.CHAT.get(env.CHAT.idFromName("main"));
+        const r0 = await stub0.fetch(new Request("https://do/msg?id=" + sp[1]));
+        const d0 = r0.ok ? await r0.json() : null;
+        const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+        const dest = SITE + "/blagoday-production/?post=" + sp[1] + "&go=chat";
+        let title = "Blagoday Production — chat", desc = "Join the chat and listen to Blagoday Music.", img = SITE + "/blagoday-production/og-image.jpg";
+        if (d0 && d0.m) {
+          const raw = String(d0.m.text || "");
+          const tok = raw.match(/\[\[([tva]):([^|\]]+)\|([^\]]*)\]\]/);
+          const body = raw.replace(/\[\[[^\]]*\]\]/g, "").trim();
+          title = d0.m.name + (tok ? " · " + tok[3] : "") + " — Blagoday chat";
+          desc = (body || (tok ? tok[3] : desc)).slice(0, 200);
+          if (tok && tok[1] === "v") img = "https://i.ytimg.com/vi/" + tok[2].replace(/[^\w-]/g, "") + "/hqdefault.jpg";
+        }
+        const html = `<!doctype html><html lang="uk"><head><meta charset="utf-8"><title>${esc(title)}</title><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="${esc(desc)}"><meta property="og:type" content="website"><meta property="og:site_name" content="Blagoday Production"><meta property="og:title" content="${esc(title)}"><meta property="og:description" content="${esc(desc)}"><meta property="og:image" content="${esc(img)}"><meta property="og:url" content="${esc(url.href)}"><meta name="twitter:card" content="summary_large_image"><meta http-equiv="refresh" content="0;url=${esc(dest)}"><link rel="canonical" href="${esc(dest)}"></head><body style="background:#0b0b10;color:#fff;font-family:sans-serif"><p><a style="color:#ff5500" href="${esc(dest)}">Blagoday Production →</a></p><script>location.replace(${JSON.stringify(dest)})</script></body></html>`;
+        return new Response(html, { headers: { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "public, max-age=300" } });
+      }
       // ---- chat + site data (Durable Object) ----
       if (p.startsWith("/chat/") || ["/play", "/visit"].includes(p)) {
         const stub = env.CHAT.get(env.CHAT.idFromName("main"));
         const sub = p.startsWith("/chat/") ? p.slice(5) : p;
         const h = new Headers(req.headers); h.set("X-IP", req.headers.get("CF-Connecting-IP") || "?"); h.set("X-CC", String((req.cf && req.cf.country) || "").slice(0, 2));
-        if (sub !== "/ws" && sub !== "/history" && (req.headers.get("Origin") || "") !== SITE) return json({ error: "forbidden" }, 403);
+        if (sub !== "/ws" && sub !== "/history" && sub !== "/msg" && (req.headers.get("Origin") || "") !== SITE) return json({ error: "forbidden" }, 403);
         const r = await stub.fetch(new Request("https://do" + sub, { method: req.method, headers: h, body: req.method === "POST" ? await req.text() : undefined }));
         if (sub === "/ws") return r;
         return new Response(r.body, { status: r.status, headers: { "Content-Type": "application/json", ...cors() } });
