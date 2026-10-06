@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&family=Exo+2:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#080808;--card:#131317;--line:#22222a;--txt:#f2f2f6;--mut:#a7a7b4;--mag:#ff00aa;--cy:#00e5ff}
+:root{--bg:#080808;--card:#131317;--line:#22222a;--txt:#f2f2f6;--mut:#a7a7b4;--mag:#ff5500;--cy:#00e5ff}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--txt);font-family:Rajdhani,"Exo 2",system-ui,sans-serif;font-size:18px;line-height:1.5}
 a{color:inherit}
@@ -110,7 +110,7 @@ footer{border-top:1px solid var(--line);margin-top:30px;padding:24px 0 40px;colo
    SONGS: one entry per song appearance.
    {n:"Song title", v:"YouTube video id", s:"10:30", e:"11:40", sc:"soundcloud-permalink (optional)"}
 */
-const SONGS=[];
+const SONGS=[{"n":"On the Waves with Vinyl Dreams","v":"--KrnS2Bg2Y","s":"8:30","e":"9:50"},{"n":"Welcome Home","v":"--KrnS2Bg2Y","s":"27:00","e":"27:40"},{"n":"Welcome Home","v":"--KrnS2Bg2Y","s":"31:40","e":"32:40"},{"n":"Dolby blues","v":"--KrnS2Bg2Y","s":"35:50","e":"37:00"},{"n":"Dolby blues","v":"--KrnS2Bg2Y","s":"42:00","e":"43:20"},{"n":"Down In Chicago","v":"-OedJZX0JUA","s":"13:50","e":"16:30"},{"n":"До мрії","v":"-OedJZX0JUA","s":"30:00","e":"30:40"},{"n":"Airy highs","v":"045lPk_KXIM","s":"3:30","e":"4:40"},{"n":"Down In Chicago","v":"045lPk_KXIM","s":"10:30","e":"11:10"},{"n":"Islands in the Mist","v":"3faHj4xJPNU","s":"1:20","e":"2:10"},{"n":"soulful slow blues","v":"3faHj4xJPNU","s":"4:00","e":"4:50"},{"n":"Captains of the Light","v":"5njGdQBBfwQ","s":"26:10","e":"27:00"},{"n":"Океан","v":"99syv4OJAso","s":"5:20","e":"6:00"},{"n":"Це твоє життя","v":"99syv4OJAso","s":"21:20","e":"23:30"},{"n":"Dolby blues","v":"BFYNMeavJFA","s":"0:10","e":"1:40"},{"n":"Airy highs","v":"BFYNMeavJFA","s":"5:00","e":"7:10"},{"n":"Down In Chicago","v":"BYJwAIWSGE0","s":"24:00","e":"24:40"},{"n":"Музон","v":"EanarMiVv-c","s":"5:30","e":"6:30"},{"n":"Музон","v":"EanarMiVv-c","s":"11:50","e":"14:20"},{"n":"До мрії","v":"GunuJFVxd20","s":"2:30","e":"3:50"},{"n":"Captains of the Light","v":"GunuJFVxd20","s":"19:40","e":"22:00"},{"n":"Tropical Shore","v":"JTJvusOFiEo","s":"9:10","e":"9:50"},{"n":"До мрії","v":"PyIaZZomds0","s":"4:20","e":"7:00"},{"n":"Maupiti","v":"PyIaZZomds0","s":"9:00","e":"10:00"},{"n":"Maupiti","v":"PyIaZZomds0","s":"17:30","e":"18:40"},{"n":"Sunshine on My Way","v":"PyIaZZomds0","s":"26:40","e":"28:30"},{"n":"Airy highs","v":"U8mmd4ciz7M","s":"3:50","e":"5:40"},{"n":"Sunrise Bliss","v":"U8mmd4ciz7M","s":"14:30","e":"15:50"},{"n":"Groove on the Waves","v":"U8mmd4ciz7M","s":"27:20","e":"29:00"},{"n":"Музон","v":"Zxeot0LK1qY","s":"14:30","e":"15:40"},{"n":"Maupiti","v":"fTidrdOVN_I","s":"3:30","e":"6:20"},{"n":"Maupiti","v":"fTidrdOVN_I","s":"8:40","e":"11:20"},{"n":"Maupiti","v":"fTidrdOVN_I","s":"13:50","e":"15:30"},{"n":"Airy highs","v":"hxGfP6HH73E","s":"0:30","e":"1:40"},{"n":"Down In Chicago","v":"j1zKjkkVVro","s":"10:20","e":"11:40"},{"n":"Maupiti","v":"jIOHB9dndjA","s":"4:10","e":"6:30"},{"n":"Напад на цю гавань","v":"jIOHB9dndjA","s":"24:40","e":"26:10"},{"n":"Це твоє життя","v":"jcLsMCA1ljk","s":"1:10","e":"4:50"},{"n":"До мрії","v":"jqFg4dwib88","s":"12:50","e":"15:30"},{"n":"До мрії","v":"k3MsXwD9tlI","s":"0:30","e":"1:40"},{"n":"Sunshine on the Sand","v":"k3MsXwD9tlI","s":"6:50","e":"7:50"},{"n":"Dolby blues","v":"p0yLFlemjqU","s":"5:50","e":"7:00"},{"n":"До мрії","v":"p0yLFlemjqU","s":"24:20","e":"26:20"},{"n":"Island Vibes","v":"p0yLFlemjqU","s":"27:30","e":"29:40"},{"n":"До мрії","v":"u6i43brnfeM","s":"9:30","e":"11:20"},{"n":"До мрії","v":"u6i43brnfeM","s":"26:50","e":"28:40"},{"n":"До мрії","v":"u6i43brnfeM","s":"30:30","e":"31:50"},{"n":"Captain German's Drone","v":"xJ8wuc7-edY","s":"21:50","e":"24:10"},{"n":"Це твоє життя","v":"y45M-h2cFTU","s":"23:20","e":"26:20"},{"n":"Dolby blues","v":"z-jRfvmKiNw","s":"7:00","e":"8:40"}];
 /* Videos of the channel (id, title, date, length) */
 const VIDS=[
 ["fTidrdOVN_I","Leaving Phuket! Our final route through Thailand via Phang Nga","2026-10-03","27:15"],
@@ -184,6 +184,6 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape")closeV()});
 $("yr").textContent=new Date().getFullYear();
 render();
 </script>
-<script src="chat.js?v=6" defer></script>
+<script src="chat.js?v=7" defer></script>
 </body>
 </html>

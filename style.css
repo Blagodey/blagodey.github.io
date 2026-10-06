@@ -2,7 +2,7 @@
 html { scroll-behavior: smooth; color-scheme: dark; }
 :root {
   --cyan: #00f0ff;
-  --pink: #f00aff;
+  --pink: #ff5500;
   --purple: #9d00ff;
   --green: #00ff9f;
   --border: rgba(255,255,255,0.1);
@@ -120,7 +120,7 @@ main { position: relative; z-index: 1; }
 .hero-line2 {
   display: block;
   color: var(--pink);
-  text-shadow: 0 0 40px rgba(240,10,255,0.4), 3px 3px 0 var(--cyan);
+  text-shadow: 0 0 40px rgba(255,85,0,0.4), 3px 3px 0 var(--cyan);
   animation: glitch 8s 2s infinite;
 }
 .cursor {
@@ -335,7 +335,7 @@ main { position: relative; z-index: 1; }
 .stream-name { font-family:'Inter',sans-serif; font-size:.9rem; font-weight:500; color:#fff; }
 .stream-handle { font-family:'JetBrains Mono',monospace; font-size:.55rem; color:rgba(255,255,255,0.8); margin-top:.15rem; letter-spacing:.08em; }
 .kofi-box {
-  border:1px solid rgba(240,10,255,0.3); background:rgba(240,10,255,0.04);
+  border:1px solid rgba(255,85,0,0.3); background:rgba(255,85,0,0.04);
   padding:2.5rem; text-align:center; margin-top:3rem;
 }
 .kofi-title { font-family:'Orbitron',sans-serif; font-size:clamp(1.5rem,3vw,2.5rem); font-weight:900; color:#fff; text-transform:uppercase; margin-bottom:1rem; }
