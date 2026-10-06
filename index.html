@@ -215,8 +215,11 @@ footer{border-top:1px solid var(--line);padding:40px 0;color:var(--mut);font-siz
 .sl.on{opacity:1}
 .sl img{width:100%;height:100%;object-fit:cover;transform:scale(1.02);filter:saturate(1.1)}
 .hero h1,.hero p.lead,.hero .kicker{text-shadow:0 2px 18px rgba(0,0,0,.55)}
-.sl.on img{animation:kb 9s ease-out forwards}
-@keyframes kb{from{transform:scale(1.02)}to{transform:scale(1.09) translate(-1%,-.5%)}}
+.sl img{will-change:transform;backface-visibility:hidden}
+.sl.on img,.sl.out img{animation:kb 9s linear forwards}
+.sl:nth-child(even).on img,.sl:nth-child(even).out img{animation-name:kbo}
+@keyframes kb{from{transform:scale(1.02)}to{transform:scale(1.1)}}
+@keyframes kbo{from{transform:scale(1.1)}to{transform:scale(1.02)}}
 .hero-shade{position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(90deg,rgba(8,8,8,.62) 0%,rgba(8,8,8,.22) 42%,rgba(8,8,8,0) 65%),linear-gradient(transparent 72%,rgba(8,8,8,.85) 100%)}
 .hero h1{font-size:clamp(46px,9vw,118px);text-shadow:0 4px 30px rgba(0,0,0,.5)}
 .hero .lead{color:#fff;text-shadow:0 2px 12px rgba(0,0,0,.7);max-width:520px}
@@ -506,7 +509,7 @@ button.sb{font:inherit;text-align:left;cursor:pointer;width:100%}
 .cat-bar select{max-width:100%}
 @media(max-width:760px){.esc{display:none}.cat-bar{gap:10px}.cat-bar input{flex-basis:100%}.cat-bar select{flex:1 1 0;min-width:0}}
 .hero .now.now-top{position:static;right:auto;bottom:auto;align-items:flex-start;margin:0 0 24px;animation:fadeUp .9s ease forwards}
-.hero .now-top .now-card{max-width:560px}
+.hero .now-top .now-card{width:560px;max-width:100%;height:78px}.hero .now-card b{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.hero .now-card .now-p{flex:none;margin-left:auto}
 @media(max-width:860px){.hero{padding-bottom:96px}.hero .now.now-top{align-items:stretch}.hero .now-top .dots{justify-content:flex-start}}
 
 /* ===== chat ===== */
@@ -610,12 +613,12 @@ button.sb{font:inherit;text-align:left;cursor:pointer;width:100%}
 
 <main id="top">
   <section class="hero" id="top2">
-    <div class="slides" id="slides"><div class="sl on" data-yt="KQvhsQ0w5Us" data-t="Vol. 22: Eco Megacity Life"><img src="https://i.ytimg.com/vi/KQvhsQ0w5Us/maxres1.jpg" onerror="this.src='https://i.ytimg.com/vi/KQvhsQ0w5Us/maxresdefault.jpg'" alt="Life in 2250 — Vol. 22: Eco Megacity Life"></div><div class="sl" data-yt="UoB5zYC2GDI" data-t="Vol. 47: Towers Where the Trees Grow"><img src="https://i.ytimg.com/vi/UoB5zYC2GDI/maxres1.jpg" onerror="this.src='https://i.ytimg.com/vi/UoB5zYC2GDI/maxresdefault.jpg'" alt="Life in 2250 — Vol. 47: Towers Where the Trees Grow" loading="lazy"></div><div class="sl" data-yt="ZmCZJatpooc" data-t="Vol. 41: Oceanic Outposts & Deep-Sea Colonization"><img src="https://i.ytimg.com/vi/ZmCZJatpooc/maxres2.jpg" onerror="this.src='https://i.ytimg.com/vi/ZmCZJatpooc/maxresdefault.jpg'" alt="Life in 2250 — Vol. 41: Oceanic Outposts & Deep-Sea Colonization" loading="lazy"></div><div class="sl" data-yt="h_oUrkFhXes" data-t="Vol. 48: Warm Guitar & Future City"><img src="https://i.ytimg.com/vi/h_oUrkFhXes/maxres2.jpg" onerror="this.src='https://i.ytimg.com/vi/h_oUrkFhXes/maxresdefault.jpg'" alt="Life in 2250 — Vol. 48: Warm Guitar & Future City" loading="lazy"></div><div class="sl" data-yt="DmWR4c7kpP8" data-t="Vol. 35: Autonomous Urban Systems & AI Management"><img src="https://i.ytimg.com/vi/DmWR4c7kpP8/maxres2.jpg" onerror="this.src='https://i.ytimg.com/vi/DmWR4c7kpP8/maxresdefault.jpg'" alt="Life in 2250 — Vol. 35: Autonomous Urban Systems & AI Management" loading="lazy"></div><div class="sl" data-yt="UoB5zYC2GDI" data-t="Vol. 47: Towers Where the Trees Grow"><img src="https://i.ytimg.com/vi/UoB5zYC2GDI/maxres3.jpg" onerror="this.src='https://i.ytimg.com/vi/UoB5zYC2GDI/maxresdefault.jpg'" alt="Life in 2250 — Vol. 47: Towers Where the Trees Grow" loading="lazy"></div></div>
+    <div class="slides" id="slides"><div class="sl on" data-yt="KQvhsQ0w5Us" data-t="Vol. 22: Eco Megacity Life"><img src="https://i.ytimg.com/vi/KQvhsQ0w5Us/maxres1.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/KQvhsQ0w5Us/maxresdefault.jpg'" alt="Life in 2250 — Vol. 22: Eco Megacity Life" decoding="async"></div><div class="sl" data-yt="UoB5zYC2GDI" data-t="Vol. 47: Towers Where the Trees Grow"><img src="https://i.ytimg.com/vi/UoB5zYC2GDI/maxres1.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/UoB5zYC2GDI/maxresdefault.jpg'" alt="Life in 2250 — Vol. 47: Towers Where the Trees Grow" decoding="async"></div><div class="sl" data-yt="ZmCZJatpooc" data-t="Vol. 41: Oceanic Outposts &amp; Deep-Sea Colonization"><img src="https://i.ytimg.com/vi/ZmCZJatpooc/maxres1.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/ZmCZJatpooc/maxresdefault.jpg'" alt="Life in 2250 — Vol. 41: Oceanic Outposts &amp; Deep-Sea Colonization" decoding="async"></div><div class="sl" data-yt="h_oUrkFhXes" data-t="Vol. 48: Warm Guitar &amp; Future City"><img src="https://i.ytimg.com/vi/h_oUrkFhXes/maxres1.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/h_oUrkFhXes/maxresdefault.jpg'" alt="Life in 2250 — Vol. 48: Warm Guitar &amp; Future City" decoding="async"></div><div class="sl" data-yt="DmWR4c7kpP8" data-t="Vol. 35: Autonomous Urban Systems &amp; AI Management"><img src="https://i.ytimg.com/vi/DmWR4c7kpP8/maxres1.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/DmWR4c7kpP8/maxresdefault.jpg'" alt="Life in 2250 — Vol. 35: Autonomous Urban Systems &amp; AI Management" decoding="async"></div><div class="sl" data-yt="EKD5ktbVi-I" data-t="Vol. 46: Refuge at the Edge of the Sea"><img src="https://i.ytimg.com/vi/EKD5ktbVi-I/maxres1.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/EKD5ktbVi-I/maxresdefault.jpg'" alt="Life in 2250 — Vol. 46: Refuge at the Edge of the Sea" decoding="async"></div><div class="sl" data-yt="R165O33tUc8" data-t="Vol. 45: Bio-Digital Reality"><img src="https://i.ytimg.com/vi/R165O33tUc8/maxres1.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/R165O33tUc8/maxresdefault.jpg'" alt="Life in 2250 — Vol. 45: Bio-Digital Reality" decoding="async"></div><div class="sl" data-yt="iBhruJor42A" data-t="Vol. 18: Forest Towers &amp; Sky Garden Retreats"><img src="https://i.ytimg.com/vi/iBhruJor42A/maxres1.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/iBhruJor42A/maxresdefault.jpg'" alt="Life in 2250 — Vol. 18: Forest Towers &amp; Sky Garden Retreats" decoding="async"></div><div class="sl" data-yt="FhPRNs0gUow" data-t="Vol. 9: Golden Megastructures &amp; Waterway Cities"><img src="https://i.ytimg.com/vi/FhPRNs0gUow/maxres1.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/FhPRNs0gUow/maxresdefault.jpg'" alt="Life in 2250 — Vol. 9: Golden Megastructures &amp; Waterway Cities" decoding="async"></div><div class="sl" data-yt="HsCic-KPgzc" data-t="This Is What a Happy Future Looks Like"><img src="https://i.ytimg.com/vi/HsCic-KPgzc/maxres1.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/HsCic-KPgzc/maxresdefault.jpg'" alt="Life in 2250 — This Is What a Happy Future Looks Like" decoding="async"></div></div>
     <div class="hero-shade"></div>
     <div class="wrap">
       <div class="now now-top">
       <button class="now-card" id="nowCard" data-yt="KQvhsQ0w5Us"><span class="mono now-k" data-i="now">Зараз на екрані</span><b id="nowT">Vol. 22: Eco Megacity Life</b><span class="now-p">▶</span></button>
-      <div class="dots" id="dots"><button class="dot on" data-i2="0" aria-label="Slide 1"></button><button class="dot" data-i2="1" aria-label="Slide 2"></button><button class="dot" data-i2="2" aria-label="Slide 3"></button><button class="dot" data-i2="3" aria-label="Slide 4"></button><button class="dot" data-i2="4" aria-label="Slide 5"></button><button class="dot" data-i2="5" aria-label="Slide 6"></button></div>
+      <div class="dots" id="dots"><button class="dot on" data-i2="0" aria-label="Slide 1"></button><button class="dot" data-i2="1" aria-label="Slide 2"></button><button class="dot" data-i2="2" aria-label="Slide 3"></button><button class="dot" data-i2="3" aria-label="Slide 4"></button><button class="dot" data-i2="4" aria-label="Slide 5"></button><button class="dot" data-i2="5" aria-label="Slide 6"></button><button class="dot" data-i2="6" aria-label="Slide 7"></button><button class="dot" data-i2="7" aria-label="Slide 8"></button><button class="dot" data-i2="8" aria-label="Slide 9"></button><button class="dot" data-i2="9" aria-label="Slide 10"></button></div>
     </div>
       <div class="kicker mono" data-i="kick">Авторська музика і відео</div>
       <h1 data-split aria-label="Blagoday Production">BLAGODAY<span class="l2">PRODUCTION</span></h1>
@@ -1457,10 +1460,11 @@ mCounts();{let k0="album";try{k0=sessionStorage.getItem("bl_mtab")||"album"}catc
 (function(){
 var sl=[...document.querySelectorAll("#slides .sl")],ds=[...document.querySelectorAll("#dots .dot")],i=0,tm;
 var card=document.getElementById("nowCard"),tt=document.getElementById("nowT");
-function go(n){sl[i].classList.remove("on");ds[i].classList.remove("on");i=(n+sl.length)%sl.length;sl[i].classList.add("on");void ds[i].offsetWidth;ds[i].classList.add("on");tt.textContent=sl[i].dataset.t;card.dataset.yt=sl[i].dataset.vid;clearTimeout(tm);tm=setTimeout(function(){go(i+1)},7000);}
+function go(n){var o=sl[i];o.classList.remove("on");o.classList.add("out");setTimeout(function(){o.classList.remove("out")},1800);ds[i].classList.remove("on");i=(n+sl.length)%sl.length;sl[i].classList.add("on");void ds[i].offsetWidth;ds[i].classList.add("on");tt.textContent=sl[i].dataset.t;card.dataset.yt=sl[i].dataset.vid;clearTimeout(tm);tm=setTimeout(function(){go(i+1)},7000);}
 ds.forEach(function(d,k){d.addEventListener("click",function(e){e.stopPropagation();go(k)})});
 sl.forEach(function(s){s.dataset.vid=s.dataset.yt||"";s.removeAttribute("data-yt")});
 card.dataset.yt=sl[0]?sl[0].dataset.vid:"";
+sl.forEach(function(s,k){if(k){var im=new Image();im.src=s.querySelector("img").src}});
 tm=setTimeout(function(){go(1)},7000);
 })();
 
