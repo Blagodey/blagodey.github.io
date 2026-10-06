@@ -1,6 +1,6 @@
 // Blagoday SoundCloud bridge (Cloudflare Worker) v2
 // Vars: SC_CLIENT_ID, SC_CLIENT_SECRET
-const SITE = "https://blagodey.github.io";
+const SITE = "https://blagodaymusic.github.io";
 const AUTH = "https://secure.soundcloud.com/authorize";
 const TOKEN = "https://secure.soundcloud.com/oauth/token";
 const API = "https://api.soundcloud.com";
