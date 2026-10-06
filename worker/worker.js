@@ -93,6 +93,9 @@ export class ChatRoom {
     this.state = state; this.env = env; this.sql = state.storage.sql; this.rate = new Map();
     this.sql.exec(`CREATE TABLE IF NOT EXISTS msgs(id INTEGER PRIMARY KEY AUTOINCREMENT, ts INTEGER, name TEXT, avatar TEXT, uid TEXT, author INTEGER, text TEXT, deleted INTEGER DEFAULT 0)`);
     try { this.sql.exec(`ALTER TABLE msgs ADD COLUMN cc TEXT DEFAULT ''`); } catch {}
+    try { this.sql.exec(`ALTER TABLE msgs ADD COLUMN rid INTEGER DEFAULT 0`); } catch {}
+    try { this.sql.exec(`ALTER TABLE msgs ADD COLUMN rn TEXT DEFAULT ''`); } catch {}
+    try { this.sql.exec(`ALTER TABLE msgs ADD COLUMN rx TEXT DEFAULT ''`); } catch {}
     this.sql.exec(`CREATE TABLE IF NOT EXISTS plays(slug TEXT PRIMARY KEY, n INTEGER)`);
     this.sql.exec(`CREATE TABLE IF NOT EXISTS visits(day TEXT PRIMARY KEY, n INTEGER)`);
   }
@@ -100,7 +103,7 @@ export class ChatRoom {
   limited(key, ms) { const now = Date.now(), last = this.rate.get(key) || 0; if (now - last < ms) return true; this.rate.set(key, now); if (this.rate.size > 5000) this.rate.clear(); return false; }
   online() { return this.state.getWebSockets().length; }
   broadcast(obj) { const s = JSON.stringify(obj); for (const ws of this.state.getWebSockets()) { try { ws.send(s); } catch {} } }
-  historyFull() { return this.rows(`SELECT id,ts,name,avatar,author,text,cc FROM msgs WHERE deleted=0 ORDER BY id DESC LIMIT 80`).reverse(); }
+  historyFull() { return this.rows(`SELECT id,ts,name,avatar,author,text,cc,rid,rn,rx FROM msgs WHERE deleted=0 ORDER BY id DESC LIMIT 80`).reverse(); }
   history() { return this.historyFull().map(r => ({ ...r, cc: "" })); }
   async fetch(req) {
     const url = new URL(req.url), p = url.pathname, ip = req.headers.get("X-IP") || "?", cc = (req.headers.get("X-CC") || "").replace(/[^A-Z]/g, "").slice(0, 2);
@@ -115,7 +118,7 @@ export class ChatRoom {
       return new Response(null, { status: 101, webSocket: pair[0] });
     }
     if (p === "/history") return ok({ msgs: this.history(), online: this.online() });
-    if (p === "/msg") { const r = this.rows(`SELECT id,ts,name,avatar,author,text,cc FROM msgs WHERE deleted=0 AND id=?`, Number(url.searchParams.get("id")) || 0)[0]; return r ? ok({ m: { ...r, cc: "" } }) : ok({ error: "not_found" }, 404); }
+    if (p === "/msg") { const r = this.rows(`SELECT id,ts,name,avatar,author,text,cc,rid,rn,rx FROM msgs WHERE deleted=0 AND id=?`, Number(url.searchParams.get("id")) || 0)[0]; return r ? ok({ m: { ...r, cc: "" } }) : ok({ error: "not_found" }, 404); }
     const body = req.method === "POST" ? await req.json().catch(() => ({})) : {};
     if (p === "/play") {
       const slug = String(body.slug || "").replace(/[^a-z0-9_-]/gi, "").slice(0, 120);
@@ -164,9 +167,10 @@ export class ChatRoom {
       if (!me.author && this.limited("msg:" + (me.uid || me.ip), 4000)) { ws.send(JSON.stringify({ type: "err", e: "slow" })); return; }
       if (!me.sc && BAD.test(text)) { ws.send(JSON.stringify({ type: "err", e: "link" })); return; }
       const ts = Date.now();
-      this.sql.exec(`INSERT INTO msgs(ts,name,avatar,uid,author,text,cc) VALUES(?,?,?,?,?,?,?)`, ts, me.name, me.avatar || "", me.uid || "", me.author ? 1 : 0, text, me.cc || "");
+      let rid = 0, rn = "", rx = ""; if (m.reply) { const q = this.rows(`SELECT id,name,text FROM msgs WHERE deleted=0 AND id=?`, Number(m.reply) || 0)[0]; if (q) { rid = q.id; rn = String(q.name || "").slice(0, 32); rx = String(q.text || "").replace(/\[\[[^\]]*\]\]/g, "♪").replace(/\s+/g, " ").trim().slice(0, 80); } }
+      this.sql.exec(`INSERT INTO msgs(ts,name,avatar,uid,author,text,cc,rid,rn,rx) VALUES(?,?,?,?,?,?,?,?,?,?)`, ts, me.name, me.avatar || "", me.uid || "", me.author ? 1 : 0, text, me.cc || "", rid, rn, rx);
       const id = this.rows(`SELECT last_insert_rowid() AS id`)[0].id;
-      { const base = { id, ts, name: me.name, avatar: me.avatar || "", author: me.author ? 1 : 0, text }; const pub = JSON.stringify({ type: "msg", m: { ...base, cc: "" } }), priv = JSON.stringify({ type: "msg", m: { ...base, cc: me.cc || "" } }); for (const w of this.state.getWebSockets()) { try { const a = w.deserializeAttachment() || {}; w.send(a.author ? priv : pub); } catch {} } }
+      { const base = { id, ts, name: me.name, avatar: me.avatar || "", author: me.author ? 1 : 0, text, rid, rn, rx }; const pub = JSON.stringify({ type: "msg", m: { ...base, cc: "" } }), priv = JSON.stringify({ type: "msg", m: { ...base, cc: me.cc || "" } }); for (const w of this.state.getWebSockets()) { try { const a = w.deserializeAttachment() || {}; w.send(a.author ? priv : pub); } catch {} } }
       return;
     }
     if (m.type === "del" && me.author) {
