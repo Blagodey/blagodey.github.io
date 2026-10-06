@@ -47,3 +47,17 @@ if(pid){let tries=0,fetched=null,done=false;
   if(el){el.classList.add("ch-hl");el.scrollIntoView({block:"center"});done=true}
  },500);}
 })();
+;(function(){var s=document.createElement("style");s.textContent=
+".ch-sh{font-size:0!important;gap:0!important;width:30px;height:30px;padding:0!important;justify-content:center;margin-top:6px!important;background:rgba(255,85,0,.12)!important;border:1px solid rgba(255,85,0,.7)!important}.ch-sh span{font-size:16px!important}"+
+"@media(max-width:760px){"+
+".chw.open{position:fixed;inset:0;height:100dvh}"+
+".chw.open .ch-panel{position:fixed!important;inset:0;width:100%!important;height:100dvh!important;border-radius:0!important;border:0}"+
+".ch-head{padding:8px 12px}.ch-head b{font-size:16px}.ch-head>div{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.ch-head .ch-on{margin:0}"+
+".ch-panel .ch-bar{padding:4px 12px;min-height:0;flex-wrap:nowrap}.ch-auto{font-size:13px}.ch-auto input{width:16px;height:16px}"+
+".ch-list{padding:6px 10px!important;gap:2px!important}.ch-m{grid-template-columns:30px 1fr!important;gap:8px!important;padding:6px 4px!important}.ch-m img,.ch-av{width:30px!important;height:30px!important}.ch-b p{font-size:15px!important;margin-top:2px!important}"+
+".ch-panel .ch-in{padding:6px 10px calc(8px + env(safe-area-inset-bottom))!important;gap:6px!important}.ch-hint{display:none!important}.ch-tr{flex-wrap:nowrap!important}.ch-tr select{max-width:48%}"+
+"}";
+document.head.appendChild(s);
+var lock=function(){var o=document.getElementById("chw");var on=!!(o&&o.classList.contains("open"))&&matchMedia("(max-width:760px)").matches;document.documentElement.style.overflow=on?"hidden":"";document.body.style.overflow=on?"hidden":"";};
+var w=document.getElementById("chw");if(w)new MutationObserver(lock).observe(w,{attributes:true,attributeFilter:["class"]});else document.addEventListener("DOMContentLoaded",function(){var w2=document.getElementById("chw");if(w2)new MutationObserver(lock).observe(w2,{attributes:true,attributeFilter:["class"]});});
+})();
