@@ -786,7 +786,7 @@ const ALBUMS=[
  ["Skyline Drift","skyline-drift","n0nuWdbytmwcAp1q-ODTOOg","2026-06-03","Chillout",23,"album",
   "23 оригінальні чилаут-композиції з лаунж-атмосферою та вініловим скретчем.",
   "23 original chillout compositions with lounge atmosphere and vinyl scratch elements.",""],
- ["Journey To The Dreams","journey-to-the-dreams","ddinhiyUljM7PxDz-VHPbLA","2024-12-18","EDM / Ambient",3,"album","","",""],
+ ["Journey To The Dreams","journey-to-the-dreams","LHEdCIMTiytYPFpV-Ehy9bA","2024-12-18","EDM / Ambient",3,"album","","",""],
  ["I Don't Like Techno","i-dont","Uzy2LfCmjnRiXW0Z-QNznRw","2024-09-08","Techno",2,"other","","",""],
  ["Polyglot","bright-spirit","FGbobzhgsyyG8eGY-9Pc4JQ","2024-09-06","",9,"other","Пісні різними мовами.","Songs in different languages.",""],
  ["Oil Painting","oil-painting","k9XZkjOvhTuDzJQs-z0lxtQ","2024-09-01","",6,"other","","",""],
@@ -998,6 +998,16 @@ function openYT(id){if(typeof P!=="undefined"&&P.w)try{P.w.pause()}catch(e){}mbo
 /* ---------- PLAYER (persistent, queue) ---------- */
 const byP={};CAT.c.forEach(x=>byP[x[1]]=x);
 const ALB={};ALBUMS.forEach(a=>ALB[a[1]]=a);
+/* live SoundCloud covers: re-read artwork from SoundCloud so changes show up without editing the site */
+(function(){const U="https://soundcloud.com/blagodaymusic/",K="bl_live_art_v1",TTL=15*60*1000;let C={};try{C=JSON.parse(localStorage.getItem(K)||"{}")}catch(e){}
+const idOf=u=>{const m=String(u||"").match(/artworks-(.+?)-t\d+x\d+\./);return m?m[1]:""};
+function apply(a,nid){const o=a[2];if(!nid||o===nid||String(o).includes("/"))return;a[2]=nid;if(CAT&&CAT.arts)for(const k in CAT.arts)if(CAT.arts[k]===o)CAT.arts[k]=nid;
+ document.querySelectorAll('img[src*="'+o+'"]').forEach(i=>{i.src=i.src.split(o).join(nid)});}
+async function one(a){const slug=a[1],url=slug.indexOf("track:")===0?U+slug.slice(6):U+"sets/"+slug;const c=C[slug];
+ if(c&&Date.now()-c.t<TTL){apply(a,c.id);return}
+ try{const r=await fetch("https://soundcloud.com/oembed?format=json&url="+encodeURIComponent(url));if(!r.ok)return;const j=await r.json();const id=idOf(j.thumbnail_url);if(id){C[slug]={id,t:Date.now()};apply(a,id)}}catch(e){}}
+async function run(){for(let i=0;i<ALBUMS.length;i+=4)await Promise.all(ALBUMS.slice(i,i+4).map(one));try{localStorage.setItem(K,JSON.stringify(C))}catch(e){}}
+(document.readyState==="complete"?setTimeout(run,800):addEventListener("load",()=>setTimeout(run,800)));})();
 const artOf=(x,sz)=>{const a=CAT.arts[x[2]]||((ALB[CAT.pls[x[8]]]||[])[2])||"";return a?(a.includes("/")?a:`https://i1.sndcdn.com/artworks-${a}-${sz||"t500x500"}.jpg`):""};
 const scUrl=x=>"https://soundcloud.com/blagodaymusic/"+x[1];
 const mmss=ms=>{const s=Math.floor(ms/1000);return Math.floor(s/60)+":"+String(s%60).padStart(2,"0")};
