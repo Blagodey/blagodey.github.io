@@ -257,3 +257,14 @@ document.addEventListener("contextmenu",function(e){var m=e.target.closest&&e.ta
 addEventListener("keydown",function(e){if(e.key==="Escape")close()});
 document.addEventListener("scroll",close,true);
 })();
+
+/* ===== footer: QR code to open the site on a phone ===== */
+(function(){
+var N={uk:"Скануй камерою телефона, щоб відкрити сайт",en:"Scan with your phone camera to open the site",es:"Escanea con la cámara del móvil para abrir el sitio",pt:"Escaneie com a câmera do celular para abrir o site",de:"Mit der Handykamera scannen, um die Seite zu öffnen",fr:"Scannez avec l’appareil photo du téléphone pour ouvrir le site"};
+var css=document.createElement("style");
+css.textContent=".fqr{display:flex;align-items:center;gap:16px;margin:22px auto 0;max-width:1100px;padding:0 20px}.fqr img{width:120px;height:120px;border-radius:12px;background:#fff;padding:0;flex:none;box-shadow:0 6px 24px rgba(0,0,0,.35)}.fqr span{font-size:15px;line-height:1.4;opacity:.85;max-width:260px}@media(max-width:600px){.fqr{flex-direction:column;text-align:center;gap:10px}.fqr img{width:150px;height:150px}}";
+document.head.appendChild(css);
+function go(){var f=document.querySelector("footer");if(!f||f.querySelector(".fqr"))return;var l="en";try{l=localStorage.getItem("bl_lang")||""}catch(e){}if(!N[l])l=(document.documentElement.lang||"en").slice(0,2);if(!N[l])l="en";
+var d=document.createElement("div");d.className="fqr";d.innerHTML='<img src="/logos/qr.svg" alt="QR" width="120" height="120" loading="lazy"><span>'+N[l]+'</span>';f.appendChild(d);}
+if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",go);else go();
+})();
