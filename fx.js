@@ -27,14 +27,14 @@ BTN.split(',').map(function(s){return s+':hover>.fx-sh'}).join(',')+'{animation:
 '@keyframes fxsh{0%{left:-60%;opacity:1}100%{left:130%;opacity:1}}'+
 '.ch-fab:hover span{display:inline-block;animation:fxwig .6s}@keyframes fxwig{25%{transform:rotate(-14deg)}50%{transform:rotate(10deg)}75%{transform:rotate(-6deg)}}'+
 /* header links: animated underline */
-'header nav a,.nav a:not(.logo):not(.btn){background-image:linear-gradient(90deg,#ff5500,#ff2bd6);background-size:0 2px;background-repeat:no-repeat;background-position:0 100%;transition:background-size .35s '+E+',color .25s;padding-bottom:3px}'+
+'header nav a,.nav a:not(.logo):not(.btn){background-image:linear-gradient(90deg,#ff5500,#00b8d4);background-size:0 2px;background-repeat:no-repeat;background-position:0 100%;transition:background-size .35s '+E+',color .25s;padding-bottom:3px}'+
 'header nav a:hover,.nav a:not(.logo):not(.btn):hover{background-size:100% 2px}'+
 '.logo .logo-ic{transition:transform .7s '+E+'}.logo:hover .logo-ic{transform:rotate(360deg) scale(1.1)}'+
 /* keyboard focus */
 ':focus-visible{outline:2px solid #00e5ff!important;outline-offset:3px;border-radius:8px}'+
 /* light theme: framed sections + heading accent (colors pre-inverted for the light filter) */
 L+' .sh h2{position:relative;display:inline-block}'+
-L+' .sh h2::after{content:"";position:absolute;left:0;bottom:-8px;width:72px;height:5px;border-radius:5px;background:linear-gradient(90deg,#ff6e19,#93325b);transition:width .6s '+E+'}'+
+L+' .sh h2::after{content:"";position:absolute;left:0;bottom:-8px;width:72px;height:5px;border-radius:5px;background:linear-gradient(90deg,#ff6e19,#00889e);transition:width .6s '+E+'}'+
 L+' .sh:hover h2::after{width:100%}'+
 L+' '+CARD.split(',').map(function(s){return s+':hover'}).join(','+L+' ')+'{box-shadow:0 22px 50px rgba(255,255,255,.18),0 0 0 2px rgba(255,110,25,.55)!important}'+
 L+' .fx-spot{background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),rgba(0,0,0,.10),transparent 60%)}'+
@@ -69,9 +69,9 @@ addEventListener('resize',size);
 addEventListener('pointermove',function(e){tx=e.clientX/innerWidth-.5;ty=e.clientY/innerHeight-.5;},{passive:true});
 document.addEventListener('visibilitychange',function(){run=!document.hidden;if(run)requestAnimationFrame(frame);});
 var calm=matchMedia('(prefers-reduced-motion:reduce)').matches;
-function col(u,a,light){ /* orange -> magenta -> cyan along u in [0,1] */
-  var r,g,b;if(u<.5){var k=u/.5;r=255;g=Math.round(85-42*k);b=Math.round(214*k);}else{var k2=(u-.5)/.5;r=Math.round(255-255*k2);g=Math.round(43+186*k2);b=Math.round(214+41*k2);}
-  if(light){r=Math.round(r*.8);g=Math.round(g*.6);b=Math.round(b*.75);}
+function col(u,a,light){ /* orange -> turquoise along u in [0,1] */
+  var r=Math.round(255+(24-255)*u),g=Math.round(122+(176-122)*u),b=Math.round(24+(204-24)*u);
+  if(light){r=Math.round(r*.85);g=Math.round(g*.75);b=Math.round(b*.8);}
   return 'rgba('+r+','+g+','+b+','+a.toFixed(3)+')';}
 function frame(now){if(!run)return;
   var t=(now-t0)/1000;mx+=(tx-mx)*.04;my+=(ty-my)*.04;
