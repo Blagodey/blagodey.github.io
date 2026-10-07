@@ -279,9 +279,13 @@ export class ChatRoom {
       { const base = { id, ts, name: me.name, avatar: me.avatar || "", author: me.author ? 1 : 0, text, rid, rn, rx }; const pub = JSON.stringify({ type: "msg", m: { ...base, cc: "" } }), priv = JSON.stringify({ type: "msg", m: { ...base, cc: me.cc || "" } }); for (const w of this.state.getWebSockets()) { try { const a = w.deserializeAttachment() || {}; w.send(a.author ? priv : pub); } catch {} } }
       return;
     }
-    if (m.type === "del" && me.author) {
-      this.sql.exec(`UPDATE msgs SET deleted=1 WHERE id=?`, Number(m.id) || 0);
-      this.broadcast({ type: "del", id: Number(m.id) || 0 });
+    if (m.type === "del") {
+      const id = Number(m.id) || 0;
+      const row = this.rows(`SELECT uid,text FROM msgs WHERE id=? AND deleted=0`, id)[0];
+      if (!row || !(me.author || (me.sc && me.uid && row.uid === me.uid))) return;
+      this.sql.exec(`UPDATE msgs SET deleted=1 WHERE id=?`, id);
+      for (const t of String(row.text || "").matchAll(/\[\[[im]:([a-f0-9]{18})/g)) { try { this.sql.exec(`DELETE FROM mchunks WHERE id=?`, t[1]); this.sql.exec(`DELETE FROM media WHERE id=?`, t[1]); } catch {} }
+      this.broadcast({ type: "del", id });
     }
   }
   async alarm() {
@@ -532,7 +536,7 @@ export default {
         const r = await stub.fetch(new Request("https://do/admin"));
         return new Response(r.body, { status: r.status, headers: { "Content-Type": "application/json", ...cors() } });
       }
-      if (p === "/") return json({ ok: true, service: "blagoday-soundcloud", v: 7 });
+      if (p === "/") return json({ ok: true, service: "blagoday-soundcloud", v: 8 });
       return json({ error: "not_found" }, 404);
     } catch (e) {
       return json({ error: "server", message: String(e && e.message || e) }, 500);
