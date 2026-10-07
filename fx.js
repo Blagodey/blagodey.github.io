@@ -118,6 +118,7 @@ L+' .fx-sec>.wrap{background:rgba(9,4,0,.62)!important;border-color:rgba(57,42,1
 document.head.appendChild(st);
 var layers=[];
 function go(){
+  if(!/^\/(index\.html)?$|kapitan-german/.test(location.pathname))return;
   var secs=[].slice.call(document.querySelectorAll('main section:not(.hero),body>section:not(.hero)')).filter(function(s){return s.offsetHeight>120&&!s.hidden;});
   var io='IntersectionObserver' in window?new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){var b=e.target;var im=new Image();im.onload=function(){b.style.backgroundImage='url('+b.dataset.src+')';b.classList.add('on')};im.src=b.dataset.src;io.unobserve(b);}})},{rootMargin:'600px'}):null;
   secs.forEach(function(s,i){if(s.querySelector(':scope>.fx-sbg'))return;s.classList.add('fx-sec');var b=document.createElement('div');b.className='fx-sbg'+(s.offsetHeight>innerHeight*1.6?' tall':'');b.setAttribute('aria-hidden','true');b.dataset.src=IMG[i%IMG.length];s.insertBefore(b,s.firstChild);layers.push(b);if(io)io.observe(b);else{b.style.backgroundImage='url('+b.dataset.src+')';b.classList.add('on');}});
