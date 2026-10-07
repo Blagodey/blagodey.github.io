@@ -7,7 +7,7 @@
 <link rel="canonical" href="https://blagodaymusic.github.io/privacy.html">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=4"><link rel="icon" href="/favicon.ico?v=4" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png?v=4">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
-<script src="theme.js?v=29"></script>
+<script src="theme.js?v=30"></script>
 <style>
 :root{--bg:#080808;--card:#131317;--line:#22222a;--txt:#f2f2f6;--mut:#a7a7b4;--mag:#ff5500;--cy:#00e5ff}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--txt);font-family:Rajdhani,system-ui,sans-serif;font-size:19px;line-height:1.6;font-weight:500}
@@ -41,5 +41,5 @@ footer{position:relative;z-index:1;text-align:center;padding:30px 20px 60px;colo
 function set(l){L=l;document.querySelectorAll(".pp").forEach(a=>a.hidden=a.dataset.l!==l);document.querySelectorAll(".lng button").forEach(b=>b.classList.toggle("on",b.dataset.l===l));document.documentElement.lang=l;var h=document.querySelector('.pp[data-l="'+l+'"] h1');if(h)document.title=h.textContent+" | Blagoday Production";try{localStorage.setItem("bl_lang",l)}catch(e){}}
 document.querySelectorAll(".lng button").forEach(b=>b.onclick=()=>set(b.dataset.l));set(L);})();
 </script>
-<script src="chat.js?v=19" defer></script>
+<script src="chat.js?v=20" defer></script>
 </body></html>
