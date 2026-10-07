@@ -31,7 +31,7 @@ BTN.split(',').map(function(s){return s+':hover>.fx-sh'}).join(',')+'{animation:
 'header nav a:hover,.nav a:not(.logo):not(.btn):hover{background-size:100% 2px}'+
 '.logo .logo-ic{transition:transform .7s '+E+'}.logo:hover .logo-ic{transform:rotate(360deg) scale(1.1)}'+
 /* keyboard focus */
-':focus-visible{outline:2px solid #00e5ff!important;outline-offset:3px;border-radius:8px}'+
+'@media(max-width:520px){header:has(.lng) .logo{font-size:0!important;letter-spacing:0}header:has(.lng) .logo .logo-ic{margin:0!important;width:32px!important;height:32px!important}}'+':focus-visible{outline:2px solid #00e5ff!important;outline-offset:3px;border-radius:8px}'+
 /* light theme: framed sections + heading accent (colors pre-inverted for the light filter) */
 L+' .sh h2{position:relative;display:inline-block}'+
 L+' .sh h2::after{content:"";position:absolute;left:0;bottom:-8px;width:72px;height:5px;border-radius:5px;background:linear-gradient(90deg,#ff6e19,#00889e);transition:width .6s '+E+'}'+
