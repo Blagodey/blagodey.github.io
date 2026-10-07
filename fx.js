@@ -268,3 +268,13 @@ function go(){var f=document.querySelector("footer");if(!f||f.querySelector(".fq
 var d=document.createElement("div");d.className="fqr";d.innerHTML='<img src="/logos/qr.svg" alt="QR" width="120" height="120" loading="lazy"><span>'+N[l]+'</span>';f.appendChild(d);}
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",go);else go();
 })();
+
+/* ---- hero animation test: open /?hero=anim ---- */
+(function(){
+if(!/^\/(index\.html)?$/.test(location.pathname))return;
+var on=/[?&]hero=anim/.test(location.search),off=/[?&]hero=photo/.test(location.search);
+try{if(on)localStorage.setItem('heroAnim','1');if(off)localStorage.removeItem('heroAnim');if(!on&&!off&&localStorage.getItem('heroAnim'))on=true;}catch(e){}
+if(!on)return;
+var s=document.createElement('script');s.src='/hero-anim.js?v=1';
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){document.body.appendChild(s)});else document.body.appendChild(s);
+})();
