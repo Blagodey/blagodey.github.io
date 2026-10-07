@@ -234,7 +234,7 @@ function render(){
 }
 function openV(id,start,end,title){
   let q="autoplay=1&rel=0&modestbranding=1";if(start)q+="&start="+start;if(end)q+="&end="+end;
-  $("mFr").innerHTML=`<iframe src="https://www.youtube-nocookie.com/embed/${id}?${q}" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>`;
+  $("mFr").innerHTML=`<iframe src="https://www.youtube.com/embed/${id}?${q}" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>`;
   $("mT").textContent=title||"";$("mFull").href=`https://youtu.be/${id}${start?"?t="+start:""}`;$("mFull").textContent=T[L].full;$("modal").classList.add("on");
 }
 function closeV(){$("modal").classList.remove("on");$("mFr").innerHTML=""}

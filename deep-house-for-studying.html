@@ -347,7 +347,7 @@ function hide(){modal.classList.remove("open");mframe.innerHTML="";document.body
 document.getElementById("mclose").onclick=hide;modal.addEventListener("click",function(e){if(e.target===modal)hide();});
 addEventListener("keydown",function(e){if(e.key==="Escape")hide();});
 document.addEventListener("click",function(e){
- var y=e.target.closest("[data-yt]");if(y){e.preventDefault();mbox.className="mbox";mframe.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+y.dataset.yt+'?autoplay=1&rel=0" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen title="YouTube"></iframe>';mlink.href="https://youtu.be/"+y.dataset.yt;mlink.textContent="Open on YouTube \u2197";show();return;}
+ var y=e.target.closest("[data-yt]");if(y){e.preventDefault();mbox.className="mbox";mframe.innerHTML='<iframe src="https://www.youtube.com/embed/'+y.dataset.yt+'?autoplay=1&rel=0" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen title="YouTube"></iframe>';mlink.href="https://youtu.be/"+y.dataset.yt;mlink.textContent="Open on YouTube \u2197";show();return;}
  var s=e.target.closest("[data-sc]");if(s){e.preventDefault();mbox.className="mbox sc";mframe.innerHTML='<iframe allow="autoplay" title="SoundCloud" src="https://w.soundcloud.com/player/?url='+encodeURIComponent(SC+s.dataset.sc)+'&color=%23ff5500&auto_play=true&visual=true&show_comments=false&show_reposts=false&hide_related=true"></iframe>';mlink.href=SC+s.dataset.sc;mlink.textContent="Open on SoundCloud \u2197";show();}
 });
 var links=document.getElementById("links");document.getElementById("burger").onclick=function(){links.classList.toggle("open");};

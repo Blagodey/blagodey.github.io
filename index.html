@@ -1007,7 +1007,7 @@ document.addEventListener("click",e=>{
 });
 /* ---------- MODAL ---------- */
 const modal=document.getElementById("modal"),mbox=document.getElementById("mbox"),mframe=document.getElementById("mframe"),mlink=document.getElementById("mlink");
-function openYT(id){if(typeof P!=="undefined"&&P.w)try{P.w.pause()}catch(e){}mbox.className="mbox";mframe.innerHTML=`<iframe src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen title="YouTube"></iframe>`;mlink.href="https://youtu.be/"+id;mlink.textContent=t("open_yt");show();}
+function openYT(id){if(typeof P!=="undefined"&&P.w)try{P.w.pause()}catch(e){}mbox.className="mbox";mframe.innerHTML=`<iframe src="https://www.youtube.com/embed/${id}?autoplay=1&rel=0" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen title="YouTube"></iframe>`;mlink.href="https://youtu.be/"+id;mlink.textContent=t("open_yt");show();}
 /* ---------- PLAYER (persistent, queue) ---------- */
 const byP={};CAT.c.forEach(x=>byP[x[1]]=x);
 const ALB={};ALBUMS.forEach(a=>ALB[a[1]]=a);
