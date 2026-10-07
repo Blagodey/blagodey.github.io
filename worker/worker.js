@@ -223,7 +223,7 @@ export class ChatRoom {
     if (m.type === "msg") {
       const text = String(m.text || "").replace(/\s+\n/g, "\n").trim().slice(0, 600);
       if (!text) return;
-      if (!me.name) { ws.send(JSON.stringify({ type: "err", e: "name" })); return; }
+      if (!me.sc || !me.name) { ws.send(JSON.stringify({ type: "err", e: "login" })); return; }
       if (!me.author && this.limited("msg:" + (me.uid || me.ip), 4000)) { ws.send(JSON.stringify({ type: "err", e: "slow" })); return; }
       if (!me.sc && BAD.test(text)) { ws.send(JSON.stringify({ type: "err", e: "link" })); return; }
       const ts = Date.now();
