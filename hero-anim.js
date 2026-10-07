@@ -3,7 +3,7 @@
 var h=document.querySelector('.hero'),h1=h&&h.querySelector('h1');if(!h||!h1||document.getElementById('hAnim'))return;
 var de=document.documentElement;de.classList.add('hero-anim');
 var st=document.createElement('style');
-st.textContent='.hero-anim .hero::after,.hero-anim .hero::before,.hero-anim .hero-bg,.hero-anim .slides,.hero-anim .hero-shade,.hero-anim .now-top{display:none!important}'+
+st.textContent='.hero-anim .hero .kicker,.hero-anim .hero .lead,.hero-anim .hero .stats{display:none!important}.hero-anim .hero::after,.hero-anim .hero::before,.hero-anim .hero-bg,.hero-anim .slides,.hero-anim .hero-shade,.hero-anim .now-top{display:none!important}'+
 '.hero-anim .hero{align-items:center!important;background:transparent}'+
 '.hero-anim .hero h1,.hero-anim .hero h1 *{color:transparent!important;-webkit-text-fill-color:transparent!important;text-shadow:none!important;background:none!important}'+
 '#hAnim{position:absolute;left:0;top:0;width:100%;height:100%;z-index:-1;pointer-events:none}';
