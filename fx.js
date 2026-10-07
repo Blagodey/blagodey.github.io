@@ -272,8 +272,8 @@ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",
 /* ---- hero animation test: open /?hero=anim ---- */
 (function(){
 if(!/^\/(index\.html)?$/.test(location.pathname))return;
-var on=/[?&]hero=anim/.test(location.search),off=/[?&]hero=photo/.test(location.search);
-try{if(on)localStorage.setItem('heroAnim','1');if(off)localStorage.removeItem('heroAnim');if(!on&&!off&&localStorage.getItem('heroAnim'))on=true;}catch(e){}
+var on=true,off=/[?&]hero=photo/.test(location.search);
+try{if(off)localStorage.setItem('heroPhoto','1');if(/[?&]hero=anim/.test(location.search))localStorage.removeItem('heroPhoto');if(localStorage.getItem('heroPhoto'))on=false;}catch(e){if(off)on=false;}
 if(!on)return;
 var s=document.createElement('script');s.src='/hero-anim.js?v=6';
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){document.body.appendChild(s)});else document.body.appendChild(s);
