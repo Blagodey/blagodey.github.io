@@ -592,14 +592,14 @@ button.sb{font:inherit;text-align:left;cursor:pointer;width:100%}
 .chw.open{z-index:130}
 @media(max-width:480px){.chw{right:12px}.ch-fab{width:44px!important;height:44px!important;padding:0;justify-content:center;gap:0}.ch-fab span{font-size:19px}.ch-cnt{top:-5px;right:-5px}.pl.mini{right:12px;bottom:12px;width:calc(100% - 24px)}.pl.tiny{right:12px;bottom:12px;width:auto}.pl-dot{width:44px;height:44px;border-width:2px}.pl-dot b{font-size:16px}.pl.tiny .pl-box{width:44px}}
 .scp-lk:empty{display:none}
-.id-b{display:inline-flex;align-items:center;gap:7px;border:0;font:inherit;font-size:14px;font-weight:600;padding:9px 14px;border-radius:999px;cursor:pointer}.id-g{background:#fff;color:#1f1f1f}.id-f{background:#1877f2;color:#fff}.id-out{background:none;border:0;color:#9a9aa8;font:inherit;font-size:12px;text-decoration:underline;cursor:pointer;padding:0 4px}.id-wrap{position:relative;display:inline-block}.id-menu{position:absolute;left:0;bottom:calc(100% + 8px);z-index:5;min-width:230px;display:flex;flex-direction:column;gap:8px;padding:12px;background:#16161c;border:1px solid rgba(255,255,255,.14);border-radius:14px;box-shadow:0 14px 40px rgba(0,0,0,.6)}.id-menu[hidden]{display:none}.id-menu .id-b{justify-content:center;width:100%}.id-s{background:#ff5500;color:#fff}.ch-in.guest .ch-row,.ch-in.guest .ch-tr{display:none}.ch-id:empty{display:none}.ch-need{font-size:14px;color:#cfcfd8}.ch-need .id-wrap{display:inline}.ch-lk{background:none;border:0;padding:0;font:inherit;font-weight:700;color:#ff7a33;text-decoration:underline;cursor:pointer}.ch-need .id-menu{bottom:calc(100% + 12px);left:auto;right:0}.ch-in{position:relative;z-index:6}.ch-in.guest{overflow:visible!important}</style>
+.id-b{display:inline-flex;align-items:center;gap:7px;border:0;font:inherit;font-size:14px;font-weight:600;padding:9px 14px;border-radius:999px;cursor:pointer}.id-g{background:#fff;color:#1f1f1f}.id-f{background:#1877f2;color:#fff}.id-out{background:none;border:0;color:#9a9aa8;font:inherit;font-size:12px;text-decoration:underline;cursor:pointer;padding:0 4px}.id-wrap{position:relative;display:inline-block}.id-menu{position:absolute;left:0;bottom:calc(100% + 8px);z-index:5;min-width:230px;display:flex;flex-direction:column;gap:8px;padding:12px;background:#16161c;border:1px solid rgba(255,255,255,.14);border-radius:14px;box-shadow:0 14px 40px rgba(0,0,0,.6)}.id-menu[hidden]{display:none}.id-menu .id-b{justify-content:center;width:100%}.id-s{background:#ff5500;color:#fff}.ch-in.guest .ch-row,.ch-in.guest .ch-tr{display:none}.ch-id:empty{display:none}.ch-need{font-size:14px;color:#cfcfd8}.ch-need .id-wrap{display:inline}.ch-lk{background:none;border:0;padding:0;font:inherit;font-weight:700;color:#ff7a33;text-decoration:underline;cursor:pointer}.ch-need .id-menu{bottom:calc(100% + 12px);left:auto;right:0}.ch-in{position:relative;z-index:6}.ch-in.guest{overflow:visible!important}.sh-k{display:flex;align-items:center;gap:8px}.sh-k img{width:26px;height:26px;border-radius:7px;flex:none}.pl-mh i .pl-lg{width:13px!important;height:13px!important;border-radius:3px;vertical-align:-2px;margin-right:5px;display:inline-block}</style>
 <script src="https://w.soundcloud.com/player/api.js"></script>
 </head>
 <body>
 
 <header id="hdr">
   <div class="wrap nav">
-    <a href="#top" class="logo">BLAGODAY <b>PRODUCTION</b></a>
+    <a href="#top" class="logo"><img class="logo-ic" src="/logos/logo-ring.svg" alt="" width="28" height="28" style="width:28px;height:28px;vertical-align:middle;margin:-4px 10px 0 0;display:inline-block">BLAGODAY <b>PRODUCTION</b></a>
     <nav class="links mono" id="links">
       <a href="#videos" data-i="nav_v">Відео</a>
       <a href="#music" data-i="nav_m">Музика</a>
@@ -640,7 +640,7 @@ button.sb{font:inherit;text-align:left;cursor:pointer;width:100%}
   <section id="videos">
     <div class="wrap">
       <div class="sh reveal">
-        <div><div class="mono" data-i="v_k">Відео</div><h2 data-i="vh_h">Відео Blagoday</h2>
+        <div><div class="mono sh-k"><img src="/logos/logo-play.svg" alt="" width="26" height="26"><span data-i="v_k">Відео</span></div><h2 data-i="vh_h">Відео Blagoday</h2>
         <p class="sub" id="vSub"></p></div>
         <a class="more mono" id="vAll" href="https://www.youtube.com/@BlagodayVision/videos" target="_blank" rel="noopener"></a>
       </div>
@@ -667,7 +667,7 @@ button.sb{font:inherit;text-align:left;cursor:pointer;width:100%}
     <span id="albums" class="anc"></span><span id="catalog" class="anc"></span><span id="releases" class="anc"></span><span id="listen" class="anc"></span>
     <div class="wrap">
       <div class="sh reveal">
-        <div><div class="mono" data-i="mu_k">Blagoday Music</div><h2 data-i="mu_h">Музика</h2>
+        <div><div class="mono sh-k"><img src="/logos/logo-wave.svg" alt="" width="26" height="26"><span data-i="mu_k">Blagoday Music</span></div><h2 data-i="mu_h">Музика</h2>
         <p class="sub" data-i="mu_s"></p></div>
         <div class="mu-fol" id="muFol"></div>
       </div>
@@ -1042,7 +1042,7 @@ function pBuild(){
   if(P.el)return;
   const d=document.createElement("div");d.className="pl";d.id="pl";
   d.innerHTML=`<div class="pl-bg" data-pl="min"></div><div class="pl-box">
-<div class="pl-mh"><img id="plMi" alt=""><span><b id="plMt"></b><i>Blagoday Music</i></span><button data-pl="prev" aria-label="Previous">⏮</button><button data-pl="tog" id="plTog" aria-label="Play/Pause">⏵</button><button data-pl="next" aria-label="Next">⏭</button><button data-pl="max" aria-label="Expand">⤢</button><button data-pl="dot" aria-label="Minimize">▾</button><button data-pl="x" aria-label="Close">✕</button></div>
+<div class="pl-mh"><img id="plMi" alt=""><span><b id="plMt"></b><i><img class="pl-lg" src="/logos/logo-wave.svg" alt="">Blagoday Music</i></span><button data-pl="prev" aria-label="Previous">⏮</button><button data-pl="tog" id="plTog" aria-label="Play/Pause">⏵</button><button data-pl="next" aria-label="Next">⏭</button><button data-pl="max" aria-label="Expand">⤢</button><button data-pl="dot" aria-label="Minimize">▾</button><button data-pl="x" aria-label="Close">✕</button></div>
 <button class="pl-dot" data-pl="undot" id="plDot" aria-label="Open player"><img id="plDi" alt=""><b id="plDp">⏵</b></button>
 <button class="pl-x" data-pl="min">✕<span class="esc"> ESC</span></button>
 <div class="scp" id="scp">
@@ -1314,7 +1314,7 @@ chPickInit();
 function chRender(stick){const el=document.getElementById("chList");if(!el)return;const near=el.scrollHeight-el.scrollTop-el.clientHeight<80;
   if(!CH.msgs.length){el.innerHTML=`<div class="scp-empty">${esc(t("ch_empty"))}</div>`;return;}
   el.innerHTML=CH.msgs.map(m=>{const tr=CH.tr[m.id+"|"+L];const mine=CH.me&&CH.me.name===m.name;
-    return `<div data-mid="${m.id}" class="ch-m${m.author?" au":""}${mine?" me":""}">${m.avatar?`<img src="${esc(m.avatar)}" alt="">`:`<span class="ch-av">${esc((m.name||"?").charAt(0).toUpperCase())}</span>`}
+    return `<div data-mid="${m.id}" class="ch-m${m.author?" au":""}${mine?" me":""}">${m.author?`<img src="/logos/logo-b.svg" alt="">`:m.avatar?`<img src="${esc(m.avatar)}" alt="">`:`<span class="ch-av">${esc((m.name||"?").charAt(0).toUpperCase())}</span>`}
     <div class="ch-b"><div class="ch-h"><b>${esc(m.name)}</b>${m.author?`<span class="ch-badge">${esc(t("ch_author"))}</span>`:""}${CH.me&&CH.me.author?chCC(m.cc):""}<span class="mono">${chTime(m.ts)}</span>
     <button class="ch-x" data-chrp="${m.id}" title="↩">↩</button><button class="ch-x" data-chtr="${m.id}" title="🌐">🌐</button>${CH.me&&CH.me.author?`<button class="ch-x" data-chdel="${m.id}" title="✕">✕</button>`:""}</div>
     ${m.rid?`<div class="ch-rq" data-chgo="${m.rid}"><b>${esc(m.rn||"")}</b>${esc(m.rx||"")}</div>`:""}${chBody(m)}${tr&&tr.text&&tr.text!==m.text?`<p class="cm-tr"><span class="mono">🌐 ${esc(LNAME[L]||L)}${tr.lang&&LNAME[tr.lang]?" · "+esc(t("from"))+" "+esc(LNAME[tr.lang]):""}</span>${esc(tr.text)}</p>`:""}</div></div>`;}).join("");

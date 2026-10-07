@@ -119,7 +119,7 @@ chPickInit();
 function chRender(stick){const el=document.getElementById("chList");if(!el)return;const near=el.scrollHeight-el.scrollTop-el.clientHeight<80;
   if(!CH.msgs.length){el.innerHTML=`<div class="scp-empty">${esc(t("ch_empty"))}</div>`;return;}
   el.innerHTML=CH.msgs.map(m=>{const tr=CH.tr[m.id+"|"+L];const mine=CH.me&&CH.me.name===m.name;
-    return `<div data-mid="${m.id}" class="ch-m${m.author?" au":""}${mine?" me":""}">${m.avatar?`<img src="${esc(m.avatar)}" alt="">`:`<span class="ch-av">${esc((m.name||"?").charAt(0).toUpperCase())}</span>`}
+    return `<div data-mid="${m.id}" class="ch-m${m.author?" au":""}${mine?" me":""}">${m.author?`<img src="/logos/logo-b.svg" alt="">`:m.avatar?`<img src="${esc(m.avatar)}" alt="">`:`<span class="ch-av">${esc((m.name||"?").charAt(0).toUpperCase())}</span>`}
     <div class="ch-b"><div class="ch-h"><b>${esc(m.name)}</b>${m.author?`<span class="ch-badge">${esc(t("ch_author"))}</span>`:""}${CH.me&&CH.me.author?chCC(m.cc):""}<span class="mono">${chTime(m.ts)}</span>
     <button class="ch-x" data-chrp="${m.id}" title="↩">↩</button><button class="ch-x" data-chtr="${m.id}" title="🌐">🌐</button>${CH.me&&CH.me.author?`<button class="ch-x" data-chdel="${m.id}" title="✕">✕</button>`:""}</div>
     ${m.rid?`<div class="ch-rq" data-chgo="${m.rid}"><b>${esc(m.rn||"")}</b>${esc(m.rx||"")}</div>`:""}${chBody(m)}${tr&&tr.text&&tr.text!==m.text?`<p class="cm-tr"><span class="mono">🌐 ${esc(LNAME[L]||L)}${tr.lang&&LNAME[tr.lang]?" · "+esc(t("from"))+" "+esc(LNAME[tr.lang]):""}</span>${esc(tr.text)}</p>`:""}</div></div>`;}).join("");
