@@ -14,7 +14,7 @@ st.textContent='html[data-theme=light]{filter:invert(1) hue-rotate(180deg);backg
 '#totop{position:fixed;left:16px;bottom:16px;z-index:89;width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.22);background:rgba(14,14,18,.85);backdrop-filter:blur(8px);color:#fff;cursor:pointer;display:grid;place-items:center;padding:0;opacity:0;transform:translateY(12px);pointer-events:none;transition:opacity .25s,transform .25s,border-color .2s}'+
 '#totop.on{opacity:1;transform:none;pointer-events:auto}#totop:hover{border-color:#ff5500}#totop svg{width:20px;height:20px}#qpill{left:68px!important}';
 document.head.appendChild(st);
-(function(){var x=document.createElement('script');x.src='/fx.js?v=16';x.defer=true;document.head.appendChild(x);})();
+(function(){var x=document.createElement('script');x.src='/fx.js?v=18';x.defer=true;document.head.appendChild(x);})();
 var SUN='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>';
 var MOON='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 13A9 9 0 1 1 11 3a7 7 0 0 0 10 10z"/></svg>';
 function paint(b){b.innerHTML=d.getAttribute('data-theme')==='light'?MOON:SUN;b.setAttribute('aria-label','Theme');
