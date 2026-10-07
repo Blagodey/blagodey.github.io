@@ -59,12 +59,12 @@ document.addEventListener('pointerout',function(e){var c=e.target.closest&&e.tar
 (function(){
 if(document.getElementById('fx3d'))return;
 var cv=document.createElement('canvas');cv.id='fx3d';cv.setAttribute('aria-hidden','true');
-cv.style.cssText='position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:0';
+cv.style.cssText='position:fixed;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:0';
 function mount(){document.body.insertBefore(cv,document.body.firstChild);start();}
 if(document.body)mount();else document.addEventListener('DOMContentLoaded',mount);
 var ctx,W,H,D,mx=0,my=0,tx=0,ty=0,t0=performance.now(),run=true;
 var sm=innerWidth<760,COLS=sm?56:88,ROWS=sm?36:54,SP=1;
-function size(){D=Math.min(devicePixelRatio||1,1.5);W=innerWidth;H=innerHeight;cv.width=W*D;cv.height=H*D;ctx=cv.getContext('2d');ctx.setTransform(D,0,0,D,0,0);}
+function size(){D=Math.min(devicePixelRatio||1,sm?2:1.5);W=innerWidth;H=innerHeight;cv.width=W*D;cv.height=H*D;ctx=cv.getContext('2d');ctx.setTransform(D,0,0,D,0,0);}
 addEventListener('resize',size);
 addEventListener('pointermove',function(e){tx=e.clientX/innerWidth-.5;ty=e.clientY/innerHeight-.5;},{passive:true});
 document.addEventListener('visibilitychange',function(){run=!document.hidden;if(run)requestAnimationFrame(frame);});
@@ -74,7 +74,7 @@ function col(u,a,light){ /* orange -> turquoise along u in [0,1] */
   if(light){r=Math.round(r*.85);g=Math.round(g*.75);b=Math.round(b*.8);}
   return 'rgba('+r+','+g+','+b+','+a.toFixed(3)+')';}
 function frame(now){if(!run)return;
-  var t=(now-t0)/1000;mx+=(tx-mx)*.04;my+=(ty-my)*.04;
+  var t=(now-t0)/1000*(calm?.45:1);mx+=(tx-mx)*.04;my+=(ty-my)*.04;
   var light=document.documentElement.getAttribute('data-theme')==='light';
   ctx.clearRect(0,0,W,H);
   var rotY=t*.05+mx*.6,rotX=.95+my*.25,cy=Math.cos(rotY),sy=Math.sin(rotY),cx=Math.cos(rotX),sx=Math.sin(rotX);
@@ -89,12 +89,12 @@ function frame(now){if(!run)return;
     var px=W/2+X*f/zz,py=H*0.58+Y*f/zz;
     if(px<-10||px>W+10||py<-10||py>H+10)continue;
     var depth=Math.max(0,Math.min(1,1-(zz-2.5)/12));
-    var a=(light?.95:.7)*depth*(.45+.55*(y+1)/2);
-    var rr=(light?2.6:1.9)+depth*3.4;
+    var a=Math.min(1,(light?.95:.7)*(sm?1.35:1))*depth*(.45+.55*(y+1)/2);
+    var rr=((light?2.6:1.9)+depth*3.4)*(sm?1.25:1);
     ctx.fillStyle=col(i/(COLS-1),a,light);
     ctx.beginPath();ctx.arc(px,py,rr,0,6.283);ctx.fill();
   }}
-  if(!calm)requestAnimationFrame(frame);}
+  requestAnimationFrame(frame);}
 function start(){size();requestAnimationFrame(frame);}
 })();
 
