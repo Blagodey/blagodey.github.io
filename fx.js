@@ -275,6 +275,6 @@ if(!/^\/(index\.html)?$/.test(location.pathname))return;
 var on=/[?&]hero=anim/.test(location.search),off=/[?&]hero=photo/.test(location.search);
 try{if(on)localStorage.setItem('heroAnim','1');if(off)localStorage.removeItem('heroAnim');if(!on&&!off&&localStorage.getItem('heroAnim'))on=true;}catch(e){}
 if(!on)return;
-var s=document.createElement('script');s.src='/hero-anim.js?v=4';
+var s=document.createElement('script');s.src='/hero-anim.js?v=5';
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){document.body.appendChild(s)});else document.body.appendChild(s);
 })();
