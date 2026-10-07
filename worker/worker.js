@@ -9,7 +9,7 @@ const ARTIST = "1375144858"; // Blagoday Music
 const cors = () => ({
   "Access-Control-Allow-Origin": SITE,
   "Access-Control-Allow-Methods": "GET,POST,PUT,DELETE,OPTIONS",
-  "Access-Control-Allow-Headers": "Authorization,Content-Type,X-Idt,X-Sc",
+  "Access-Control-Allow-Headers": "Authorization,Content-Type,X-Idt,X-Sc,Range",
   "Access-Control-Max-Age": "86400",
   "Vary": "Origin",
 });
@@ -147,6 +147,7 @@ export class ChatRoom {
     try { this.sql.exec(`ALTER TABLE msgs ADD COLUMN rn TEXT DEFAULT ''`); } catch {}
     try { this.sql.exec(`ALTER TABLE msgs ADD COLUMN rx TEXT DEFAULT ''`); } catch {}
     this.sql.exec(`CREATE TABLE IF NOT EXISTS media(id TEXT PRIMARY KEY, ts INTEGER, uid TEXT, mime TEXT, size INTEGER, data BLOB)`);
+    this.sql.exec(`CREATE TABLE IF NOT EXISTS mchunks(id TEXT, n INTEGER, data BLOB, PRIMARY KEY(id,n))`);
     state.blockConcurrencyWhile(async () => { try { if (!(await state.storage.getAlarm())) await state.storage.setAlarm(Date.now() + 3600000); } catch {} });
     this.sql.exec(`CREATE TABLE IF NOT EXISTS plays(slug TEXT PRIMARY KEY, n INTEGER)`);
     this.sql.exec(`CREATE TABLE IF NOT EXISTS visits(day TEXT PRIMARY KEY, n INTEGER)`);
@@ -176,22 +177,41 @@ export class ChatRoom {
       if (!uid) return ok({ error: "login" }, 401);
       if (this.limited("up:" + uid, 8000)) return ok({ error: "slow" }, 429);
       const buf = new Uint8Array(await req.arrayBuffer());
-      if (buf.length < 100 || buf.length > 1600000) return ok({ error: "size" }, 413);
+      if (buf.length < 100 || buf.length > 8400000) return ok({ error: "size" }, 413);
       const b = buf, hex = (i, n) => [...b.slice(i, i + n)].map((x) => x.toString(16).padStart(2, "0")).join("");
       let mime = "";
       if (hex(0, 3) === "ffd8ff") mime = "image/jpeg"; else if (hex(0, 8) === "89504e470d0a1a0a") mime = "image/png";
       else if (String.fromCharCode(...b.slice(0, 4)) === "GIF8") mime = "image/gif";
       else if (String.fromCharCode(...b.slice(0, 4)) === "RIFF" && String.fromCharCode(...b.slice(8, 12)) === "WEBP") mime = "image/webp";
+      else if (String.fromCharCode(...b.slice(4, 8)) === "ftyp") mime = String.fromCharCode(...b.slice(8, 12)) === "qt  " ? "video/quicktime" : "video/mp4";
+      else if (hex(0, 4) === "1a45dfa3") mime = "video/webm";
       if (!mime) return ok({ error: "type" }, 415);
+      if (!mime.startsWith("video/") && buf.length > 1600000) return ok({ error: "size" }, 413);
       const tot = this.rows(`SELECT COALESCE(SUM(size),0) AS s FROM media`)[0].s;
       if (tot > 400000000) return ok({ error: "full" }, 507);
       const id = [...crypto.getRandomValues(new Uint8Array(9))].map((x) => x.toString(16).padStart(2, "0")).join("");
-      this.sql.exec(`INSERT INTO media(id,ts,uid,mime,size,data) VALUES(?,?,?,?,?,?)`, id, Date.now(), uid, mime, buf.length, buf);
+      if (mime.startsWith("video/")) {
+        this.sql.exec(`INSERT INTO media(id,ts,uid,mime,size,data) VALUES(?,?,?,?,?,?)`, id, Date.now(), uid, mime, buf.length, new Uint8Array(0));
+        for (let o = 0, n = 0; o < buf.length; o += 1500000, n++) this.sql.exec(`INSERT INTO mchunks(id,n,data) VALUES(?,?,?)`, id, n, buf.slice(o, o + 1500000));
+      } else this.sql.exec(`INSERT INTO media(id,ts,uid,mime,size,data) VALUES(?,?,?,?,?,?)`, id, Date.now(), uid, mime, buf.length, buf);
       return ok({ id, exp: Date.now() + 86400000 });
     }
     if (p.startsWith("/media/get/")) {
-      const r = this.rows(`SELECT mime,data FROM media WHERE id=?`, p.slice(11).replace(/[^a-f0-9]/g, ""))[0];
+      const mid = p.slice(11).replace(/[^a-f0-9]/g, "");
+      const r = this.rows(`SELECT mime,size,data FROM media WHERE id=?`, mid)[0];
       if (!r) return new Response("gone", { status: 404 });
+      if (r.mime.startsWith("video/")) {
+        const all = new Uint8Array(r.size); let o = 0;
+        for (const c of this.rows(`SELECT data FROM mchunks WHERE id=? ORDER BY n`, mid)) { const u = new Uint8Array(c.data); all.set(u, o); o += u.length; }
+        const hd = { "Content-Type": r.mime, "Accept-Ranges": "bytes", "Cache-Control": "public, max-age=86400", "X-Content-Type-Options": "nosniff", "Cross-Origin-Resource-Policy": "cross-origin" };
+        const rg = (req.headers.get("Range") || "").match(/^bytes=(\d*)-(\d*)$/);
+        if (rg && (rg[1] || rg[2])) {
+          let s = rg[1] ? Number(rg[1]) : Math.max(0, r.size - Number(rg[2])), e = rg[1] && rg[2] ? Math.min(Number(rg[2]), r.size - 1) : r.size - 1;
+          if (s > e || s >= r.size) return new Response(null, { status: 416, headers: { "Content-Range": "bytes */" + r.size } });
+          return new Response(all.slice(s, e + 1), { status: 206, headers: { ...hd, "Content-Range": `bytes ${s}-${e}/${r.size}`, "Content-Length": String(e - s + 1) } });
+        }
+        return new Response(all, { headers: { ...hd, "Content-Length": String(r.size) } });
+      }
       return new Response(r.data, { headers: { "Content-Type": r.mime, "Cache-Control": "public, max-age=86400", "X-Content-Type-Options": "nosniff", "Content-Security-Policy": "default-src 'none'", "Cross-Origin-Resource-Policy": "cross-origin" } });
     }
     const body = req.method === "POST" ? await req.json().catch(() => ({})) : {};
@@ -265,7 +285,7 @@ export class ChatRoom {
     }
   }
   async alarm() {
-    try { this.sql.exec(`DELETE FROM media WHERE ts<?`, Date.now() - 86400000); } catch {}
+    try { const old = Date.now() - 86400000; this.sql.exec(`DELETE FROM mchunks WHERE id IN (SELECT id FROM media WHERE ts<?)`, old); this.sql.exec(`DELETE FROM media WHERE ts<?`, old); } catch {}
     try { await this.state.storage.setAlarm(Date.now() + 3600000); } catch {}
   }
   async webSocketClose(ws) { try { ws.close(); } catch {} this.broadcast({ type: "online", n: Math.max(0, this.online() - 1) }); }
@@ -480,7 +500,7 @@ export default {
         if (!uid) { const sc = req.headers.get("X-Sc"); if (sc) { try { const r = await fetch(API + "/me", { headers: { accept: "application/json; charset=utf-8", Authorization: "OAuth " + sc.slice(0, 4000) } }); if (r.ok) { const u = await r.json(); uid = "sc:" + u.id; } } catch {} } }
         if (!uid) return json({ error: "login" }, 401);
         const len = Number(req.headers.get("Content-Length") || 0);
-        if (len > 1600000) return json({ error: "size" }, 413);
+        if (len > 8400000) return json({ error: "size" }, 413);
         const stub = env.CHAT.get(env.CHAT.idFromName("main"));
         const r = await stub.fetch(new Request("https://do/media/put", { method: "POST", headers: { "X-Uid": uid }, body: await req.arrayBuffer() }));
         return new Response(r.body, { status: r.status, headers: { "Content-Type": "application/json", ...cors() } });
@@ -488,7 +508,7 @@ export default {
       const mg = p.match(/^\/media\/([a-f0-9]{18})$/);
       if (mg && M === "GET") {
         const stub = env.CHAT.get(env.CHAT.idFromName("main"));
-        const r = await stub.fetch(new Request("https://do/media/get/" + mg[1]));
+        const r = await stub.fetch(new Request("https://do/media/get/" + mg[1], { headers: { Range: req.headers.get("Range") || "" } }));
         return new Response(r.body, { status: r.status, headers: r.headers });
       }
 
@@ -512,7 +532,7 @@ export default {
         const r = await stub.fetch(new Request("https://do/admin"));
         return new Response(r.body, { status: r.status, headers: { "Content-Type": "application/json", ...cors() } });
       }
-      if (p === "/") return json({ ok: true, service: "blagoday-soundcloud", v: 6 });
+      if (p === "/") return json({ ok: true, service: "blagoday-soundcloud", v: 7 });
       return json({ error: "not_found" }, 404);
     } catch (e) {
       return json({ error: "server", message: String(e && e.message || e) }, 500);
