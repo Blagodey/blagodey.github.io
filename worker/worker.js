@@ -86,6 +86,56 @@ async function scApi(req, path, init = {}) {
 }
 
 
+// ================= Sign-in with Google / Facebook =================
+// Vars (secrets): GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, FB_APP_ID, FB_APP_SECRET
+// Session tokens are signed with a key derived from SC_CLIENT_SECRET (no extra secret needed).
+const PROV = {
+  google: {
+    on: (env) => !!(env.GOOGLE_CLIENT_ID && env.GOOGLE_CLIENT_SECRET),
+    auth: "https://accounts.google.com/o/oauth2/v2/auth",
+    token: "https://oauth2.googleapis.com/token",
+    q: (env) => ({ client_id: env.GOOGLE_CLIENT_ID, scope: "openid profile", prompt: "select_account" }),
+    creds: (env) => ({ client_id: env.GOOGLE_CLIENT_ID, client_secret: env.GOOGLE_CLIENT_SECRET }),
+    profile: async (at) => {
+      const r = await fetch("https://openidconnect.googleapis.com/v1/userinfo", { headers: { Authorization: "Bearer " + at } });
+      if (!r.ok) throw new Error("profile " + r.status);
+      const u = await r.json();
+      return { id: String(u.sub || ""), name: u.name || u.given_name || "", avatar: u.picture || "" };
+    },
+  },
+  facebook: {
+    on: (env) => !!(env.FB_APP_ID && env.FB_APP_SECRET),
+    auth: "https://www.facebook.com/v19.0/dialog/oauth",
+    token: "https://graph.facebook.com/v19.0/oauth/access_token",
+    q: (env) => ({ client_id: env.FB_APP_ID, scope: "public_profile" }),
+    creds: (env) => ({ client_id: env.FB_APP_ID, client_secret: env.FB_APP_SECRET }),
+    profile: async (at) => {
+      const r = await fetch("https://graph.facebook.com/v19.0/me?fields=id,name,picture.width(96).height(96)&access_token=" + encodeURIComponent(at));
+      if (!r.ok) throw new Error("profile " + r.status);
+      const u = await r.json();
+      return { id: String(u.id || ""), name: u.name || "", avatar: (u.picture && u.picture.data && u.picture.data.url) || "" };
+    },
+  },
+};
+async function hmacKey(env) {
+  const raw = await crypto.subtle.digest("SHA-256", new TextEncoder().encode("bl-session-v1|" + (env.SESSION_SECRET || env.SC_CLIENT_SECRET || "")));
+  return crypto.subtle.importKey("raw", raw, { name: "HMAC", hash: "SHA-256" }, false, ["sign", "verify"]);
+}
+const b64urlStr = (s) => b64url(new TextEncoder().encode(s));
+const unb64url = (s) => { s = s.replace(/-/g, "+").replace(/_/g, "/"); while (s.length % 4) s += "="; return Uint8Array.from(atob(s), (c) => c.charCodeAt(0)); };
+async function signId(env, data) {
+  const body = b64urlStr(JSON.stringify(data));
+  const sig = b64url(await crypto.subtle.sign("HMAC", await hmacKey(env), new TextEncoder().encode(body)));
+  return body + "." + sig;
+}
+async function verifyId(env, tok) {
+  const [body, sig] = String(tok || "").split(".");
+  if (!body || !sig) return null;
+  const ok = await crypto.subtle.verify("HMAC", await hmacKey(env), unb64url(sig), new TextEncoder().encode(body));
+  if (!ok) return null;
+  try { const d = JSON.parse(new TextDecoder().decode(unb64url(body))); return d.exp > Date.now() ? d : null; } catch { return null; }
+}
+
 // ================= Durable Object: chat + site data =================
 const BAD = /(https?:\/\/|www\.)\S+/i;
 export class ChatRoom {
@@ -153,11 +203,21 @@ export class ChatRoom {
           else me.dbg = "me " + r.status + " " + (await r.text()).slice(0, 120);
         } catch (e) { me.dbg = "ex " + String(e && e.message || e).slice(0, 120); }
       }
+      if (!me.sc && m.idt) {
+        const d = await verifyId(this.env, m.idt);
+        if (d) Object.assign(me, { name: String(d.n || "").replace(/[<>]/g, "").slice(0, 32), avatar: d.a || "", uid: d.p + ":" + d.id, author: 0, sc: 1, prov: d.p });
+      }
       if (!me.sc) me.name = String(m.name || "").replace(/[<>]/g, "").trim().slice(0, 32);
-      if (!me.sc && /bl[a@4]g[o0]d[a@4][yi]/i.test(me.name.replace(/[^a-z0-9@]/gi, ""))) { me.name = ""; ws.serializeAttachment(me); ws.send(JSON.stringify({ type: "err", e: "name" })); ws.send(JSON.stringify({ type: "me", name: "", author: 0, sc: false })); return; }
+      if ((!me.sc || me.prov) && !me.author && /bl[a@4]g[o0]d[a@4][yi]/i.test(me.name.replace(/[^a-z0-9@]/gi, ""))) { if (me.prov) { me.name = me.name.replace(/bl[a@4]g[o0]d[a@4][yi]/gi, "").trim() || "Listener"; } else { me.name = ""; ws.serializeAttachment(me); ws.send(JSON.stringify({ type: "err", e: "name" })); ws.send(JSON.stringify({ type: "me", name: "", author: 0, sc: false })); return; } }
       ws.serializeAttachment(me);
-      ws.send(JSON.stringify({ type: "me", name: me.name, author: me.author, sc: !!me.sc, dbg: me.dbg || "" }));
+      ws.send(JSON.stringify({ type: "me", name: me.name, author: me.author, sc: !!me.sc, prov: me.prov || (me.sc ? "soundcloud" : ""), dbg: me.dbg || "" }));
       if (me.author) ws.send(JSON.stringify({ type: "hist", msgs: this.historyFull(), online: this.online() }));
+      return;
+    }
+    if (m.type === "logout") {
+      const keep = { ip: me.ip, cc: me.cc, name: "", avatar: "", uid: "", author: 0 };
+      ws.serializeAttachment(keep);
+      ws.send(JSON.stringify({ type: "me", name: "", author: 0, sc: false, prov: "" }));
       return;
     }
     if (m.type === "msg") {
@@ -224,6 +284,40 @@ export default {
         const { ok, status, t } = await tokenReq(env, { grant_type: "refresh_token", refresh_token });
         if (!ok) return json({ error: "refresh_failed" }, status);
         return json({ access_token: t.access_token, refresh_token: t.refresh_token || "", expires_at: Date.now() + (t.expires_in || 3600) * 1000 });
+      }
+
+      // ---- sign-in with Google / Facebook (site session token) ----
+      if (p === "/auth/providers") {
+        return json(Object.keys(PROV).filter((k) => PROV[k].on(env)), 200, { "Cache-Control": "max-age=300" });
+      }
+      if ((m = p.match(/^\/auth\/(google|facebook)\/(login|callback)$/))) {
+        const P = PROV[m[1]], cb = url.origin + "/auth/" + m[1] + "/callback";
+        if (m[2] === "login") {
+          const ret = safeReturn(url.searchParams.get("return") || "");
+          if (!P.on(env)) return Response.redirect(ret + "#bl_err=off", 302);
+          const state = rand(16), verifier = rand(48);
+          const q = new URLSearchParams({ ...P.q(env), redirect_uri: cb, response_type: "code", state });
+          if (m[1] === "google") { q.set("code_challenge", await sha256(verifier)); q.set("code_challenge_method", "S256"); }
+          const ck = (k, v) => `${k}=${encodeURIComponent(v)}; Path=/auth/; HttpOnly; Secure; SameSite=Lax; Max-Age=600`;
+          const h = new Headers({ Location: P.auth + "?" + q });
+          h.append("Set-Cookie", ck("ist", state)); h.append("Set-Cookie", ck("ipk", verifier)); h.append("Set-Cookie", ck("iret", ret));
+          return new Response(null, { status: 302, headers: h });
+        }
+        const ret = safeReturn(getCookie(req, "iret"));
+        const code = url.searchParams.get("code"), state = url.searchParams.get("state");
+        if (!code || !state || state !== getCookie(req, "ist")) return Response.redirect(ret + "#bl_err=state", 302);
+        const params = { ...P.creds(env), redirect_uri: cb, code, grant_type: "authorization_code" };
+        if (m[1] === "google") params.code_verifier = getCookie(req, "ipk");
+        const r = await fetch(P.token, { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded", accept: "application/json" }, body: new URLSearchParams(params) });
+        const t = await r.json().catch(() => ({}));
+        if (!r.ok || !t.access_token) return Response.redirect(ret + "#bl_err=token", 302);
+        let u;
+        try { u = await P.profile(t.access_token); } catch { return Response.redirect(ret + "#bl_err=profile", 302); }
+        if (!u.id) return Response.redirect(ret + "#bl_err=profile", 302);
+        const tok = await signId(env, { p: m[1], id: u.id, n: String(u.name || "").slice(0, 32), a: u.avatar, exp: Date.now() + 90 * 864e5 });
+        const h = new Headers({ Location: ret + "#bl_id=" + encodeURIComponent(tok) });
+        for (const k of ["ist", "ipk", "iret"]) h.append("Set-Cookie", `${k}=; Path=/auth/; Max-Age=0; Secure; SameSite=Lax`);
+        return new Response(null, { status: 302, headers: h });
       }
 
       // ---- public data (no sign-in) ----
@@ -367,7 +461,7 @@ export default {
         const r = await stub.fetch(new Request("https://do/admin"));
         return new Response(r.body, { status: r.status, headers: { "Content-Type": "application/json", ...cors() } });
       }
-      if (p === "/") return json({ ok: true, service: "blagoday-soundcloud", v: 4 });
+      if (p === "/") return json({ ok: true, service: "blagoday-soundcloud", v: 5 });
       return json({ error: "not_found" }, 404);
     } catch (e) {
       return json({ error: "server", message: String(e && e.message || e) }, 500);
