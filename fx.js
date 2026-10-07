@@ -214,3 +214,46 @@ function go(){var f=document.querySelector("footer");if(!f||f.querySelector(".pv
 var t=f.querySelector(".fgrid>div,.wrap>div")||f;var a=document.createElement("a");a.className="pv-l";a.href="/privacy.html";a.textContent=N[l];a.style.cssText="color:inherit;opacity:.85;margin-left:6px";t.appendChild(document.createTextNode(" · "));t.appendChild(a);}
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",go);else go();})();
 })();
+
+/* ===== chat: Telegram-style message menu (big icons, tap a message) ===== */
+(function(){
+if(window.__chMenu)return;window.__chMenu=1;
+var WK="https://blagoday-sc.blagodaymusic.workers.dev";
+var TX={uk:{rp:"Відповісти",cp:"Копіювати текст",tr:"Перекласти",ln:"Копіювати посилання",sh:"Поділитися",dl:"Видалити",ok:"Скопійовано",lk:"Посилання скопійовано"},
+en:{rp:"Reply",cp:"Copy text",tr:"Translate",ln:"Copy link",sh:"Share",dl:"Delete",ok:"Copied",lk:"Link copied"},
+es:{rp:"Responder",cp:"Copiar texto",tr:"Traducir",ln:"Copiar enlace",sh:"Compartir",dl:"Eliminar",ok:"Copiado",lk:"Enlace copiado"},
+pt:{rp:"Responder",cp:"Copiar texto",tr:"Traduzir",ln:"Copiar link",sh:"Compartilhar",dl:"Excluir",ok:"Copiado",lk:"Link copiado"},
+de:{rp:"Antworten",cp:"Text kopieren",tr:"Übersetzen",ln:"Link kopieren",sh:"Teilen",dl:"Löschen",ok:"Kopiert",lk:"Link kopiert"},
+fr:{rp:"Répondre",cp:"Copier le texte",tr:"Traduire",ln:"Copier le lien",sh:"Partager",dl:"Supprimer",ok:"Copié",lk:"Lien copié"}};
+function lg(){var l="en";try{l=localStorage.getItem("bl_lang")||""}catch(e){}if(!TX[l])l=(document.documentElement.lang||"en").slice(0,2);return TX[l]?l:"en"}
+function T(k){return TX[lg()][k]}
+var I={rp:'<path d="M9 14 4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 6 6v3"/>',cp:'<rect x="9" y="9" width="11" height="11" rx="2.5"/><path d="M5 15V6.5A2.5 2.5 0 0 1 7.5 4H15"/>',tr:'<path d="M4 6h9M8.5 4v2c0 4-2 7-5 8M5.5 10c1 2 3 3.5 6 4.5"/><path d="m13 20 4-10 4 10M14.5 17h5"/>',ln:'<path d="M10 14a4.5 4.5 0 0 0 6.4 0l3-3a4.5 4.5 0 0 0-6.4-6.4l-1 1"/><path d="M14 10a4.5 4.5 0 0 0-6.4 0l-3 3a4.5 4.5 0 0 0 6.4 6.4l1-1"/>',sh:'<path d="m15 4 6 6-6 6"/><path d="M21 10H10a6 6 0 0 0-6 6v4"/>',dl:'<path d="M4 7h16M10 11v6M14 11v6"/><path d="M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3"/>'};
+function ic(k){return '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+I[k]+'</svg>'}
+var css=document.createElement("style");
+css.textContent='#chList .ch-m .ch-h .ch-x,#chList .ch-m .ch-sh{display:none!important}#chList .ch-m{cursor:pointer;position:relative}#chList .ch-m .ch-h{position:relative;padding-right:34px}#chList .ch-m .ch-h::after{content:"⋯";position:absolute;right:0;top:-6px;width:34px;height:34px;display:grid;place-items:center;font-size:26px;line-height:1;color:#b9b9c8;border-radius:50%}#chList .ch-m:hover .ch-h::after{background:rgba(255,255,255,.1);color:#fff}'+
+'.chm{position:fixed;z-index:700;min-width:250px;max-width:calc(100vw - 16px);padding:6px;background:#16202b;border:1px solid rgba(255,255,255,.12);border-radius:16px;box-shadow:0 18px 50px rgba(0,0,0,.65);animation:chmIn .12s ease-out}@keyframes chmIn{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}'+
+'.chm button{display:flex;align-items:center;gap:18px;width:100%;background:none;border:0;color:#f2f2f6;font:inherit;font-size:18px;padding:13px 16px;border-radius:10px;cursor:pointer;text-align:left}.chm button:hover,.chm button:active{background:rgba(255,255,255,.09)}.chm button svg{flex:none;opacity:.9}.chm button.dl{color:#ff6b6b}';
+document.head.appendChild(css);
+function close(){var m=document.querySelector(".chm");if(m)m.remove()}
+function note(s){var d=document.createElement("div");d.textContent=s;d.style.cssText="position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:#16202b;color:#fff;border:1px solid rgba(255,255,255,.15);padding:10px 16px;border-radius:12px;z-index:800;font-size:15px";document.body.appendChild(d);setTimeout(function(){d.remove()},1600)}
+function copy(t,msg){function fb(){var i=document.createElement("textarea");i.value=t;i.style.cssText="position:fixed;opacity:0";document.body.appendChild(i);i.select();try{document.execCommand("copy")}catch(e){}i.remove()}
+try{navigator.clipboard.writeText(t).catch(fb)}catch(e){fb()}note(msg)}
+function openM(m,x,y){close();var id=m.getAttribute("data-mid");var p=m.querySelector(".ch-b>p:not(.cm-tr)");var txt=p?p.innerText.trim():"";
+var items=[["rp",T("rp")]];if(txt)items.push(["cp",T("cp")]);if(m.querySelector("[data-chtr]"))items.push(["tr",T("tr")]);items.push(["ln",T("ln")]);if(navigator.share)items.push(["sh",T("sh")]);if(m.querySelector("[data-chdel]"))items.push(["dl",T("dl")]);
+var d=document.createElement("div");d.className="chm";d.innerHTML=items.map(function(i){return '<button type="button" data-a="'+i[0]+'"'+(i[0]==="dl"?' class="dl"':'')+'>'+ic(i[0])+'<span>'+i[1]+'</span></button>'}).join("");
+d.addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;e.stopPropagation();var a=b.dataset.a,link=WK+"/p/"+id;close();
+if(a==="rp"){var r=m.querySelector("[data-chrp]");if(r)r.click();var tx=document.getElementById("chTx");if(tx)setTimeout(function(){tx.focus()},50)}
+else if(a==="cp")copy(txt,T("ok"));else if(a==="tr"){var t=m.querySelector("[data-chtr]");if(t)t.click()}
+else if(a==="ln")copy(link,T("lk"));else if(a==="sh"){navigator.share({title:"Blagoday",text:txt.slice(0,100),url:link}).catch(function(){})}
+else if(a==="dl"){var x=m.querySelector("[data-chdel]");if(x)x.click()}});
+document.body.appendChild(d);var w=d.offsetWidth,h=d.offsetHeight;d.style.left=Math.max(8,Math.min(innerWidth-w-8,x-w/2))+"px";d.style.top=Math.max(8,Math.min(innerHeight-h-8,y+6))+"px";}
+document.addEventListener("click",function(e){
+var m=e.target.closest&&e.target.closest("#chList .ch-m");
+if(!m){if(!e.target.closest(".chm"))close();return}
+if(e.target.closest("a,button,video,input,textarea,img.ch-img,.ch-card,.ch-rq,.ch-h b,.ch-lb")&&!e.target.closest(".ch-h"))return;
+if(e.target.closest(".ch-h b,.ch-h a,.ch-h button"))return;
+e.stopPropagation();openM(m,e.clientX,e.clientY);},true);
+document.addEventListener("contextmenu",function(e){var m=e.target.closest&&e.target.closest("#chList .ch-m");if(!m)return;e.preventDefault();openM(m,e.clientX,e.clientY)});
+addEventListener("keydown",function(e){if(e.key==="Escape")close()});
+document.addEventListener("scroll",close,true);
+})();
