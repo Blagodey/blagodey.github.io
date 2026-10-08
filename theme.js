@@ -1,7 +1,7 @@
 (function(){
 var K='bp-theme',d=document.documentElement,t;
 try{t=localStorage.getItem(K)}catch(e){}
-if(t!=='light')t='dark';
+t='dark';
 d.setAttribute('data-theme',t);
 var st=document.createElement('style');
 st.textContent='html[data-theme=light]{filter:invert(1) hue-rotate(180deg);background:#f3ead8}'+
@@ -20,7 +20,7 @@ var MOON='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-widt
 function paint(b){b.innerHTML=d.getAttribute('data-theme')==='light'?MOON:SUN;b.setAttribute('aria-label','Theme');
 var m=document.querySelector('meta[name=theme-color]');if(m)m.content=d.getAttribute('data-theme')==='light'?'#ececec':'#080808'}
 function init(){
-if(document.getElementById('thm'))return;
+return;
 var b=document.createElement('button');b.id='thm';b.className='thm';b.type='button';paint(b);
 b.onclick=function(){var n=d.getAttribute('data-theme')==='light'?'dark':'light';d.setAttribute('data-theme',n);try{localStorage.setItem(K,n)}catch(e){}paint(b)};
 var r=document.querySelector('header .right'),w=document.querySelector('header .wrap');
