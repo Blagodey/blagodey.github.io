@@ -20,8 +20,8 @@ var MOON='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-widt
 function paint(b){b.innerHTML=d.getAttribute('data-theme')==='light'?MOON:SUN;b.setAttribute('aria-label','Theme');
 var m=document.querySelector('meta[name=theme-color]');if(m)m.content=d.getAttribute('data-theme')==='light'?'#ececec':'#080808'}
 function init(){
-return;
-var b=document.createElement('button');b.id='thm';b.className='thm';b.type='button';paint(b);
+if(document.getElementById('thm'))return;
+var b=document.createElement('button');b.id='thm';b.className='thm';b.type='button';paint(b);b.style.display='none';b.setAttribute('aria-hidden','true');
 b.onclick=function(){var n=d.getAttribute('data-theme')==='light'?'dark':'light';d.setAttribute('data-theme',n);try{localStorage.setItem(K,n)}catch(e){}paint(b)};
 var r=document.querySelector('header .right'),w=document.querySelector('header .wrap');
 if(r)r.insertBefore(b,r.firstChild);
